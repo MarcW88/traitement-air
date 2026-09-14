@@ -1,0 +1,57 @@
+name: Validate renovation structure
+
+on:
+  pull_request:
+    paths:
+      - 'renovatie-plannen/**'
+      - 'renovatieprojecten/**'
+      - 'verduurzamen/**'
+      - 'problemen-oplossen/**'
+      - 'vakman-en-offertes/**'
+      - 'doe-het-zelf/**'
+      - 'content/**'
+      - 'index.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'generate_pages.py'
+      - 'scripts/render_homepage_seo.py'
+      - 'scripts/validate_global_seo.py'
+      - 'scripts/validate_content_quality.py'
+      - 'scripts/validate_renovation_structure.py'
+      - 'scripts/validate_empty_content_phase.py'
+      - '.github/workflows/validate-renovation-structure.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'renovatie-plannen/**'
+      - 'renovatieprojecten/**'
+      - 'verduurzamen/**'
+      - 'problemen-oplossen/**'
+      - 'vakman-en-offertes/**'
+      - 'doe-het-zelf/**'
+      - 'content/**'
+      - 'index.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'generate_pages.py'
+      - 'scripts/render_homepage_seo.py'
+      - 'scripts/validate_global_seo.py'
+      - 'scripts/validate_content_quality.py'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Dutch page structure
+        run: python scripts/validate_renovation_structure.py
+      - name: Validate route content state
+        run: python scripts/validate_empty_content_phase.py
+      - name: Validate global SEO state
+        run: python scripts/validate_global_seo.py
+      - name: Validate editorial publication blockers
+        run: python scripts/validate_content_quality.py

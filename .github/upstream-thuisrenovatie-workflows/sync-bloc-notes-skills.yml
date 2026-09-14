@@ -1,0 +1,60 @@
+name: Sync missing repository skills from bloc-notes-numerique
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-bloc-notes-skills.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Checkout pinned bloc-notes skill source
+        run: |
+          git clone --filter=blob:none https://github.com/MarcW88/bloc-notes-numerique.git /tmp/bloc-notes-numerique
+          git -C /tmp/bloc-notes-numerique checkout 534e9fd7e0fc2f7bd83da5b053987ac327c4e9fe
+
+      - name: Copy only skills missing from this repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .agents/skills
+          copied=0
+          for source_dir in /tmp/bloc-notes-numerique/.agents/skills/*; do
+            [ -d "$source_dir" ] || continue
+            skill="$(basename "$source_dir")"
+            if [ ! -d ".agents/skills/$skill" ]; then
+              echo "Copying missing skill: $skill"
+              cp -R "$source_dir" ".agents/skills/$skill"
+              copied=$((copied + 1))
+            else
+              echo "Keeping existing Thuisrenovatie version: $skill"
+            fi
+          done
+          echo "Copied $copied missing skill directories."
+
+      - name: Validate skill policy
+        run: python scripts/check_skill_policy.py
+
+      - name: Commit synchronized skills
+        shell: bash
+        run: |
+          git config user.name "Marc Williame"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add .agents/skills
+          if git diff --cached --quiet; then
+            echo "No missing skills to commit"
+          else
+            git commit -m "chore(skills): sync missing bloc-notes repository skills"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi

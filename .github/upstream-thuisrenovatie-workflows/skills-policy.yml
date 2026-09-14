@@ -1,0 +1,27 @@
+name: Validate 80-20 skill policy
+
+on:
+  pull_request:
+    paths:
+      - '.agents/skills/**'
+      - '.agents/SKILLS_POLICY.md'
+      - 'scripts/check_skill_policy.py'
+      - '.github/workflows/skills-policy.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.agents/skills/**'
+      - '.agents/SKILLS_POLICY.md'
+      - 'scripts/check_skill_policy.py'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check upstream/custom ratio
+        run: python scripts/check_skill_policy.py

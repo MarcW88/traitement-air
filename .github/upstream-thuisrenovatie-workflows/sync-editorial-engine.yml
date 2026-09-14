@@ -1,0 +1,91 @@
+name: Sync reusable editorial engine
+
+on:
+  push:
+    branches:
+      - restore-editorial-engine
+    paths:
+      - '.github/workflows/sync-editorial-engine.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-engine:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Checkout source editorial engine
+        uses: actions/checkout@v4
+        with:
+          repository: MarcW88/bloc-notes-numerique
+          ref: main
+          path: _source
+
+      - name: Copy reusable skills and workflow references
+        run: |
+          set -euo pipefail
+          skills=(
+            internal-linking-audit
+            humanizer
+            general-writing
+            anti-ai-slop
+            seo-drift
+            seo-best-practices
+          )
+
+          for skill in "${skills[@]}"; do
+            rm -rf ".agents/skills/$skill"
+            cp -R "_source/.agents/skills/$skill" ".agents/skills/$skill"
+          done
+
+          rm -rf .agents/skills/renovation-content-workflow/references
+          cp -R _source/.agents/skills/guide-content-workflow/references \
+            .agents/skills/renovation-content-workflow/references
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = 'https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/'
+          skills = [
+              'internal-linking-audit',
+              'humanizer',
+              'general-writing',
+              'anti-ai-slop',
+              'seo-drift',
+              'seo-best-practices',
+          ]
+          for skill in skills:
+              path = Path('.agents/skills') / skill / 'SKILL.md'
+              text = path.read_text(encoding='utf-8')
+              if not text.startswith('---\n'):
+                  raise SystemExit(f'{path}: YAML frontmatter ontbreekt')
+              if '\nprovenance:' not in text.split('---', 2)[1]:
+                  text = text.replace(
+                      '---\n',
+                      f'---\nprovenance: upstream\nupstream: {source}{skill}\n',
+                      1,
+                  )
+              path.write_text(text, encoding='utf-8')
+          PY
+
+          rm -rf _source
+
+      - name: Commit synced engine files
+        run: |
+          git config user.name "Marc Williame"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add .agents/skills
+          if git diff --cached --quiet; then
+            echo "No reusable engine changes to commit"
+          else
+            git commit -m "chore: vendor reusable editorial engine skills"
+            git push origin HEAD:${{ github.ref_name }}
+          fi

@@ -1,0 +1,97 @@
+name: Validate editorial engine
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'AGENTS.md'
+      - '.agents/**'
+      - 'content/**'
+      - 'generate_pages.py'
+      - 'scripts/**'
+      - '.github/workflows/editorial-quality.yml'
+      - '.github/workflows/vendor-full-upstream-skills.yml'
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - '.agents/**'
+      - 'content/**'
+      - 'generate_pages.py'
+      - 'scripts/**'
+      - '.github/workflows/editorial-quality.yml'
+      - '.github/workflows/vendor-full-upstream-skills.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate pinned upstream skill integrity
+        run: python scripts/validate_upstream_skills.py
+
+      - name: Validate 80-20 skill policy
+        run: python scripts/check_skill_policy.py
+
+      - name: Validate site structure
+        run: python scripts/validate_renovation_structure.py
+
+      - name: Validate active versus skeleton routes
+        run: python scripts/validate_empty_content_phase.py
+
+      - name: Regenerate pages from source of truth
+        run: python generate_pages.py
+
+      - name: Validate machine-detectable content blockers
+        run: python scripts/validate_content_quality.py
+
+      - name: Confirm editorial workflow v2 contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          analysis = Path('.agents/skills/renovation-analysis-workflow/SKILL.md').read_text(encoding='utf-8')
+          content = Path('.agents/skills/renovation-content-workflow/SKILL.md').read_text(encoding='utf-8')
+
+          required_analysis = [
+              'engine_version: 2',
+              'AUDIT', 'CLUSTER_AUDIT', 'PUBLISH_REVIEW',
+              'KEEP', 'LIGHT_UPDATE', 'DEEP_REWRITE', 'MERGE', 'NOINDEX',
+              'seo-keyword', 'seo-competitor', 'search-intent', 'content-refresh',
+              'fact-check', 'affiliate-value', 'internal-linking-audit',
+              'seo-aeo-geo', 'anti-ai-slop', 'editorial-qa',
+              'serp-coverage.md', 'MUST = MISSING',
+          ]
+          required_content = [
+              'engine_version: 2',
+              'content-brief-authoring', 'brand-voice', 'content-and-copy',
+              'fact-check', 'seo-aeo-geo', 'internal-linking-audit',
+              'humanizer', 'general-writing', 'anti-ai-slop',
+              'seo-onpage', 'seo-technical', 'editorial-qa',
+              'post-write gap check', 'post-write-gap-check.md',
+              'MUST = MISSING', 'PUBLISH_REVIEW',
+          ]
+
+          missing = [f'analysis:{x}' for x in required_analysis if x not in analysis]
+          missing += [f'content:{x}' for x in required_content if x not in content]
+          required_files = [
+              Path('.agents/skills/renovation-analysis-workflow/references/serp-coverage-matrix-template.md'),
+              Path('.agents/skills/renovation-content-workflow/references/post-write-gap-check-template.md'),
+              Path('content/brand/voice.md'),
+              Path('.agents/UPSTREAM_SOURCES.json'),
+          ]
+          missing += [f'file:{p}' for p in required_files if not p.exists()]
+
+          if missing:
+              raise SystemExit('Missing workflow v2 contract elements: ' + ', '.join(missing))
+
+          print('PASS: research -> brief -> content -> gap check -> PUBLISH_REVIEW v2 contract present')
+          PY

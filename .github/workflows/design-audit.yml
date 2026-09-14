@@ -1,0 +1,138 @@
+name: Full design audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "index.html"
+      - "sitemap.xml"
+      - "css/**"
+      - "js/**"
+      - "solutions-traitement-air/**"
+      - "secteurs/**"
+      - "polluants/**"
+      - "problemes/**"
+      - "demander-un-devis/**"
+      - "air-interieur/**"
+      - "content/**"
+      - "generate_pages.py"
+      - ".design-audit/**"
+      - ".htmlvalidate.json"
+      - ".stylelintrc.json"
+      - "eslint.config.mjs"
+      - "package.json"
+      - ".github/workflows/design-audit.yml"
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "sitemap.xml"
+      - "css/**"
+      - "js/**"
+      - "solutions-traitement-air/**"
+      - "secteurs/**"
+      - "polluants/**"
+      - "problemes/**"
+      - "demander-un-devis/**"
+      - "air-interieur/**"
+      - "content/**"
+      - "generate_pages.py"
+      - ".design-audit/**"
+      - ".htmlvalidate.json"
+      - ".stylelintrc.json"
+      - "eslint.config.mjs"
+      - "package.json"
+      - ".github/workflows/design-audit.yml"
+
+jobs:
+  source-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.18.0"
+
+      - name: Install pinned audit tools
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare artifacts
+        run: mkdir -p .artifacts/design-audit/source
+
+      - name: HTML Validate recommended rules
+        continue-on-error: true
+        run: npm run audit:html -- --formatter json > .artifacts/design-audit/source/html-validate.json
+
+      - name: Stylelint standard rules
+        continue-on-error: true
+        run: npx stylelint "css/**/*.css" --formatter json > .artifacts/design-audit/source/stylelint.json
+
+      - name: ESLint recommended rules
+        continue-on-error: true
+        run: npx eslint "js/**/*.js" --format json > .artifacts/design-audit/source/eslint.json
+
+      - name: Impeccable deterministic design detector
+        continue-on-error: true
+        run: npm run audit:impeccable > .artifacts/design-audit/source/impeccable.json
+
+      - name: Upload source analysis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-design-audit
+          path: .artifacts/design-audit/source/
+          if-no-files-found: error
+          retention-days: 14
+
+  rendered-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        scope:
+          - home
+          - solutions-traitement-air
+          - secteurs
+          - polluants
+          - problemes
+          - demander-un-devis
+          - air-interieur
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.18.0"
+
+      - name: Install pinned audit tools
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright screenshots and axe-core audit
+        run: >-
+          node .design-audit/run-visual-review.mjs
+          --scope ${{ matrix.scope }}
+          --output .artifacts/design-audit/${{ matrix.scope }}/visual
+
+      - name: Lighthouse CI for every route in scope
+        env:
+          DESIGN_SCOPE: ${{ matrix.scope }}
+        run: npm run audit:lighthouse
+
+      - name: Upload rendered audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.scope }}-design-audit
+          path: .artifacts/design-audit/${{ matrix.scope }}/
+          if-no-files-found: warn
+          retention-days: 14

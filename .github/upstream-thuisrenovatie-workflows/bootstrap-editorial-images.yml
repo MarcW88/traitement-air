@@ -1,0 +1,41 @@
+name: Bootstrap first editorial image batch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/bootstrap-editorial-images.yml'
+      - 'scripts/seed_editorial_image_requests.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Seed first image requests and markers
+        run: python scripts/seed_editorial_image_requests.py
+      - name: Regenerate pages and validate BFL plan
+        run: |
+          python generate_pages.py
+          python scripts/render_homepage_seo.py
+          python scripts/generate_bfl_images.py --check-only
+      - name: Commit source markers and requests
+        run: |
+          git config user.name "Marc Williame"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add content .content/image-requests
+          if git diff --cached --quiet; then
+            echo "No bootstrap changes to commit"
+          else
+            git commit -m "feat(images): seed first renovation editorial images"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi

@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "source_repo": "https://github.com/rampstackco/claude-skills",
+  "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+  "policy": "Files listed here are vendored verbatim. Domain-specific adaptation belongs in custom orchestration skills, not in these upstream directories.",
+  "skills": [
+    {
+      "skill": "seo-keyword",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-keyword",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "f1a30df3fb82cd9444e0ca7e0b8233630f6d14fd"
+        },
+        {
+          "path": "references/intent-classification-guide.md",
+          "blob_sha": "0b145f23a1b79280e59bf67191570f994bd6dfa5"
+        },
+        {
+          "path": "references/keyword-research-template.md",
+          "blob_sha": "b70165026a6d616e8f718b2c7a3e89a29ff164b5"
+        }
+      ]
+    },
+    {
+      "skill": "seo-content-audit",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-content-audit",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "3569851a5203a093d741e68bb523d932263a2dc3"
+        },
+        {
+          "path": "references/audit-template.md",
+          "blob_sha": "246de40a3104648a7db97dd15a189e287b143450"
+        },
+        {
+          "path": "references/cannibalization-resolution.md",
+          "blob_sha": "e4ad23951366a12df7bff42c8fb80fe7d68ac0d7"
+        }
+      ]
+    },
+    {
+      "skill": "seo-onpage",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-onpage",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "ae226feab3724b6e04e688f9732559c30b3ffb30"
+        },
+        {
+          "path": "references/audit-template.md",
+          "blob_sha": "ab15d58aadddf4f370f21e5192d16490b47fe83b"
+        },
+        {
+          "path": "references/onpage-checklist.md",
+          "blob_sha": "283cf3e1e9c7cf3966450f9f6c1da67129ed219b"
+        },
+        {
+          "path": "references/title-and-meta-patterns.md",
+          "blob_sha": "71d1dd11de8db7d4f731ee0dc9bab80cb4d60a7b"
+        }
+      ]
+    },
+    {
+      "skill": "seo-technical",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-technical",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "c779098c28281daaa23ed07bac49f3f27ff2a5c4"
+        },
+        {
+          "path": "references/audit-template.md",
+          "blob_sha": "5a5786ee0bc945f42e505863fd67c63da6c73ea1"
+        },
+        {
+          "path": "references/migration-checklist.md",
+          "blob_sha": "c8129071edd4f80f32bf06031b4fa9e43771489c"
+        }
+      ]
+    },
+    {
+      "skill": "content-brief-authoring",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/content-brief-authoring",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "eddf4f654609b9ea8547b65e35a7d88718624fa5"
+        },
+        {
+          "path": "references/brief-governance-patterns.md",
+          "blob_sha": "725b6690e43dc41dabc82fcabaa149794a326cf1"
+        },
+        {
+          "path": "references/brief-templates.md",
+          "blob_sha": "5f9c94a95330b484cf3780e0d9d2af9978777c4b"
+        },
+        {
+          "path": "references/common-brief-failures.md",
+          "blob_sha": "b9c2cf9044dbf1d2c9df79efa57640010e2430f4"
+        },
+        {
+          "path": "references/entity-coverage-checklist.md",
+          "blob_sha": "c0671a71994d5a49ad750ae5aafcb372e4625d5d"
+        },
+        {
+          "path": "references/heading-structure-patterns.md",
+          "blob_sha": "65fe47696f3d80e779aa6430590582191ceac453"
+        },
+        {
+          "path": "references/internal-linking-strategy.md",
+          "blob_sha": "85918aeed91b40cc12a63269a146e4dd3bcf6739"
+        },
+        {
+          "path": "references/search-intent-classification.md",
+          "blob_sha": "eeaf7cee8ea45adc3e2d0e1d1ff369fd0928afd7"
+        },
+        {
+          "path": "references/writer-handoff-protocols.md",
+          "blob_sha": "ca3be0909b47c10944bb49273778c1d0ded20aaf"
+        }
+      ]
+    },
+    {
+      "skill": "content-and-copy",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/content-and-copy",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "e8a1f80adc1ffd0e7d69d90ceb6137dae1f87f34"
+        },
+        {
+          "path": "references/content-brief-template.md",
+          "blob_sha": "d1bc428b5fe606dce1768a1dee2a85b7131f448d"
+        },
+        {
+          "path": "references/content-edit-checklist.md",
+          "blob_sha": "4e1f9065e71ba6e8c12e00f42c32907b4aa0ff02"
+        }
+      ]
+    },
+    {
+      "skill": "editorial-qa",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/editorial-qa",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "cacb17e4a64e7def7cd7ca3de237931be9c1bbbf"
+        },
+        {
+          "path": "references/ai-content-audit-patterns.md",
+          "blob_sha": "9a4708fbd8aa0d0853b0648f0c2d58758a025a43"
+        },
+        {
+          "path": "references/brief-adherence-checklist.md",
+          "blob_sha": "3f711e9243929fd821a7cc3c62da22e8677a7b48"
+        },
+        {
+          "path": "references/common-qa-failures.md",
+          "blob_sha": "9f97eac6f1a7210ba98bb162fff2ffee9fb9c7d3"
+        },
+        {
+          "path": "references/fact-accuracy-and-citation-discipline.md",
+          "blob_sha": "17d8d83b9e614de4750b7263b46af24feed29d8e"
+        },
+        {
+          "path": "references/internal-linking-and-schema-validation.md",
+          "blob_sha": "bce4dd4dd76f097ea97b7d7a124d4bbfce790faf"
+        },
+        {
+          "path": "references/qa-at-scale-patterns.md",
+          "blob_sha": "cd443d89c2313303ccdce03d8075a4d826d88c8b"
+        },
+        {
+          "path": "references/qa-workflow-templates.md",
+          "blob_sha": "de389cc052bb540f126637c5b14689fe813aa4e8"
+        },
+        {
+          "path": "references/seo-aeo-compliance-checklist.md",
+          "blob_sha": "e3e31e6268a607dd271fe87702cdf541ba3a1503"
+        },
+        {
+          "path": "references/structure-and-clarity-review.md",
+          "blob_sha": "aebad76bf7453c63d7630167e8ca6dcab270f62e"
+        },
+        {
+          "path": "references/voice-consistency-patterns.md",
+          "blob_sha": "3a0ba06285ae13a15cb3e77734de07ac575e1eab"
+        }
+      ]
+    },
+    {
+      "skill": "evidence-based-reviews",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/evidence-based-reviews",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "d7ee895bc8bb419001fbe7a4534a150a6a0d0e03"
+        },
+        {
+          "path": "references/evidence-tiers.md",
+          "blob_sha": "b348f67f68cf97e4d8dabcad683eecc2318090f2"
+        },
+        {
+          "path": "references/methodology-block-template.md",
+          "blob_sha": "7ac4b6bc1d17d63b9fe7029ee12789303b3a6759"
+        }
+      ]
+    },
+    {
+      "skill": "information-architecture",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/information-architecture",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "6334299eb89142e856dcb7dd7619112edfcc9320"
+        },
+        {
+          "path": "references/ia-document-template.md",
+          "blob_sha": "4f7ad123579e32d18aab625b480c44b8b8b01503"
+        },
+        {
+          "path": "references/url-pattern-library.md",
+          "blob_sha": "75bf05273c1ffb1d7c81fd0cb72934f3e97df4a6"
+        }
+      ]
+    },
+    {
+      "skill": "jtbd-framing",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/jtbd-framing",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "05b025b17543b7890731eb668d99fcb765c9fa5f"
+        },
+        {
+          "path": "references/applying-jtbd-to-discovery.md",
+          "blob_sha": "cddb63498de4dc44abda9b3de7960b73545bc73b"
+        },
+        {
+          "path": "references/applying-jtbd-to-positioning.md",
+          "blob_sha": "8d40f192c4c005c3f14fcf9938993b7880d21fab"
+        },
+        {
+          "path": "references/applying-jtbd-to-prioritization.md",
+          "blob_sha": "57c1a53dc0384767eba8c008f3aa66220d52030e"
+        },
+        {
+          "path": "references/common-jtbd-failures.md",
+          "blob_sha": "a36a25e01676eeb6f40880a2e7292bee392c2f9f"
+        },
+        {
+          "path": "references/functional-emotional-social-dimensions.md",
+          "blob_sha": "4460b0b54dbe04d57e14da47371281cf1466a016"
+        },
+        {
+          "path": "references/hire-and-fire-criteria.md",
+          "blob_sha": "d3aee67efb28404bc8c5db099514b2f20ad3ab9c"
+        },
+        {
+          "path": "references/identifying-struggling-moments.md",
+          "blob_sha": "a7e85906e70402383f1c828c6971f29891b45a23"
+        },
+        {
+          "path": "references/job-statement-structure-patterns.md",
+          "blob_sha": "663b49a48040d0f3228a99d0d72ecf51d9b007cf"
+        }
+      ]
+    },
+    {
+      "skill": "cro-optimization",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/cro-optimization",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "c9e1fbf54d9ac7304598acf888e319027d2b8540"
+        },
+        {
+          "path": "references/hypothesis-library.md",
+          "blob_sha": "89fbae6b332dca107bafc70bf8e9e7016494356d"
+        }
+      ]
+    },
+    {
+      "skill": "seo-competitor",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-competitor",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "fce87c27ade4dea83c3f59d9e0d547434711f890"
+        },
+        {
+          "path": "references/competitive-audit-template.md",
+          "blob_sha": "556d01343814b465f840c575d7a751be4199e25e"
+        },
+        {
+          "path": "references/content-gap-method.md",
+          "blob_sha": "f7f0083059ecb909ae46de4f081ae1d825c26b33"
+        }
+      ]
+    },
+    {
+      "skill": "seo-aeo-geo",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/seo-aeo-geo",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "5fd3aa9b8fd9b0352cab4e7be93913bb47c208f4"
+        },
+        {
+          "path": "references/extraction-friendly-patterns.md",
+          "blob_sha": "2906fb1e1681b1f72b7303d8b9de73106474acda"
+        },
+        {
+          "path": "references/llms-txt-guide.md",
+          "blob_sha": "5360369cb787b454f494590e70f1962a52738291"
+        }
+      ]
+    },
+    {
+      "skill": "brand-voice",
+      "source_repo": "rampstackco/claude-skills",
+      "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+      "source_path": "skills/brand-voice",
+      "vendoring": "verbatim-directory",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "blob_sha": "2e1b340f9889b2547514866b15af1461572b6b2d"
+        },
+        {
+          "path": "references/voice-document-template.md",
+          "blob_sha": "b0362e1928c6e033783b287729c142813609402e"
+        },
+        {
+          "path": "references/voice-frameworks.md",
+          "blob_sha": "8d57718c754605a61c9c6f10ab2a52ddad692218"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "<slug>-<slot>",
+  "page": "<route>/index.html",
+  "slot": "editorial",
+  "required": false,
+  "reason": "",
+  "allow_ai_generation": false,
+  "truth_risk": "LOW",
+  "status": "NOT_NEEDED",
+  "marker": "<!-- EDITORIAL_IMAGE:<slug>-<slot> -->",
+  "placement": "replace",
+  "output_path": "assets/generated/<slug>-<slot>.webp",
+  "prompt": "",
+  "alt": "",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}

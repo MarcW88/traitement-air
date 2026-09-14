@@ -1,0 +1,93 @@
+name: Vendor full upstream skills
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout pinned RampStack source
+        run: |
+          git clone --filter=blob:none https://github.com/rampstackco/claude-skills.git /tmp/rampstack
+          git -C /tmp/rampstack checkout a67dd34c609f034c0cfd736a348659bbdf1605bf
+
+      - name: Vendor complete skill directories
+        run: |
+          set -euo pipefail
+          skills=(
+            seo-keyword seo-content-audit seo-onpage seo-technical
+            content-brief-authoring content-and-copy editorial-qa evidence-based-reviews
+            information-architecture jtbd-framing cro-optimization
+            seo-competitor seo-aeo-geo brand-voice
+          )
+          for skill in "${skills[@]}"; do
+            test -f "/tmp/rampstack/skills/$skill/SKILL.md"
+            rm -rf ".agents/skills/$skill"
+            cp -R "/tmp/rampstack/skills/$skill" ".agents/skills/$skill"
+          done
+
+      - name: Build immutable provenance manifest
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          source_commit = 'a67dd34c609f034c0cfd736a348659bbdf1605bf'
+          skills = [
+              'seo-keyword', 'seo-content-audit', 'seo-onpage', 'seo-technical',
+              'content-brief-authoring', 'content-and-copy', 'editorial-qa',
+              'evidence-based-reviews', 'information-architecture', 'jtbd-framing',
+              'cro-optimization', 'seo-competitor', 'seo-aeo-geo', 'brand-voice',
+          ]
+          entries = []
+          for skill in skills:
+              local_root = Path('.agents/skills') / skill
+              source_root = Path('/tmp/rampstack/skills') / skill
+              files = []
+              for path in sorted(p for p in local_root.rglob('*') if p.is_file()):
+                  rel = path.relative_to(local_root).as_posix()
+                  local_sha = subprocess.check_output(['git', 'hash-object', str(path)], text=True).strip()
+                  source_sha = subprocess.check_output(['git', 'hash-object', str(source_root / rel)], text=True).strip()
+                  if local_sha != source_sha:
+                      raise SystemExit(f'Vendor mismatch for {skill}/{rel}')
+                  files.append({'path': rel, 'blob_sha': source_sha})
+              entries.append({
+                  'skill': skill,
+                  'source_repo': 'rampstackco/claude-skills',
+                  'source_commit': source_commit,
+                  'source_path': f'skills/{skill}',
+                  'vendoring': 'verbatim-directory',
+                  'files': files,
+              })
+          manifest = {
+              'schema_version': 1,
+              'source_repo': 'https://github.com/rampstackco/claude-skills',
+              'source_commit': source_commit,
+              'policy': 'Files listed here are vendored verbatim. Domain-specific adaptation belongs in custom orchestration skills, not in these upstream directories.',
+              'skills': entries,
+          }
+          Path('.agents/UPSTREAM_SOURCES.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Validate and commit vendored skills
+        run: |
+          python scripts/validate_upstream_skills.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .agents/skills .agents/UPSTREAM_SOURCES.json
+          if git diff --cached --quiet; then
+            echo 'No vendor changes required.'
+            exit 0
+          fi
+          git commit -m 'chore: sync full pinned RampStack skill directories'
+          git push origin HEAD:${GITHUB_REF_NAME}

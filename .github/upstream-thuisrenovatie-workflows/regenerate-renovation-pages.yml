@@ -1,0 +1,57 @@
+name: Regenerate renovation pages
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'generate_pages.py'
+      - 'content/**'
+      - 'css/**'
+      - 'js/**'
+      - 'index.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'scripts/render_homepage_seo.py'
+      - 'scripts/validate_global_seo.py'
+      - 'scripts/validate_empty_content_phase.py'
+      - 'scripts/validate_content_quality.py'
+      - '.github/workflows/regenerate-renovation-pages.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate renovation pages and crawl files
+        run: python generate_pages.py
+      - name: Render homepage SEO
+        run: python scripts/render_homepage_seo.py
+      - name: Validate structure
+        run: python scripts/validate_renovation_structure.py
+      - name: Validate route content state
+        run: python scripts/validate_empty_content_phase.py
+      - name: Validate global SEO state
+        run: python scripts/validate_global_seo.py
+      - name: Validate editorial publication blockers
+        run: python scripts/validate_content_quality.py
+      - name: Commit regenerated site files
+        run: |
+          git config user.name "Marc Williame"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add renovatie-plannen renovatieprojecten verduurzamen problemen-oplossen vakman-en-offertes doe-het-zelf index.html robots.txt sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit"
+          else
+            git commit -m "seo: regenerate global site metadata"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
