@@ -7,7 +7,7 @@ metadata:
   adapted_for: traitement-air.fr
   source_engine: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/guide-content-workflow
   orchestration_target: ">=80% existing GitHub skills"
-  custom_scope: "research handoff + renovation routing/safety + source-of-truth + post-write coverage gate"
+  custom_scope: "research handoff + air-treatment routing/safety + source-of-truth + post-write coverage gate"
 ---
 
 # Air Treatment Content Workflow v2
@@ -56,7 +56,7 @@ Si la matrice manque, si elle n'a pas inspecté une SERP actuelle ou si un data 
 
 Un nom dans ce fichier n'est pas une validation. À chaque étape, ouvrir le `SKILL.md` complet correspondant et appliquer sa méthode pertinente.
 
-Les upstream RampStack listés dans `.agents/UPSTREAM_SOURCES.json` sont vendored verbatim. Les règles spécifiques à la rénovation restent dans ce workflow et dans `AGENTS.md`, jamais dans les copies upstream.
+Les upstream RampStack listés dans `.agents/UPSTREAM_SOURCES.json` sont vendored verbatim. Les règles spécifiques au traitement de l’air restent dans ce workflow et dans `AGENTS.md`, jamais dans les copies upstream.
 
 ---
 
@@ -245,4 +245,4 @@ Statuts possibles dans les artefacts : `BRIEF_READY`, `DRAFT_READY`, `QA_IN_PROG
 
 Ne pas utiliser comme proxy de qualité : quota de mots, nombre minimum de H2/H3, quota de liens/sources, nombre obligatoire d'étapes, FAQ/tableau obligatoire, score qualité artificiel ou structure fixe par cluster/type.
 
-Ne pas recopier dans ce workflow les frameworks maintenus dans les upstream skills. Sa valeur est l'orchestration, les frontières rénovation, la sécurité, les gates research/post-write et l'intégration dans la source de vérité.
+Ne pas recopier dans ce workflow les frameworks maintenus dans les upstream skills. Sa valeur est l'orchestration, les frontières du traitement de l’air, la sécurité, les gates research/post-write et l'intégration dans la source de vérité.
