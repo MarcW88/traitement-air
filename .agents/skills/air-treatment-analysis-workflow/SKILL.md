@@ -7,7 +7,7 @@ metadata:
   adapted_for: traitement-air.fr
   source_engine: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/guide-analysis-workflow
   orchestration_target: ">=80% existing GitHub skills"
-  custom_scope: "orchestration + SERP/content-gap gates + renovation cluster integrity + safety + freshness"
+  custom_scope: "orchestration + SERP/content-gap gates + air-treatment cluster integrity + safety + freshness"
 ---
 
 # Air Treatment Analysis Workflow v2
@@ -16,7 +16,7 @@ metadata:
 
 C'est le **seul workflow d'analyse éditoriale** à utiliser pour les contenus de traitement-air.fr.
 
-Il ne rédige pas. Il doit **lire et appliquer les skills spécialisés du dépôt**, dans leur version complète, puis ajouter uniquement les contrôles propres au site : frontières entre clusters rénovation, sécurité, fraîcheur des règles/prix/subsides, similarité inter-pages et gates de recherche.
+Il ne rédige pas. Il doit **lire et appliquer les skills spécialisés du dépôt**, dans leur version complète, puis ajouter uniquement les contrôles propres au site : frontières entre clusters de traitement de l’air, sécurité, fraîcheur des règles/performances/normes, similarité inter-pages et gates de recherche.
 
 Séparation stricte :
 
@@ -103,7 +103,7 @@ Ne pas transformer l'analyse concurrentielle en imitation. Le but est d'identifi
 
 Utiliser `content-refresh` pour intent drift, obsolescence, thin value, generic prose, trust gaps, cannibalisation et structural cloning.
 
-Utiliser `fact-check` pour toute affirmation vérifiable qui peut influencer une décision : prix, subsides, permis, réglementation, normes, performances, rendement, garanties, sécurité, disponibilité.
+Utiliser `fact-check` pour toute affirmation vérifiable qui peut influencer une décision : performances, normes, obligations, réglementation, normes, performances, rendement, garanties, sécurité, disponibilité.
 
 Utiliser `evidence-based-reviews` uniquement pour une conclusion réellement expérientielle. Ne jamais simuler un test, une inspection ou du hands-on.
 
@@ -191,7 +191,7 @@ Fraîcheur proportionnée :
 
 - principe physique stable → exactitude ;
 - prix/main-d'œuvre/disponibilité → source actuelle + date ;
-- subside/fiscalité/permis/réglementation/norme → source officielle + territoire + date ;
+- norme/réglementation/seuil d’exposition/certification → source officielle + territoire + date ;
 - performance/rendement/économie → hypothèses et conditions explicites.
 
 Escalade vers un professionnel qualifié lorsque la tâche implique notamment structure/fondations, gaz, électricité à risque, amiante, toiture/hauteur, dommage potentiellement structurel ou intervention réglementée.
