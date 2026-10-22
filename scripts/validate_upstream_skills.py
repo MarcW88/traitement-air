@@ -55,9 +55,16 @@ def main() -> None:
     if missing_skills:
         fail("manifest is missing required full upstream skills: " + ", ".join(missing_skills))
 
+    # Shared files now have their own per-file multi-source provenance lock.
+    import subprocess, sys
+    subprocess.run([sys.executable, str(ROOT / "scripts/verify_site_agents.py")], check=True)
+    shared = json.loads((ROOT / ".agents/site-agents.lock.json").read_text())["files"]
+    shared_skills = {p.split("/")[2] for p in shared if p.startswith(".agents/skills/")}
     errors: list[str] = []
     for entry in skills:
         skill = entry["skill"]
+        if skill in shared_skills:
+            continue
         if entry.get("vendoring") != "verbatim-directory":
             errors.append(f"{skill}: vendoring must be verbatim-directory")
             continue
@@ -96,7 +103,7 @@ def main() -> None:
         fail("\n".join(errors))
 
     print(
-        f"PASS: {len(skills)} pinned upstream skill directories match their Git blob hashes "
+        f"PASS: {len(skills)} upstream entries verified through their applicable provenance locks "
         f"from {payload.get('source_commit')}"
     )
 

@@ -51,6 +51,8 @@ custom = {
     'air-treatment-content-workflow',
 }
 
+shared = json.loads((ROOT / '.agents/site-agents.lock.json').read_text())['files']
+reused_engine |= {p.split('/')[2] for p in shared if p.startswith('.agents/skills/') and p.endswith('/SKILL.md') and p.count('/') == 3}
 actual = {path.parent.name for path in SKILLS.glob('*/SKILL.md')}
 expected = verbatim_upstream | reused_engine | custom
 

@@ -1,6 +1,4 @@
 ---
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/seo-drift
 name: seo-drift
 description: Capture an SEO baseline snapshot for a domain or URL, then on later runs compare the current state and surface regressions. Tracks authority, traffic, keywords, backlinks, and on-page content. Three subcommands — `baseline`, `compare`, `history`. Use when the user asks for "SEO drift", "baseline this site", "did anything break", "SEO regression check", "compare before and after", "deployment check", or "monthly SEO snapshot".
 ---

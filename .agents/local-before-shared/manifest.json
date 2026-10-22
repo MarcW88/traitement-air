@@ -1,0 +1,82 @@
+{
+  "repository": "traitement-air",
+  "base_commit": "d46253e695eec65e090c44aa2508bafc63ebe6f8",
+  "files": {
+    ".agents/skills/affiliate-value/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/affiliate-value/SKILL.md",
+      "sha256": "3286597c80f6496cebda108e8f9db2e67ba734f8bc9b87eaa3d84a1812719f38"
+    },
+    ".agents/skills/anti-ai-slop/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/anti-ai-slop/SKILL.md",
+      "sha256": "1c815661d7e6a2006b2e8ae9977af331df75263d96359966b590652d07d4e4cc"
+    },
+    ".agents/skills/content-and-copy/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/content-and-copy/SKILL.md",
+      "sha256": "81daa6c8e6c4ec9470aecfde499c2105bf199f7989ba732f317b7e0002198614"
+    },
+    ".agents/skills/content-brief-authoring/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/content-brief-authoring/SKILL.md",
+      "sha256": "8d8cd445b4a3978f00f8aa6f8da515d1c1e9e06e069402c017fce8cb8e829bef"
+    },
+    ".agents/skills/content-refresh/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/content-refresh/SKILL.md",
+      "sha256": "c71f47e8301b0914113afaa010187d2461a2fe7c3147d9c503fe2c89b6048b3c"
+    },
+    ".agents/skills/editorial-image-planner/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/editorial-image-planner/SKILL.md",
+      "sha256": "a433556d7f2ee7be26e40f5270bf0bf256b288c07bb3d2bdf55894e9cc001835"
+    },
+    ".agents/skills/editorial-qa/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/editorial-qa/SKILL.md",
+      "sha256": "487b4f8a87f12c9915f0e1c1932b6ef1cd99eba1826669e6c7b9a6ce35026975"
+    },
+    ".agents/skills/evidence-based-reviews/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/evidence-based-reviews/SKILL.md",
+      "sha256": "d827133c07978d77d1d669a7ba887d4278d65b407787d98e0e8bd32cb0229f9a"
+    },
+    ".agents/skills/fact-check/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/fact-check/SKILL.md",
+      "sha256": "df7b6476bbb8bbaf6c137d6444bf67552071e12c5acd93967f3eefff0bdf94fa"
+    },
+    ".agents/skills/general-writing/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/general-writing/SKILL.md",
+      "sha256": "57179145a46e1a65a5ccd18b0a3275c92176389053ba51920f35c38fe496246d"
+    },
+    ".agents/skills/humanizer/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/humanizer/SKILL.md",
+      "sha256": "5c965358ff0c354760c5a561110e1877010fb50defcfc9d741ec8247fb309e65"
+    },
+    ".agents/skills/internal-linking-audit/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/internal-linking-audit/SKILL.md",
+      "sha256": "04d48c800858ef05ba49a8e05409fab0d8e18523c01d71041348fafe63089402"
+    },
+    ".agents/skills/search-intent/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/search-intent/SKILL.md",
+      "sha256": "aab210efff3d2183d56e02a29a1b013ec4e58512f8fea53ed35cd0a26c6e0410"
+    },
+    ".agents/skills/seo-best-practices/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-best-practices/SKILL.md",
+      "sha256": "7387c2b606f820966ee7b1e7f898e13b7d16d3d93a59aa50409e2f044da93043"
+    },
+    ".agents/skills/seo-content-audit/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-content-audit/SKILL.md",
+      "sha256": "002813f1cb87ee0477b59c8b4cdbae7f276643507e98c60760ced43f5c1b3129"
+    },
+    ".agents/skills/seo-drift/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-drift/SKILL.md",
+      "sha256": "734c685211a2945c91c9a293faa04ca209e3bc21d87a8d526ff6e1dbf66e4d9f"
+    },
+    ".agents/skills/seo-keyword/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-keyword/SKILL.md",
+      "sha256": "48b2ba227409a42749454c9ee5e579581435a3e51b6305ba1de0fea729700ad0"
+    },
+    ".agents/skills/seo-onpage/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-onpage/SKILL.md",
+      "sha256": "06e7759b22585cb673b44a492b7343ebb9f345669fca60fe509706602587077b"
+    },
+    ".agents/skills/seo-technical/SKILL.md": {
+      "backup": ".agents/local-before-shared/.agents/skills/seo-technical/SKILL.md",
+      "sha256": "fee193ee3f4be95e36966e7968110b2f9ca1ab2d5f5313f12a38d8462c85480c"
+    }
+  }
+}

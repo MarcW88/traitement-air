@@ -1,73 +1,68 @@
 ---
 name: search-intent
-description: Bewaak zoekintentie, paginafunctie en cannibalisatie voor renovatiecontent op thuisrenovatie-gids.nl.
+description: Bewaak zoekintentie, paginafunctie en on-page SEO bij herstel van Nederlandse content op italiaanse-percolator.nl.
 license: MIT
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/search-intent
 ---
 
-# Search intent — thuisrenovatie-gids.nl
+# Search intent — italiaanse-percolator.nl
 
 ## Doel
 
-Een inhoudelijk correcte renovatiepagina is niet goed genoeg wanneer ze de verkeerde taak of beslissing bedient. Gebruik deze skill om vóór briefing of rewrite vast te leggen wat de gebruiker werkelijk probeert te begrijpen, beslissen, controleren of uitvoeren.
+Een goede tekst die de verkeerde intentie bedient, is geen succesvolle herstelpagina.
 
 ## Bepaal eerst
 
 Voor elke URL:
-
 - primaire query of querygroep;
-- dominante intentie: informationeel, commercieel onderzoek, transactioneel of navigerend;
-- concrete gebruikersbeslissing of taak;
-- correcte paginafunctie binnen de site;
-- belangrijkste vervolgvraag;
-- maturiteitsniveau: oriënteren, plannen, vergelijken, uitvoeren of probleem oplossen.
+- intentie: informationeel, commercieel onderzoek, transactioneel of navigerend;
+- paginatype dat daarbij hoort;
+- belangrijkste vervolgvraag van de gebruiker.
 
-Gebruik semantische analyse, GSC, SERP-data en bestaande briefs wanneer beschikbaar. Raad de targetquery niet wanneer betere data beschikbaar is.
+Gebruik GSC/SERP-data wanneer beschikbaar. Raad de targetquery niet wanneer historische data beschikbaar kan zijn.
 
-## Sitefuncties
+## Typische site-intenties
 
-De routefamilie bepaalt de redactionele grens, niet de artikelstructuur:
+### Informationeel
+Voorbeelden: hoe werkt een percolator, percolator schoonmaken, welke koffie voor mokapot.
 
-- `renovatie-plannen/`: scope, prioriteiten, volgorde, budget, fasering, regels en rendement;
-- `renovatieprojecten/`: beslissingen rond een concreet renovatieproject;
-- `verduurzamen/`: energie-, comfort- en installatiekeuzes;
-- `problemen-oplossen/`: symptoom, oorzaak, veilige diagnose en oplossing;
-- `doe-het-zelf/`: uitvoerbare taak met duidelijke veiligheidsgrens;
-- `vakman-en-offertes/`: vakmanselectie, offertekwaliteit, vergelijking en leadbeslissing.
+Antwoord vroeg en praktisch. Productlinks zijn secundair.
 
-Wanneer de echte intentie beter in een andere routefamilie past, forceer de tekst niet in de bestaande slug. Flag de grens voor `renovation-analysis-workflow`.
+### Commercieel onderzoek
+Voorbeelden: beste percolator, Bialetti vs ..., percolator voor inductie.
+
+Geef selectiecriteria, verschillen, beperkingen en aanbevelingen per use case.
+
+### Product / model
+De gebruiker wil weten of een specifiek model bij hem past. Focus op eigenschappen die de aankoopbeslissing veranderen, niet op een lang merkverhaal.
+
+### Categorie / merk
+Help oriënteren binnen het assortiment en leid logisch naar relevante subpagina's.
 
 ## On-page regels
 
-- Titel en H1 ondersteunen dezelfde hoofdintentie zonder mechanische exact-match-eis.
-- De kernvraag wordt vroeg beantwoord wanneer de intentie dat vereist.
-- H2's bestaan omdat ze een echte deelvraag, beslissing, afhankelijkheid, uitzondering of noodzakelijke stap behandelen.
-- Voeg geen headings toe enkel voor keywordvarianten.
-- Een prijs-, subsidie-, vergunnings- of rendementsterm maakt een pagina niet automatisch transactioneel.
-- Interne links ondersteunen de volgende logische beslissing, niet een quota.
-- Meta descriptions zijn voor duidelijkheid en CTR, niet voor keyword stuffing.
+- Titel en H1 moeten dezelfde hoofdintentie ondersteunen, niet noodzakelijk exact dezelfde woorden bevatten.
+- Noem het hoofdonderwerp vroeg en natuurlijk.
+- H2's moeten echte beslisvragen of deelonderwerpen vertegenwoordigen.
+- Voeg geen headings toe enkel om keywordvarianten te plaatsen.
+- Gebruik synoniemen alleen wanneer Nederlanders ze echt gebruiken.
+- Behoud sterke interne links; voeg alleen links toe die de volgende logische stap helpen.
+- Meta description is voor CTR, niet voor keyword stuffing.
 - Geen verplichte woordenaantallen.
 
 ## Cannibalisatiecheck
 
-Flag wanneer meerdere URL's dezelfde primaire taak of beslissing lijken te bedienen. Geef aan:
-
-- welke URL waarschijnlijk eigenaar van de intentie moet zijn;
-- welke unieke taak of grens de andere URL nodig heeft;
-- of `MERGE` waarschijnlijk beter is;
-- of het probleem alleen in title/H1/positionering zit of structureel is.
-
-Een praktische test: wanneer twee pagina's dezelfde centrale conclusie, dezelfde besliscriteria en grotendeels dezelfde secties kunnen behouden door alleen het onderwerp te vervangen, is de scheiding waarschijnlijk onvoldoende.
+Flag wanneer meerdere repo-pagina's dezelfde primaire intentie lijken te bedienen. Geef aan:
+- welke URL waarschijnlijk primair moet zijn;
+- wat de andere URL uniek zou moeten maken;
+- of MERGE waarschijnlijk beter is.
 
 ## Output
 
 1. **Primary intent**
 2. **Primary query/topic**
 3. **User decision/problem**
-4. **Correct route family / page role**
+4. **Correct page type**
 5. **Intent gaps**
 6. **Sections that do not serve intent**
-7. **Next-question / internal-link opportunities**
+7. **Internal-link opportunities**
 8. **Cannibalization risk**
-9. **Unknowns that can change the decision**

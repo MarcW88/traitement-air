@@ -1,6 +1,4 @@
 ---
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/humanizer
 name: humanizer
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing

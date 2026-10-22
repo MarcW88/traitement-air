@@ -1,6 +1,4 @@
 ---
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/general-writing
 name: general-writing
 description: Edit drafts into clearer, sharper, more human prose while preserving the writer's meaning and personal voice, or audit prose for specific AI-slop patterns without rewriting it. Use for general writing, line editing, clarity and voice revisions, concision, directness, AI-sounding prose, or requests to detect whether writing reads like AI.
 ---

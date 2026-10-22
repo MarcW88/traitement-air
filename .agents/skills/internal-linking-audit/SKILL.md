@@ -1,6 +1,4 @@
 ---
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/internal-linking-audit
 name: internal-linking-audit
 description: Audit website internal links and produce verified SEO action plans. Use when users ask for internal linking strategy, topic-cluster links, orphan/link gap checks, existing internal link detection, anchor/placement recommendations, Firecrawl-backed crawling, or an exportable internal linking report for a brand site.
 ---

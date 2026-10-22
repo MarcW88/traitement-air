@@ -1,6 +1,4 @@
 ---
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/anti-ai-slop
 name: anti-ai-slop
 description: Detect and improve AI slop, generic-output, template-like, and AI-smell patterns in writing, UI, slides, visuals, code, reports, and other artifacts without making authorship claims.
 ---

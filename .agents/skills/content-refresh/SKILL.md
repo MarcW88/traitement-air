@@ -1,14 +1,12 @@
 ---
 name: content-refresh
-description: Bepaal hoe bestaande renovatiecontent gericht moet worden hersteld zonder automatisch alles te herschrijven.
+description: Bepaal hoe een geselecteerde UPDATE-pagina van italiaanse-percolator.nl inhoudelijk moet worden hersteld zonder onnodige volledige rewrite.
 license: MIT
-provenance: upstream
-upstream: https://github.com/MarcW88/bloc-notes-numerique/tree/main/.agents/skills/content-refresh
 ---
 
-# Content refresh — thuisrenovatie-gids.nl
+# Content refresh — italiaanse-percolator.nl
 
-Gebruik alleen nadat `renovation-analysis-workflow / AUDIT` heeft vastgesteld dat een pagina een update nodig heeft.
+Gebruik alleen nadat `content-audit` de beslissing UPDATE heeft gegeven.
 
 ## Principe
 
@@ -18,61 +16,52 @@ Behoud wat goed is. Herstel het probleem, niet automatisch de hele tekst.
 
 Classificeer de belangrijkste oorzaak:
 
-- **Intent drift:** de pagina beantwoordt niet meer de dominante zoek- of gebruikstaak.
+- **Intent drift:** de pagina beantwoordt niet meer wat de zoekopdracht vraagt.
 - **Thin value:** correcte maar oppervlakkige informatie zonder echte beslissingswaarde.
-- **Outdated:** prijzen, subsidies, vergunningen, regelgeving, technische prestaties, product-/installatiegegevens of procedures zijn verouderd.
-- **Weak structure:** cruciale informatie staat te laat, is versnipperd of maakt de beslissing moeilijker.
-- **Cannibalization:** overlap met een andere URL of een fout afgebakende clusterrol.
-- **Generic prose:** veel tekst maar weinig concrete informatie, afhankelijkheden, uitzonderingen of beslisregels.
-- **Trust gap:** centrale claims zijn onvoldoende onderbouwd of te stellig geformuleerd.
-- **Safety gap:** risicovolle werkzaamheden worden te eenvoudig voorgesteld of missen stopcondities.
-- **Conversion distortion:** de CTA stuurt te vroeg naar een offerte of vakman en vervangt inhoudelijke hulp.
-- **Structural cloning:** de pagina herhaalt het format, de H2-functies, tabellen of conclusies van andere pagina's zonder inhoudelijke noodzaak.
+- **Merchant duplication:** inhoud leunt te sterk op fabrikant- of winkelbeschrijvingen.
+- **Outdated:** specs, beschikbaarheid, modellen, compatibiliteit of adviezen zijn verouderd.
+- **Weak structure:** cruciale informatie staat te laat of verspreid.
+- **Cannibalization:** overlap met een andere URL.
+- **Generic prose:** veel tekst maar weinig concrete informatie.
+- **Trust gap:** productclaims of aanbevelingen zijn onvoldoende onderbouwd.
 
 ## Refreshniveau
 
 ### Light edit
-
-Voor kleine actualisaties, ontbrekende bronverwijzingen, slechte passages, metadata, een lokale grens of enkele ontbrekende antwoorden. Behoud zoveel mogelijk valide inhoud en structuur.
+Voor kleine actualisaties, slechte passages of ontbrekende antwoorden. Behoud minstens 70% van bruikbare inhoud.
 
 ### Major revision
-
-Voor een goede URL met structurele inhoudsgaten. Herbouw alleen de delen die nodig zijn en behoud sterke passages, bewezen voorbeelden, nuttige links en correcte feiten.
+Voor een goede URL met structurele inhoudsgaten. Herbouw secties, maar behoud sterke passages, bewezen headings en relevante interne links.
 
 ### Full rewrite
+Alleen wanneer de huidige tekst grotendeels duplicatief, generiek of verkeerd gericht is. De URL en zoekintentie blijven behouden tenzij expliciet anders besloten.
 
-Alleen wanneer de huidige tekst grotendeels generiek, verkeerd gericht, sterk gekloond, feitelijk onbetrouwbaar of onveilig is. De URL en intentie blijven behouden tenzij `renovation-analysis-workflow` anders beslist.
+## Verplichte verbeteringen
 
-## Renovatiespecifieke controle
-
-Controleer waar relevant of de pagina duidelijk maakt:
-
-- welke beslissing of taak centraal staat;
-- welke woningcontext of aannames de uitkomst veranderen;
-- welke afhankelijkheden eerst moeten worden opgelost;
-- wat stabiele kennis is en wat tijd-/regiogebonden is;
-- wanneer een vakman of specialist nodig is;
-- wat de gebruiker beter niet zelf doet;
-- welke prijs- of rendementclaims alleen indicatief kunnen zijn;
-- welke informatie opnieuw gecontroleerd moet worden vóór publicatie.
+Een herstelde pagina moet waar relevant duidelijk maken:
+- wat het product/type precies is;
+- voor wie het geschikt is;
+- wanneer je beter een alternatief kiest;
+- belangrijkste verschillen met relevante alternatieven;
+- praktische beperkingen;
+- compatibiliteit (bijv. inductie/gas/elektrisch) als dat relevant is;
+- onderhoud en gebruik alleen wanneer dit voor de keuze helpt;
+- welke claims uit primaire bronnen komen en welke uit gebruikerservaringen/synthese.
 
 ## Niet doen
 
 - extra FAQ's toevoegen puur voor SEO;
-- alle headings vervangen omdat een model een gelijkmatiger structuur wil;
-- elke keywordvariant forceren;
-- concrete informatie vervangen door vage, vloeiende tekst;
-- een bestaande pagina volledig herschrijven wanneer een gerichte correctie volstaat;
-- een standaard PLAN/PROJECT/DIY-template opleggen.
+- alle headings vervangen omdat een model dat "beter" vindt;
+- elk keywordvariant forceren;
+- bestaande concrete informatie vervangen door vage vloeiende tekst;
+- oude rankingtekst verwijderen zonder reden.
 
 ## Output
 
-Lever eerst een refresh plan met:
-
+Lever eerst een **refresh plan** met:
 1. wat blijft;
 2. wat wordt verwijderd;
 3. wat wordt herschreven;
 4. welke nieuwe informatie nodig is;
 5. welke claims eerst onderzocht moeten worden;
-6. veiligheids- of trustrisico's;
-7. aanbevolen refreshniveau.
+6. aanbevolen refreshniveau.
