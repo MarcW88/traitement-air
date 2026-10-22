@@ -1,92 +1,126 @@
 ---
 name: jobs-to-be-done
-description: "Analyse the progress a user is trying to make in a concrete situation before reasoning in products, personas or features. Adapted from Wondel.ai's MIT-licensed jobs-to-be-done skill."
+description: Analyser le progrès recherché par un utilisateur dans une situation donnée avant de raisonner en produit, persona ou fonctionnalité. Utiliser pour cadrer les pages /usages/, identifier les circonstances, jobs fonctionnels/émotionnels/sociaux, forces de changement, alternatives actuelles et critères d'adoption. Adapté du skill MIT wondelai/skills/jobs-to-be-done.
 license: MIT
 metadata:
   upstream: https://github.com/wondelai/skills/tree/main/jobs-to-be-done
-  source_repo: MarcW88/bloc-notes-numerique
-  source_sha: b1c1932e0b0279d3060583bafbd2263420a4c2a7
-  vendored_for: aspirateurs-chantier.fr
+  upstream_author: Wondel.ai sp. z o.o.
+  adapted_for: bloc-notes-numeriques.fr
 ---
 
-# Jobs to Be Done — generic editorial adaptation
+# Jobs to Be Done — adaptation éditoriale
 
-Use this skill to understand **the progress someone is trying to make in specific circumstances**. It does not invent personas and it does not choose products directly.
+Ce skill sert à comprendre **le progrès qu'une personne cherche à accomplir dans des circonstances précises**. Il ne sert pas à fabriquer un persona marketing ni à choisir directement un produit.
 
-## 1. Formulate the job without naming the solution
+Principe : partir de la situation et du progrès recherché, puis seulement relier ce besoin à des contraintes, des familles de solutions et, si nécessaire, à un comparatif séparé.
 
-Use:
+## 1. Formuler le job sans nommer la solution
 
-> When [circumstances], I want [progress], so that [desired outcome].
+Utiliser la structure :
 
-If a product category, brand or model is required to state the job, the framing is too product-centric.
+> Quand [circonstances], je veux [progrès], afin de [résultat recherché].
 
-## 2. Describe circumstances, not just audience labels
+Le job principal doit pouvoir être formulé sans mentionner « bloc-notes numérique », « tablette E Ink », une marque ou un modèle. Si la solution apparaît dans le job, le cadrage est trop produit-centric.
 
-A category such as “professional”, “DIY user”, “mobile worker” or “budget buyer” is not yet a job. Describe:
+## 2. Décrire les circonstances plutôt que les seules caractéristiques du public
 
-- trigger/context;
-- material, task or information being handled;
-- frequency and duration;
-- physical/digital environment;
-- what makes the current situation difficult;
-- concrete outcome expected.
+Une catégorie comme « étudiant », « professionnel » ou « dessinateur » n'est pas encore un job.
 
-## 3. Three dimensions
+Décrire :
+- le moment ou contexte déclencheur ;
+- le type de documents ou informations manipulés ;
+- la fréquence et la durée de l'activité ;
+- l'environnement physique ou logiciel ;
+- ce qui rend la situation actuelle difficile ;
+- le résultat concret attendu.
 
-### Functional
-What must actually be accomplished.
+Une même personne peut avoir plusieurs jobs selon la situation.
 
-### Emotional
-What the user is trying to feel or avoid.
+## 3. Examiner les trois dimensions du job
 
-### Social
-What changes in interaction with others.
+### Fonctionnelle
+Ce que l'utilisateur doit réellement accomplir : écrire, annoter, retrouver, transférer, lire, dessiner, classer, partager, etc.
 
-Do not invent emotional or social motivations. Without evidence, mark them `HYPOTHESIS` and do not publish them as facts.
+### Émotionnelle
+Ce que l'utilisateur cherche à ressentir ou éviter : rester concentré, réduire la charge mentale, avoir confiance dans la sauvegarde, éviter la frustration d'un workflow lent, etc.
 
-## 4. Forces of change
+### Sociale
+Ce que l'usage change dans l'interaction avec d'autres personnes : partager un document propre, travailler sans écran lumineux en réunion, présenter des notes lisibles, collaborer, etc.
 
-Distinguish:
+**Règle de preuve :** ne pas inventer de motivation émotionnelle ou sociale. Sans donnée utilisateur ou source crédible, la marquer comme `HYPOTHESIS` et ne pas la présenter comme un fait établi dans le contenu final.
 
-- **Push** — dissatisfaction with the current way;
-- **Pull** — attraction toward a new way;
-- **Anxiety** — perceived risk of changing;
-- **Habit** — friction that favors staying with the current solution.
+## 4. Cartographier les forces de changement
 
-## 5. Identify the real competition
+Pour chaque usage, distinguer :
 
-List every plausible alternative that can perform the job, including staying with the current setup, renting, using another tool category, combining tools, or not changing anything.
+- **Push** : ce qui rend la situation actuelle insatisfaisante ;
+- **Pull** : ce qui attire vers une nouvelle manière de travailler ;
+- **Anxiety** : les risques perçus lors du changement ;
+- **Habit** : ce qui rend la solution actuelle facile à conserver.
 
-## 6. Big Hire vs Little Hire
+Le contenu doit traiter les freins autant que les bénéfices. Une page usage crédible explique donc aussi pourquoi quelqu'un pourrait rester avec du papier, un ordinateur, une tablette classique ou son système actuel.
 
-- **Big Hire**: decision to buy/adopt.
-- **Little Hire**: repeated decision to use the solution in the real situation.
+## 5. Identifier la concurrence réelle
 
-Favor criteria that change the Little Hire rather than specs that only make the product easier to market.
+Lister tout ce qui peut être « engagé » pour faire le même job :
 
-## 7. Turn the job into decision criteria
+- cahier papier ;
+- ordinateur portable ;
+- tablette LCD ;
+- liseuse ;
+- smartphone ;
+- impression papier ;
+- combinaison de plusieurs outils ;
+- ne rien changer.
 
-Classify criteria as:
+Ne pas limiter la comparaison aux appareils E Ink.
 
-- `MUST_HAVE`
-- `HIGH`
-- `CONDITIONAL`
-- `LOW`
-- `CONTRAINDICATION`
+## 6. Séparer Big Hire et Little Hire
 
-This skill does **not** score products. When several products must be compared or ranked, hand off to the comparison workflow.
+- **Big Hire** : la décision d'acheter ou d'adopter une solution.
+- **Little Hire** : la décision répétée de l'utiliser dans la situation réelle.
 
-## 8. Evidence levels
+Une caractéristique peut aider à vendre l'appareil sans améliorer l'usage quotidien. Pour une page `/usages/`, privilégier les critères qui changent le Little Hire : friction d'import, vitesse pour retrouver une note, lisibilité réelle du PDF, simplicité d'export, poids porté tous les jours, etc.
 
-- `OBSERVED`
-- `SUPPORTED`
-- `INFERRED`
-- `HYPOTHESIS`
-- `UNKNOWN`
+## 7. Transformer le job en critères de décision
 
-Never turn `INFERRED` or `HYPOTHESIS` into claimed user experience.
+À partir des circonstances et du workflow réel, classer les critères en :
+
+- `MUST_HAVE` — sans ce critère, le job échoue ;
+- `HIGH` — influence fortement l'expérience ;
+- `CONDITIONAL` — important seulement dans certaines circonstances ;
+- `LOW` — secondaire pour ce job ;
+- `CONTRAINDICATION` — caractéristique ou contrainte qui peut rendre cette famille de solution inadaptée.
+
+Ce skill **ne fait pas de scoring produit**. Dès qu'il faut comparer et classer des modèles, passer la main à `comparison-content-workflow`.
+
+## 8. Niveau de preuve
+
+Pour chaque élément important, utiliser l'un des statuts :
+
+- `OBSERVED` — comportement ou besoin fourni par une source utilisateur/documentée ;
+- `SUPPORTED` — appuyé par plusieurs sources crédibles ;
+- `INFERRED` — déduction éditoriale raisonnable depuis des faits vérifiés ;
+- `HYPOTHESIS` — hypothèse à confirmer ;
+- `UNKNOWN` — information insuffisante.
+
+Ne jamais transformer `INFERRED` ou `HYPOTHESIS` en expérience utilisateur réelle.
+
+## Diagnostic rapide
+
+Avant de considérer l'analyse prête, vérifier :
+
+- le job peut-il être formulé sans nommer le produit ?
+- les circonstances sont-elles concrètes ?
+- le workflow réel est-il décrit ?
+- Push, Pull, Anxiety et Habit sont-ils couverts ?
+- les alternatives hors catégorie ont-elles été considérées ?
+- les critères découlent-ils du job plutôt que des fiches produits ?
+- les hypothèses sont-elles explicitement distinguées des preuves ?
+- la page usage peut-elle rester utile sans recommander un modèle précis ?
+
+Si plusieurs réponses sont non, l'analyse n'est pas prête pour la rédaction.
 
 ## Attribution
 
-Adapted from the public MIT-licensed `wondelai/skills/jobs-to-be-done` skill.
+Adaptation éditoriale du skill `jobs-to-be-done` du dépôt public `wondelai/skills`, distribué sous licence MIT. Voir `LICENSE` dans ce dossier.

@@ -1,6 +1,6 @@
-# Modèle de brief Guide — aspirateurs-chantier.fr
+# Modèle de brief Guide
 
-Ce fichier conserve uniquement les décisions qui changent réellement une page. Il ne constitue pas un template éditorial.
+Ce fichier sert à conserver les décisions qui changent réellement la page. Il ne constitue pas un template éditorial.
 
 ```yaml
 url:
@@ -32,7 +32,7 @@ last_researched:
 
 - Signaux sémantiques / GSC disponibles :
 - Forme de réponse attendue :
-- Angles déjà bien couverts ailleurs :
+- Angles utiles déjà bien couverts ailleurs :
 - Lacunes ou besoins que cette page doit réellement résoudre :
 - Incertitudes :
 
@@ -40,20 +40,6 @@ last_researched:
 
 | Affirmation ou étape prévue | Source | Date | Stabilité | Portée / limites |
 |---|---|---|---|---|
-
-## Contrôles métier aspirateurs pertinents
-
-Ne renseigner que les éléments qui changent cette page :
-
-- Classe L/M/H explicitement sourcée si mentionnée :
-- HEPA / classe du filtre / certification machine correctement distingués :
-- Débit / dépression / puissance électrique correctement distingués :
-- Contexte de mesure indiqué si comparaison chiffrée :
-- Capacité brute / nette / eau distinguée si nécessaire :
-- Décolmatage manuel / semi-auto / auto correctement nommé :
-- Prise asservie / déclenchement sans fil correctement distingués :
-- Compatibilités vérifiées si décisionnelles :
-- Précautions renforcées si poussières réglementées :
 
 ## Architecture propre à cette page
 
@@ -95,5 +81,3 @@ Il n'existe aucun nombre obligatoire de H2/H3, aucun tableau ou FAQ obligatoire 
 - [ ] Génération et rendu contrôlés
 - [ ] `guide-analysis-workflow / PUBLISH_REVIEW` exécuté
 - [ ] Validation humaine obtenue avant indexation
-
-Source méthodologique : `MarcW88/bloc-notes-numerique/.agents/skills/guide-content-workflow/references/brief-template.md`.

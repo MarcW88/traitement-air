@@ -1,9 +1,9 @@
 ---
 name: editorial-image-planner
-description: Décide si une page d'aspirateurs-chantier.fr a réellement besoin d'une image éditoriale générée, puis crée une requête compatible avec l'automatisation BFL. À utiliser après la rédaction et avant la publication.
+description: Décide si une page de bloc-notes-numeriques.fr a réellement besoin d'une image éditoriale générée, puis crée une requête compatible avec l'automatisation BFL. À utiliser après la rédaction et avant la publication.
 license: MIT
 metadata:
-  adapted_for: aspirateurs-chantier.fr
+  adapted_for: bloc-notes-numeriques.fr
   generator: Black Forest Labs FLUX API
   default_model: FLUX.2 Pro Preview
 ---
@@ -12,90 +12,126 @@ metadata:
 
 ## Objectif
 
-Ajouter des images uniquement lorsqu'elles améliorent réellement la compréhension d'un usage, d'un environnement de chantier ou d'un geste de travail. Une image générée n'est jamais un quota SEO, un remplissage décoratif, une photo produit officielle ni une preuve de test.
+Ajouter des images uniquement lorsqu'elles améliorent réellement la page. Une image générée n'est jamais un quota SEO, un remplissage décoratif ou une preuve produit.
 
-Le workflow est piloté par `.content/image-requests/*.json`. Le moteur ne génère que les requêtes explicitement marquées `required: true`, `allow_ai_generation: true`, `truth_risk: LOW` et `status: PENDING` ou `REGENERATE`.
+Le workflow de génération est piloté par les fichiers `.content/image-requests/*.json`. Le moteur ne génère que les requêtes explicitement marquées `required: true`, `allow_ai_generation: true` et `status: PENDING` ou `REGENERATE`.
 
-## 1. Décider si une image est utile
+## 1. Décision : image nécessaire ou non
 
-Créer une image uniquement si elle remplit un rôle éditorial clair, par exemple :
+Créer une image uniquement si au moins une de ces conditions est satisfaite :
 
-- montrer la relation entre un outil portatif, son flexible et un aspirateur générique ;
-- rendre concret un environnement d'atelier ou de rénovation ;
-- visualiser un geste de captage à la source difficile à comprendre par le texte seul ;
-- distinguer visuellement nettoyage de sol, captage sur outil et collecte de débris ;
-- apporter une respiration éditoriale à une page longue lorsque la scène reste sémantiquement utile.
+- elle rend un contexte d'usage concret plus immédiatement compréhensible ;
+- elle permet de visualiser une situation, un environnement ou un geste difficile à saisir par le texte seul ;
+- elle améliore nettement la compréhension d'une section sans prétendre représenter une preuve factuelle ;
+- elle apporte une vraie respiration éditoriale à une page longue lorsque cette respiration a aussi une fonction sémantique claire.
 
-Ne pas générer d'image si elle serait seulement décorative, si une photo réelle est nécessaire, ou si le texte suffit parfaitement.
+Ne pas générer d'image si :
 
-Par défaut : **0 ou 1 image générée par page**.
+- elle serait seulement décorative ;
+- la page est déjà suffisamment illustrée ;
+- une vraie capture, photo officielle ou illustration factuelle serait plus appropriée ;
+- l'image risque d'être interprétée comme une preuve d'un test ou d'une expérience réelle ;
+- le texte suffit parfaitement à accomplir la tâche du lecteur.
+
+Par défaut, **0 ou 1 image générée par page**. Une deuxième image exige un rôle éditorial distinct et explicite.
 
 ## 2. Interdictions de génération IA
 
 Mettre `allow_ai_generation: false` lorsque l'image devrait représenter fidèlement :
 
-- un Bosch, Kärcher, Makita, Festool, Nilfisk, DeWalt, Mirka ou autre produit identifiable précis ;
-- une référence, génération, accessoire ou système propriétaire exact ;
-- un logo, emballage ou identité de marque ;
-- un filtre, raccord, classe L/M/H ou dispositif de sécurité dont l'exactitude visuelle est importante ;
-- une interface, tableau, graphique, benchmark ou résultat de mesure ;
-- une scène présentée comme un test hands-on réellement effectué par le site ;
-- une comparaison visuelle qui pourrait être interprétée comme une preuve de performance.
+- un produit identifiable précis ;
+- un logo ou une identité de marque ;
+- une interface logicielle, une capture d'écran ou un menu ;
+- une caractéristique technique dont l'exactitude visuelle compte ;
+- un tableau, graphique, benchmark ou résultat de test ;
+- un emballage, accessoire ou connectique censé correspondre exactement à un produit réel ;
+- une personne réelle identifiable ;
+- une scène présentée comme un test hands-on du site.
 
-Dans ces cas, utiliser `BLOCKED` si une vraie photo ou source officielle serait utile.
+Dans ces cas, conserver éventuellement la requête avec `status: BLOCKED` afin de documenter qu'une vraie image est nécessaire, mais ne pas déclencher BFL.
 
-## 3. Images autorisées
+## 3. Types d'images autorisés
 
-Privilégier des scènes génériques et plausibles :
+Privilégier les scènes génériques, plausibles et éditoriales :
 
-- aspirateur eau/poussière non marqué dans un atelier réel ;
-- ponceuse générique raccordée à un flexible d'aspiration ;
-- nettoyage de poussières ou de débris dans une rénovation ;
-- captage à la source sur outil électroportatif ;
-- organisation d'un atelier avec plusieurs postes ;
-- tuyau, établi, sol de chantier et consommables génériques sans référence identifiable.
+- prise de notes pendant une réunion ;
+- étudiant utilisant un appareil E Ink générique dans un contexte de cours ;
+- lecture et annotation de documents sans interface ou marque identifiable ;
+- bureau, bibliothèque, déplacement, travail nomade ;
+- geste d'écriture ou contexte d'organisation documentaire.
 
-Le rendu doit rester photoréaliste et documentaire : lumière naturelle ou d'atelier crédible, proportions réalistes, matériaux plausibles, légère imperfection, aucun look publicitaire. Éviter texte généré, logos inventés, machines futuristes et compositions catalogue.
+Le rendu doit être photoréaliste et sobre : lumière naturelle, matériaux plausibles, imperfections réalistes, photographie éditoriale. Éviter les compositions publicitaires, les appareils futuristes, les logos inventés et le texte généré dans l'image.
 
 ## 4. Créer la requête
 
-Copier `.content/image-requests/_template.json` vers `.content/image-requests/<slug>-<slot>.json`.
+Copier `.content/image-requests/_template.json` vers :
 
-Renseigner au minimum : `page`, `required`, `reason`, `allow_ai_generation`, `truth_risk`, `status`, `marker`, `placement`, `output_path`, `prompt`, `alt`, dimensions et éventuellement `caption` / `seed`.
+`.content/image-requests/<slug>-<slot>.json`
 
-Valeurs par défaut :
+Renseigner au minimum :
 
-- 1024 × 672 px ;
+- `page` : chemin du fichier HTML généré ;
+- `required` : décision éditoriale ;
+- `reason` : pourquoi l'image est utile ;
+- `allow_ai_generation` : garde-fou de vérité ;
+- `status` : `PENDING`, `BLOCKED`, `NOT_NEEDED`, `GENERATED` ou `REGENERATE` ;
+- `marker` : commentaire HTML unique ;
+- `output_path` : toujours sous `assets/generated/` ;
+- `prompt` : brief photographique complet ;
+- `alt` : description utile et concise ;
+- dimensions, `prompt_upsampling` et éventuellement `seed`.
+
+Pour BFL FLUX.2 [pro], utiliser par défaut :
+
+- `width: 1024` ;
+- `height: 672` ;
 - `prompt_upsampling: true` ;
-- `seed: null` ;
-- sortie sous `assets/generated/`.
+- `seed: null` sauf besoin explicite de reproductibilité.
 
-## 5. Marker et régénération
+FLUX.2 n'utilise pas de negative prompt. Décrire positivement le rendu souhaité et intégrer les contraintes utiles dans le prompt.
 
-Le `marker` doit être une chaîne stable présente dans la source de vérité de la page et dans le HTML généré. Un commentaire HTML dédié est idéal, mais un H2 stable peut aussi servir de marker avec `placement: before` ou `after` : le H2 est alors conservé et sert d'ancre de réinsertion.
+## 5. Placer le marqueur dans la source de vérité
 
-Ce mécanisme est particulièrement utile sur ce dépôt : si les pages usages/guides sont régénérées, l'image déjà générée est réinsérée au prochain passage sans nouvel appel BFL.
+Le `marker` doit être présent **dans la source qui génère la page**, pas uniquement dans le HTML final.
+
+Exemple :
+
+```html
+<!-- EDITORIAL_IMAGE:prise-notes-reunion -->
+```
+
+Le placer à l'endroit exact où l'image apporte le plus de valeur. Éviter de mettre automatiquement toutes les images juste sous le H1.
+
+Lors de l'exécution GitHub Actions, le script remplace ce marqueur dans le HTML généré par la balise `<figure>` correspondante. Si le site est régénéré plus tard et que le marqueur réapparaît, l'automatisation réinsère l'image existante sans la régénérer.
 
 ## 6. Prompt photographique
 
-Le prompt doit préciser : sujet, action, environnement, lumière, cadrage, matériaux, niveau de poussière réaliste, rôle du flexible, esthétique photographique et contraintes de vérité.
+Le prompt doit décrire :
 
-Pour les scènes de chantier, terminer généralement par une contrainte de ce type :
+- sujet et action ;
+- environnement ;
+- lumière ;
+- cadrage ;
+- matériau et détails physiques utiles ;
+- esthétique photographique ;
+- contraintes de vérité.
 
-`photorealistic editorial documentary photography, realistic workshop or renovation environment, natural practical lighting, realistic proportions and materials, generic unbranded wet/dry dust extractor and tools, no visible brand logo, no watermark, no readable labels, no advertising composition, no implication of a specific tested product, candid framing`
+Terminer généralement par des contraintes du type :
 
-Ne jamais demander au modèle d'inventer un Bosch/Kärcher/Makita précis, une certification de poussière ou un résultat de test.
+`photorealistic editorial photography, natural light, realistic proportions and materials, generic unbranded device, blank or non-readable screen content, no visible logo or watermark, candid documentary framing`
 
-## 7. Vérification avant PENDING
+Ne pas demander au modèle d'inventer une marque, un écran lisible ou une référence produit précise.
 
-Confirmer que :
+## 7. Vérification avant commit
 
-- l'image répond à une question visuelle réelle ;
-- une image générique ne trompe pas le lecteur ;
-- aucune photo produit officielle n'est nécessaire ;
-- le prompt ne revendique aucun test ou résultat ;
-- le marker est stable ;
-- l'alt décrit simplement la scène ;
+Avant de créer une requête `PENDING`, confirmer :
+
+- l'image a un rôle explicite ;
+- aucune vraie image n'est nécessaire à la place ;
+- la scène peut être générique sans induire le lecteur en erreur ;
+- le prompt n'invente pas une preuve ;
+- le marqueur est présent dans la source de vérité ;
+- l'alt décrit l'image et non une intention SEO ;
 - le chemin de sortie est unique.
 
-En cas de doute sur la fidélité requise, choisir `BLOCKED`.
+Si un doute subsiste sur la fidélité nécessaire, choisir `BLOCKED` plutôt que générer.

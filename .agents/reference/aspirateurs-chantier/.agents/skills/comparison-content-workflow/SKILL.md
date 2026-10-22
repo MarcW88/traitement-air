@@ -1,265 +1,333 @@
 ---
 name: comparison-content-workflow
-description: Workflow unique de création et de réécriture des pages /comparatifs/ d'aspirateurs-chantier.fr. Clone/adaptation du workflow de bloc-notes-numerique, orchestrant majoritairement des skills GitHub existants. La logique custom reste limitée à la décision comparative et aux contraintes propres aux aspirateurs de chantier.
+description: Workflow unique de création et de réécriture des pages /comparatifs/ de bloc-notes-numeriques.fr. Orchestre principalement des skills GitHub externes pour l'intention, l'audit, la preuve, le brief, la rédaction, l'on-page et l'édition. La logique custom est limitée à la décision comparative et au contrôle du cluster.
 metadata:
-  adapted_for: aspirateurs-chantier.fr
-  source_workflow: MarcW88/bloc-notes-numerique/comparison-content-workflow
-  orchestration_target: ">=80% existing/vendored skills"
-  custom_scope: "orchestration + vacuum comparison decision logic only"
+  adapted_for: bloc-notes-numeriques.fr
+  orchestration_target: ">=80% existing GitHub skills"
+  custom_scope: "orchestration + comparison decision logic"
 ---
 
-# Comparison Content Workflow — Aspirateurs Chantier
+# Comparison Content Workflow
 
 ## Rôle
 
 C'est le **seul workflow de production** à utiliser pour créer ou réécrire une URL `/comparatifs/`.
 
-Il est cloné/adapté depuis `MarcW88/bloc-notes-numerique` et doit rester un orchestrateur. Il ne doit jamais devenir une méthodologie custom parallèle.
+Comme le `brand-content-workflow`, il doit orchestrer des skills spécialisés plutôt que fabriquer une méthode maison parallèle.
 
 Principe central :
 
 > **Intention → preuves → décision → brief → rédaction → review.**
 
-Scoring, pondération, tableau, hard gate formel ou coût total détaillé sont optionnels. Ils ne sont utilisés que s'ils rendent la décision plus claire.
-
-## Gouvernance 80/20 non négociable
-
-La méthode doit rester à **>=80 % shared / <=20 % custom**.
-
-Les responsabilités génériques appartiennent aux skills importés/vendored depuis `bloc-notes-numerique` et leurs upstreams. Le custom Aspirateurs Chantier est limité à :
-
-1. scope/candidats/critères spécifiques à la décision sur un aspirateur ;
-2. sécurité et comparabilité des claims métier ;
-3. cohérence du cluster et gate final.
-
-Interdit de recréer un `fact-check-aspirateurs`, un `humanizer-aspirateurs`, un moteur de brief custom ou un moteur de rédaction custom pour contourner les skills partagés.
+Un comparatif peut être excellent sans score numérique. Un score, une pondération, un tableau ou un Total Solution Cost ne sont utilisés que s'ils rendent la décision plus claire.
 
 ---
 
 # 1. Entrées
 
-Pour une page existante, lire d'abord le rapport récent du `comparison-analysis-workflow / AUDIT` et respecter son niveau de changement.
+Pour une page existante, lire d'abord le rapport le plus récent du `comparison-analysis-workflow / AUDIT` et le traiter comme le handoff de départ.
 
-Lire selon pertinence :
+Lire également selon pertinence :
 
-- page cible et comparatifs voisins ;
+- page actuelle ;
+- comparatifs voisins ;
 - `comparison-workflow.config.yaml` ;
-- `.content/comparisons/<slug>.json` ;
-- GSC / analyse sémantique / historique ;
-- SERP actuelle ;
-- `/usages/`, `/marques/`, `/modeles/`, `/guides/` ;
-- `.content/models/model-evidence.json` ;
-- sources actuelles fabricants, manuels et sources secondaires utiles.
+- données `.content/comparisons/` existantes ;
+- GSC / sémantique / historique ;
+- pages marques, usages et guides utiles ;
+- sources actuelles nécessaires.
 
-Ne pas refaire un audit complet si un handoff récent existe, sauf changement significatif de gamme, SERP ou données.
+Ne pas refaire un audit complet si un rapport récent existe, sauf si les données ou la gamme ont changé de façon significative.
 
 ---
 
-# 2. Chaîne principale — skills partagés obligatoires
+# 2. Chaîne principale de production — skills existants
 
-## `seo-keyword`
-Confirmer query/cluster, intention, format SERP, rôle unique de l'URL et risque de chevauchement.
+## 2.1 `seo-keyword` — Rampstack
 
-## `jobs-to-be-done`
-Utiliser lorsque le contexte change réellement la décision : professionnel, mobilité, petit format, budget, usage outil, etc. Si non pertinent, le run peut enregistrer `N/A` avec justification.
+Confirmer :
 
-## `seo-content-audit`
-Préserver ce qui fonctionne. Un `LIGHT_UPDATE` ne devient pas un deep rewrite sans découverte majeure documentée.
+- target query / cluster ;
+- intent dominant ;
+- format accepté dans la SERP ;
+- rôle unique de l'URL ;
+- risque de chevauchement avec un autre comparatif.
 
-## `evidence-based-reviews`
-Construire la base de preuve : specs officielles, expérience utilisateurs si nécessaire, tests indépendants nommés lorsque le jugement l'exige, hands-on seulement s'il existe réellement.
+Le SERP et les données disponibles priment sur une intuition de template.
 
-## `fact-check` — pré-draft
-Vérifier classe, génération, fonctions, compatibilités, débit/dépression, capacité, poids, prix/disponibilité lorsqu'ils sont utilisés.
+## 2.2 `jobs-to-be-done` — Wondel.ai, lorsque pertinent
 
-## `affiliate-value`
-Identifier la valeur originale : différences décisionnelles, limites, cas d'inadéquation, alternatives, coûts ou contraintes cachés pertinents. La page doit rester utile sans affiliation.
+Pour les pages liées à un contexte réel (`étudiant`, `professionnel`, PDF, mobilité, etc.), traduire le besoin en contraintes et critères de décision.
 
-## `content-brief-authoring`
-Construire le brief **avant** le draft : query, décision, scope, critères, preuves, arbitrages, angle, anti-patterns et outline spécifique.
+Ne pas inventer de motivations utilisateur non documentées.
 
-## `content-and-copy`
-Rédiger depuis le brief et les preuves : décision claire, substance, trade-offs, structure adaptée et voix naturelle.
+## 2.3 `seo-content-audit` — Rampstack
 
-Le générateur Python ne remplace aucune de ces étapes.
+Pour une page existante : préserver ce qui fonctionne. Le workflow ne réécrit pas un bon passage uniquement pour créer de la nouveauté.
+
+Si l'audit a conclu `LIGHT_UPDATE`, respecter ce niveau de changement sauf découverte factuelle majeure.
+
+## 2.4 `evidence-based-reviews` — Rampstack
+
+Construire la base de preuve de la recommandation :
+
+- specs officielles ;
+- synthèse propriétaires/utilisateurs lorsque nécessaire ;
+- tests indépendants nommés lorsque le jugement le nécessite ;
+- hands-on uniquement lorsqu'il existe réellement.
+
+Ne pas sur-documenter des faits simples. Concentrer les preuves fortes sur les éléments qui changent le choix.
+
+## 2.5 `fact-check`
+
+Vérifier les claims importants et les données susceptibles d'évoluer : génération, fonctions, compatibilités, prix, abonnement, disponibilité et comparaison factuelle.
+
+Une appréciation éditoriale reste une appréciation éditoriale ; ne pas la déguiser en mesure.
+
+## 2.6 `affiliate-value`
+
+Avant la rédaction, identifier la valeur originale :
+
+- différences réellement décisionnelles ;
+- limites ;
+- cas où un produit n'est pas le bon choix ;
+- alternatives ;
+- coûts ou contraintes cachés réellement pertinents ;
+- information difficile à obtenir depuis une seule fiche fabricant.
+
+La page doit rester utile si tous les liens affiliés disparaissent.
+
+## 2.7 `content-brief-authoring` — Rampstack
+
+Construire le brief **avant** le draft.
+
+Le brief doit au minimum préciser :
+
+- query/cluster ;
+- décision du lecteur ;
+- scope de la comparaison ;
+- principaux critères ;
+- faits/preuves obligatoires ;
+- arbitrages importants ;
+- angle éditorial ;
+- anti-patterns ;
+- outline proposé et rôle de chaque section.
+
+Le plan est spécifique à l'URL. Le workflow n'impose aucun squelette de comparatif.
+
+## 2.8 `content-and-copy` — Rampstack
+
+Rédiger depuis le brief et les preuves.
+
+Priorités :
+
+1. décision claire ;
+2. substance ;
+3. trade-offs ;
+4. structure adaptée ;
+5. voix éditoriale naturelle.
+
+Ne pas produire six fiches produits mécaniquement symétriques si la décision peut être mieux expliquée autrement.
 
 ---
 
-# 3. Couche custom minimale — décision Aspirateurs Chantier
+# 3. Couche custom minimale — décision comparative
+
+Cette couche existe uniquement parce qu'un comparatif doit recommander ou arbitrer entre plusieurs options.
 
 ## 3.1 Scope / candidats
-Identifier un ensemble raisonnable de produits réellement plausibles. Ne pas documenter tout le marché par principe ; ne pas omettre silencieusement un candidat évident susceptible de changer la conclusion.
+
+Identifier un ensemble **raisonnable** de choix plausibles pour la requête.
+
+Il n'est pas nécessaire de documenter tout le marché. En revanche :
+
+- ne pas omettre silencieusement un candidat évident susceptible de changer la conclusion ;
+- expliquer les exclusions majeures lorsque cela aide le lecteur ;
+- ne jamais inclure un produit uniquement parce qu'il est monétisable.
 
 ## 3.2 Critères
-Définir les critères **avant** la recommandation. Selon l'intention : classe L/M/H, maintien du débit, débit/dépression contextualisés, prise/raccord outil, antistatique, capacité, mobilité, plateforme batterie, consommables, eau/poussière, coût de configuration.
 
-## 3.3 Gates métier non négociables
-- classe L/M/H jamais déduite depuis HEPA, puissance ou débit ;
-- AFC/Tact/InfiniClean/AUTOCLEAN ≠ certification ;
-- mesures de débit/dépression non équivalentes sans contexte de mesure ;
-- capacité brute/net/eau distinguée lorsque nécessaire ;
-- compatibilité batterie vérifiée au niveau de la plateforme ;
-- wet/dry ≠ aptitude aux poussières dangereuses ;
-- autonomie ou sensation d'usage uniquement avec preuve appropriée.
+Définir les critères avant la recommandation. Ils viennent de l'intention, du JTBD et des différences réelles entre produits.
 
-## 3.4 Verdict
-Le verdict doit être traçable aux critères et preuves. Un verdict conditionnel est préférable à un faux gagnant universel.
+Aucune obligation de pondération numérique.
 
-## 3.5 Scoring et coût
-Optionnels et proportionnés. Pas de fausse précision ni de modèle de coût forcé.
+## 3.3 Verdict
+
+Le verdict doit être traçable aux critères et aux preuves.
+
+Favoriser une formulation utile :
+
+- « meilleur choix général pour X » ;
+- « choisissez Y si votre priorité est… » ;
+- « évitez Z si… » ;
+- ou verdict conditionnel dans un head-to-head.
+
+Un gagnant absolu n'est pas obligatoire.
+
+## 3.4 Scoring — optionnel
+
+N'utiliser un score que s'il rend les arbitrages plus compréhensibles.
+
+S'il est utilisé :
+
+- l'échelle doit être stable ;
+- les critères doivent être explicités ;
+- les notes sont clairement des jugements éditoriaux sauf mesure réelle ;
+- éviter les décimales qui simulent une précision inexistante ;
+- le classement doit rester intelligible sans le score.
+
+Ne pas inventer des notes pour remplir un JSON.
+
+## 3.5 Coût — proportionné
+
+Pour `pas cher`, `sans abonnement` ou une intention fortement budgétaire, comparer la configuration réellement nécessaire.
+
+Pour une page où le prix est secondaire, un repère de prix/configuration suffit. Ne pas imposer un modèle de coût complexe si cela ne change pas la décision.
 
 ---
 
 # 4. Architecture éditoriale
 
-Aucun template obligatoire par type de comparatif.
+Aucun template par type de comparatif.
 
 Interdit d'imposer :
+
 - nombre fixe de H2/H3 ;
-- nombre fixe de mots ou liens ;
-- `answer box → repères de décision → tableau → quelques H2 → sources` comme cadence par défaut ;
 - `méthode → critères → ranking → produit 1 → produit 2 → FAQ → conclusion` ;
 - même longueur par produit ;
-- tableau, module de décision, FAQ ou conclusion obligatoires ;
-- sections symétriques « avantages / limites / pour qui » pour chaque machine.
+- tableau obligatoire ;
+- FAQ obligatoire ;
+- conclusion obligatoire ;
+- quotas de mots ou de liens.
 
-Le composant `comparison-decision-module` est **optionnel**. Il n'est utilisé que s'il clarifie réellement la décision.
+Chaque section doit justifier sa présence par une question, une décision, une preuve ou un arbitrage propre à cette URL.
 
-Chaque section doit justifier sa présence par une question, décision, preuve ou arbitrage propre à l'URL.
-
----
-
-# 5. Post-draft — skills partagés
-
-1. `fact-check` — réextraire et corriger les claims.
-2. `humanizer` — corriger structure/prose trop générique sans altérer les faits.
-3. `general-writing` — clarté, précision, voix ; éditer le minimum nécessaire.
-4. `anti-ai-slop` — détecter blocs interchangeables, transitions recyclées, symétries mécaniques et structure fonctionnellement clonée.
-5. `seo-onpage` — title, meta, H1, headings, contenu, liens et schema honnête.
-6. `seo-technical` — canonical, robots, crawlabilité, structured data et intégrité HTML.
-7. `internal-linking-audit` — router vers guides/usages/marques/modèles utiles.
-8. `editorial-qa` — gate générique final.
+Deux pages comparatives proches doivent pouvoir avoir des structures radicalement différentes si leurs décisions diffèrent.
 
 ---
 
-# 6. Persistance méthodologique
+# 5. Post-draft — skills spécialisés
 
-`.content/comparisons/<slug>.json` reste un support méthodologique, pas un formulaire obligatoire.
+## 5.1 `fact-check`
 
-Conserver uniquement les champs réellement utiles : intention/JTBD, scope/candidats, exclusions, critères, preuves, recommendation logic, comparabilité, prix/configuration, scores si utilisés, research date et statut.
+Réextraire les claims et corriger les faits, comparatifs, prix, générations et disponibilités.
 
-## Run evidence v2
+## 5.2 `humanizer`
 
-Après un **vrai** passage du workflow, persister :
+Modifier structure et prose lorsque le texte paraît générique, répétitif ou trop lisse. Préserver les faits.
 
-`.content/comparisons/runs/<slug>.json`
+## 5.3 `general-writing` — msimchowitz/writing-skills
 
-Ce fichier doit documenter :
+Passage final de clarté, précision et voix. Éditer le minimum nécessaire plutôt que tout réécrire.
 
-- la décision du lecteur ;
-- le scope comparatif ;
-- la valeur sans affiliation ;
-- les candidats considérés et exclusions majeures ;
-- l'outline dérivé des preuves ;
-- les outputs des 16 étapes shared ;
-- les 2 contrôles custom ;
-- le `PUBLISH_REVIEW` final.
+## 5.4 `anti-ai-slop`
 
-Le générateur Python **n'a pas le droit de fabriquer son propre run-evidence**.
+Vérifier notamment :
 
-Sans run v2 valide, la page doit rester `REQUIRES_WORKFLOW_RERUN`.
+- blocs produits interchangeables ;
+- transitions répétées ;
+- « avantages / limites / pour qui » cloné ;
+- conclusion qui répète le classement ;
+- structure identique à un autre comparatif ;
+- généralités applicables à n'importe quelle tablette E Ink.
 
----
+## 5.5 `seo-onpage` — Rampstack
 
-# 7. Rôle du générateur
+Title, meta, H1, headings, contenu, liens internes, URL et schema honnête.
 
-Les scripts Python peuvent :
+## 5.6 `seo-technical`
 
-- produire/maintenir le shell HTML ;
-- injecter les composants visuels ;
-- matérialiser un contenu éditorial déjà produit par le workflow ;
-- normaliser les assets ;
-- appliquer robots/canonical ;
-- vérifier l'idempotence.
+Uniquement pour les points techniques réellement applicables : canonical, robots, crawlabilité, structured data et intégrité HTML.
 
-Ils ne peuvent pas, à eux seuls :
+## 5.7 `editorial-qa`
 
-- déclarer qu'une recherche a été faite ;
-- choisir la structure éditoriale finale à partir d'un template ;
-- produire le brief au nom de `content-brief-authoring` ;
-- créer des preuves au nom d'`evidence-based-reviews` ;
-- simuler `humanizer`, `anti-ai-slop` ou `editorial-qa` ;
-- accorder `READY_FOR_HUMAN_VALIDATION`.
+Dernière QA générique : intention, valeur, factualité, naturel et utilité sans affiliation.
 
 ---
 
-# 8. Frontières éditoriales du cluster
+# 6. Persistance
 
-- `/modeles/` = référence précise ;
-- `/marques/` = gamme/écosystème ;
-- `/usages/` = besoin/tâche ;
-- `/guides/` = critère technique ;
-- `/comparatifs/` = arbitrage entre options pour une décision donnée.
+`.content/comparisons/<slug>.json` est un support méthodologique, **pas un formulaire obligatoire**.
 
-Le même modèle peut apparaître dans plusieurs comparatifs si la logique de décision change réellement. Réutiliser les mêmes arguments, la même cadence ou le même verdict sous une autre requête est un blocker.
+Conserver seulement les champs réellement utilisés, par exemple :
 
----
+- intent/JTBD ;
+- scope/candidats ;
+- exclusions importantes ;
+- criteria ;
+- evidence / sources ;
+- recommendation logic ;
+- price/configuration notes ;
+- scores/weights **si utilisés** ;
+- ranking **si la page utilise un ranking** ;
+- date de recherche ;
+- status.
 
-# 9. Gate final
-
-Une fois le draft stable :
-
-1. persister le run-evidence v2 ;
-2. exécuter `validate_comparison_run_evidence.py --slug <slug> --require-run` ;
-3. appeler `comparison-analysis-workflow` en `PUBLISH_REVIEW` ;
-4. enregistrer `PASS — READY_FOR_HUMAN_VALIDATION` dans le run ;
-5. laisser `enforce_comparison_review_state.py` dériver l'état du ledger.
-
-Le générateur ne peut pas accorder le PASS.
+Ne jamais ajouter un champ méthodologique uniquement pour satisfaire le workflow.
 
 ---
 
-# 10. Indexation
+# 7. Gate final
 
-Conserver `noindex, follow` par défaut. Indexation seulement après validation machine, run v2 valide, PUBLISH_REVIEW PASS, validation humaine explicite et instruction explicite d'indexer.
+Une fois le draft stable, appeler :
+
+`.agents/skills/comparison-analysis-workflow/SKILL.md` en mode `PUBLISH_REVIEW`.
+
+Résultat requis avant validation humaine :
+
+`PASS — READY_FOR_HUMAN_VALIDATION`
+
+Sinon :
+
+`FAIL — KEEP_NOINDEX`
+
+Le gate final vérifie surtout : intention, décision, preuves, valeur, différenciation éditoriale, SEO et absence de faux hands-on — pas la présence d'une méthodologie chiffrée imposée.
 
 ---
 
-# 11. Orchestration 80/20
+# 8. Indexation
+
+Conserver `noindex,follow` par défaut.
+
+Le workflow ne retire jamais `noindex` automatiquement.
+
+Indexation seulement après validation machine, PUBLISH_REVIEW PASS, validation humaine explicite et instruction explicite d'indexer.
+
+---
+
+# 9. Orchestration 80/20
 
 ```text
 PAGE EXISTANTE
   comparison-analysis-workflow / AUDIT
         ↓
-seo-keyword
+seo-keyword (Rampstack)
         ↓
-jobs-to-be-done si pertinent
+jobs-to-be-done (Wondel.ai) si pertinent
         ↓
-seo-content-audit
+seo-content-audit (Rampstack)
         ↓
-evidence-based-reviews + fact-check
+evidence-based-reviews (Rampstack) + fact-check
         ↓
 affiliate-value
         ↓
-CUSTOM LÉGER : scope + critères + gates métier + logique de recommandation
+CUSTOM LÉGER : scope + critères + logique de recommandation
         ↓
-content-brief-authoring
+content-brief-authoring (Rampstack)
         ↓
-content-and-copy
+content-and-copy (Rampstack)
         ↓
 fact-check
         ↓
 humanizer → general-writing → anti-ai-slop
         ↓
-seo-onpage + seo-technical + internal-linking-audit
+seo-onpage (Rampstack) + seo-technical
         ↓
 editorial-qa
-        ↓
-persist run-evidence v2
         ↓
 comparison-analysis-workflow / PUBLISH_REVIEW
         ↓
 validation humaine
 ```
 
-Le custom doit rester minoritaire et ne jamais réimplémenter les skills partagés.
+Le custom doit rester minoritaire et ne jamais réimplémenter les skills externes.

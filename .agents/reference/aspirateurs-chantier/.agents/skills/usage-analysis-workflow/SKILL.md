@@ -1,30 +1,29 @@
 ---
 name: usage-analysis-workflow
-description: Workflow unique d'analyse des pages /usages/ d'aspirateurs-chantier.fr. Adapté de MarcW88/bloc-notes-numerique. Audite une page ou le cluster, vérifie intention, JTBD, frontières avec comparatifs/guides, preuves, valeur affiliée, sécurité des claims aspirateurs, AI-slop et SEO, puis décide KEEP, LIGHT_UPDATE, DEEP_REWRITE, MERGE ou NOINDEX. En PUBLISH_REVIEW, sert de gate final avant validation humaine.
+description: Workflow unique d'analyse des pages /usages/ de bloc-notes-numeriques.fr. Audite une page ou le cluster, vérifie JTBD, rôle éditorial, cannibalisation avec comparatifs/guides, preuves, valeur affiliée, AI-slop et SEO, puis décide KEEP, LIGHT_UPDATE, DEEP_REWRITE, MERGE ou NOINDEX. En mode PUBLISH_REVIEW, sert de gate final avant validation humaine.
 metadata:
-  source_repo: MarcW88/bloc-notes-numerique
-  source_skill: .agents/skills/usage-analysis-workflow/SKILL.md
-  adapted_for: aspirateurs-chantier.fr
+  adapted_for: bloc-notes-numeriques.fr
   orchestration_target: ">=80% existing skills"
 ---
 
-# Usage Analysis Workflow — aspirateurs-chantier.fr
+# Usage Analysis Workflow
 
 ## Rôle
 
 C'est le **seul workflow d'analyse** à utiliser pour les URLs sous `/usages/`.
 
-Il ne réécrit pas la page par défaut. Il orchestre d'abord les skills partagés déjà présents dans le dépôt et limite la couche custom aux contrôles propres à l'univers des aspirateurs de chantier.
+Il ne réécrit pas la page par défaut. Il orchestre les skills spécialisés déjà présents dans le dépôt et ajoute uniquement les contrôles spécifiques aux pages centrées sur un **job, des circonstances et un workflow d'usage**.
 
-Séparation stricte :
+Séparation des responsabilités :
 
 - `usage-analysis-workflow` = diagnostiquer, comparer le cluster, décider et faire le publish review ;
-- `usage-content-workflow` = produire/corriger uniquement lorsque l'analyse le demande ;
-- `/comparatifs/` = choisir entre produits ou familles de produits ;
-- `/guides/` = expliquer une technologie, un risque, un critère ou une procédure ;
-- `/marques/` = documenter marque, gamme ou écosystème.
+- `usage-content-workflow` = produire ou corriger uniquement lorsqu'une décision d'analyse le demande.
 
-Le workflow ne doit pas devenir un second système de fact-check, de rédaction, de SEO ou d'affiliation : ces responsabilités restent dans les skills partagés.
+Les autres catégories gardent leurs workflows propres :
+
+- `/comparatifs/` = décision entre produits ;
+- `/guides/` = explication d'une technologie, d'un critère ou d'une procédure ;
+- `/marques/` = marque, écosystème, gamme ou produit.
 
 ---
 
@@ -32,38 +31,35 @@ Le workflow ne doit pas devenir un second système de fact-check, de rédaction,
 
 ## `AUDIT`
 
-Mode par défaut pour une URL existante. Retourne une décision et un plan de correction **sans réécrire la page**.
+Mode par défaut pour une URL existante.
 
-Comparer la page avec :
+Retourne une décision et un plan de correction **sans réécrire la page**.
 
-- les usages voisins ;
-- les comparatifs qui pourraient absorber l'intention d'achat ;
-- les guides qui couvrent une sous-question technique ;
-- les pages marques citées ou susceptibles de prendre le dessus sur le job.
+L'audit est individuel mais pas isolé : comparer la page cible avec les pages `/usages/` les plus proches et avec les pages `/comparatifs/` ou `/guides/` susceptibles de couvrir la même intention.
 
 ## `CLUSTER_AUDIT`
 
-Analyse l'ensemble de `/usages/` pour détecter :
+Analyse le cluster `/usages/` dans son ensemble afin de détecter :
 
-- jobs trop proches ;
-- pages matière/outillage dont le rôle est mal défini ;
-- cannibalisation avec guides/comparatifs ;
+- jobs ou intentions trop proches ;
+- pages dont le rôle devrait être déplacé vers un guide ou un comparatif ;
+- cannibalisation inter-catégories ;
 - duplication de valeur ;
-- structures industrialisées ;
-- trous de couverture dans le parcours de choix et d'utilisation.
+- industrialisation de structure ;
+- trous de couverture importants dans le parcours utilisateur.
 
-Aucune réécriture, redirection ou fusion automatique.
+Le mode cluster **ne déclenche aucune réécriture automatiquement**.
 
 ## `PUBLISH_REVIEW`
 
-Gate final après `usage-content-workflow`.
+Gate final après correction ou production via `usage-content-workflow`.
 
-Retourner exactement :
+Il réexécute les contrôles substantiels et le validateur machine, puis retourne exactement :
 
 - `PASS — READY_FOR_HUMAN_VALIDATION`
 - `FAIL — KEEP_NOINDEX`
 
-Un PASS n'autorise jamais l'indexation ou un merge automatique.
+Un PASS n'autorise jamais l'indexation ou le merge automatiquement.
 
 ---
 
@@ -71,173 +67,210 @@ Un PASS n'autorise jamais l'indexation ou un merge automatique.
 
 Lire avant l'analyse :
 
-- `AGENTS.md` et `DESIGN.md` si pertinent ;
+- `AGENTS.md` et, si nécessaire, `DESIGN.md` ;
 - `usage-workflow.config.yaml` ;
-- `.agents/skills/usage-skill-stack.json` ;
-- la page cible ;
-- `.content/usages/<slug>.json` si présent ;
+- la page cible et son fichier `.content/usages/<slug>.json` lorsqu'il existe ;
 - les pages `/usages/` proches ;
-- les guides, comparatifs et pages marques voisines ;
-- les données historiques disponibles : analyse sémantique, GSC, logs, backlinks ou autres signaux ;
-- les sources actuelles pour tout fait susceptible d'avoir évolué.
+- les comparatifs, guides et pages marques qui répondent à des sous-questions voisines ;
+- les données historiques disponibles : analyse sémantique, GSC, logs ou autres signaux pertinents ;
+- les sources actuelles lorsque les faits peuvent avoir évolué.
 
-Ne jamais combler une donnée absente par mémoire du modèle.
+Ne jamais compléter une donnée absente à partir de la mémoire du modèle.
 
 ---
 
-# 3. Chaîne de skills partagés obligatoire
+# 3. Chaîne de skills réutilisés
 
-Exécuter les skills existants avant les contrôles custom. Ne recopier ni leurs méthodes ni leurs checklists dans ce workflow.
+Le workflow doit d'abord **exécuter les skills existants**. Ne pas recopier leurs checklists dans ce fichier ni créer un sous-agent custom lorsqu'un skill local couvre déjà le besoin.
 
-## Audit, intention et job
+## 3.1 `content-audit`
 
-- `content-audit` : valeur existante, obsolescence, duplication, cannibalisation, potentiel de récupération ;
-- `search-intent` : requête/topic, intention dominante, problème concret, rôle de l'URL ;
-- `jobs-to-be-done` : circonstances, progrès recherché, tâches, frictions, Push/Pull/Anxiety/Habit lorsque pertinent ;
-- `content-refresh` : uniquement lorsque l'audit conclut qu'une mise à jour est nécessaire.
+Vérifier si l'URL possède encore une fonction autonome et identifier :
 
-Sans interview ou donnée comportementale, une motivation supposée reste `INFERRED` ou `HYPOTHESIS`, jamais un fait utilisateur universel.
+- valeur existante à préserver ;
+- faiblesse de contenu ;
+- obsolescence ;
+- duplication ;
+- cannibalisation ;
+- problème de structure ;
+- potentiel de récupération.
 
-## Preuves et valeur
+Utiliser les décisions internes du skill (`KEEP`, `UPDATE`, `MERGE`, `REDIRECT`, `REMOVE`) comme diagnostic, puis les mapper vers les décisions finales de ce workflow.
 
-- `fact-check` : claims vérifiables ;
-- `evidence-based-reviews` : seulement si un jugement expérientiel ou de comportement réel dépasse les specs ;
-- `affiliate-value` : la page doit rester utile sans liens affiliés.
+## 3.2 `search-intent`
 
-## Qualité, maillage et SEO
+Déterminer :
 
-- `internal-linking-audit` ;
-- `anti-ai-slop` ;
-- `seo-technical` ;
-- `seo-best-practices` et `seo-onpage` lorsque applicables ;
-- `seo-drift` seulement si un baseline exploitable existe ;
-- `editorial-qa` en dernière QA générique.
+- requête ou topic principal ;
+- intention dominante ;
+- problème concret du lecteur ;
+- niveau de maturité ;
+- rôle attendu de l'URL ;
+- pages concurrentes internes ;
+- sections qui ne servent plus l'intention.
 
-La provenance et le ratio des skills sont contrôlés par `.agents/skills/usage-skill-stack.json`.
+L'intention doit être observée ou documentée lorsque des données existent ; ne pas la déduire uniquement du slug.
+
+## 3.3 `jobs-to-be-done`
+
+Skill central pour `/usages/`.
+
+Identifier les **circumstances**, le progrès recherché, l'outcome, les functional/emotional/social jobs utiles, les forces `Push / Pull / Anxiety / Habit`, les solutions actuellement "embauchées" et les différences entre achat initial et usage répété.
+
+Règle de preuve : sans interview ou donnée comportementale, ne pas transformer une hypothèse JTBD en fait sur un groupe d'utilisateurs.
+
+## 3.4 `content-refresh`
+
+Uniquement si `content-audit` conclut qu'une mise à jour est nécessaire.
+
+Diagnostiquer notamment : intent drift, thin value, outdated facts, weak structure, generic prose, cannibalization ou trust gap. Le skill propose l'ampleur de correction ; le présent workflow prend la décision finale.
+
+## 3.5 `affiliate-value`
+
+Utiliser lorsque la page influence directement ou indirectement une décision d'achat.
+
+Vérifier que la page reste utile sans liens affiliés et qu'elle apporte : compromis, limites, alternatives, critères et prochaines étapes — pas une reformulation de fiches produits.
+
+## 3.6 `fact-check`
+
+Contrôler les affirmations vérifiables : capacités produit/logiciel, compatibilités, abonnements, prix lorsqu'ils sont mentionnés, limitations et données techniques.
+
+Une affirmation plausible mais non sourcée reste non vérifiée.
+
+## 3.7 `evidence-based-reviews`
+
+Conditionnel, pas automatique.
+
+L'utiliser lorsque la page contient un **jugement expérientiel** ou une conclusion importante sur le comportement d'un produit dans l'usage réel. Ne pas l'imposer pour chaque fait ou chaque critère éditorial.
+
+## 3.8 `internal-linking-audit`
+
+Vérifier que le maillage fait progresser le lecteur vers la prochaine question logique : guide, comparatif, marque ou autre usage. Aucun quota de liens.
+
+## 3.9 `anti-ai-slop`
+
+Utiliser en mode review/detection. Rechercher : prose générique, répétition, symétrie artificielle, plans interchangeables, transitions stéréotypées et pages qui pourraient être permutées en remplaçant uniquement le nom du contexte.
+
+## 3.10 SEO
+
+- `seo-technical` : canonical, robots, crawlabilité, schema réellement applicable, structure technique ;
+- `seo-best-practices` : uniquement les règles pertinentes au site statique ;
+- `seo-drift` : seulement lorsqu'un baseline avant/après existe et apporte une information utile.
+
+## 3.11 `editorial-qa`
+
+Dernière QA générique : intention, valeur originale, factualité, naturel, utilité, SEO et cohérence de la page sans dépendance aux liens affiliés.
 
 ---
 
 # 4. Contrôle custom n°1 — le job possède-t-il une URL autonome ?
 
-Une page usage doit expliquer **comment une situation de chantier modifie réellement le système d'aspiration à prévoir**.
+C'est le premier contrôle réellement spécifique à `/usages/`.
 
-Le job doit être défini par des circonstances et contraintes observables, par exemple :
+Une page usage doit aider le lecteur à comprendre **comment un contexte change les contraintes et le workflow**, pas seulement reformuler une catégorie de personne.
 
-- matière produite : sciure, copeaux, plâtre, poussière minérale, gravats, eau ;
-- mode de production : ponçage continu, coupe intermittente, nettoyage de fin de chantier, captage à la source ;
-- granulométrie et quantité ;
-- fréquence et durée ;
-- outil raccordé ou aspiration libre ;
-- besoin de mobilité ;
-- contraintes de collecte/vidage ;
-- risque poussière et classe requise lorsqu'elle est réellement applicable.
+Vérifier :
 
-Une URL n'est pas justifiée uniquement parce qu'un mot-clé combine `aspirateur + matière/outillage`.
+- circonstances spécifiques ;
+- progrès recherché ;
+- frictions qui changent réellement selon le job ;
+- critères dérivés de ces frictions ;
+- alternatives raisonnables au bloc-notes E Ink ;
+- contre-indications ;
+- prochaine décision logique.
+
+Une page n'est pas justifiée uniquement parce qu'un mot-clé combine `bloc-notes numérique + étudiant/professionnel/dessin/etc.`.
 
 ### Signaux d'échec
 
-- même raisonnement applicable à toutes les pages en changeant seulement `plâtre` par `sciure` ;
-- critères hérités d'un catalogue produit plutôt que du travail réel ;
-- page transformée en liste de modèles ;
-- aucune contre-indication ou alternative ;
-- aucune différence de workflow par rapport à une page sœur.
+- pseudo-persona générique sans circonstances ;
+- même raisonnement applicable à toutes les pages usage ;
+- critères dérivés des specs disponibles plutôt que du job ;
+- page utile uniquement comme liste de produits ;
+- absence de cas où le bloc-notes numérique est un mauvais choix.
 
 ---
 
-# 5. Contrôle custom n°2 — frontières avec Comparatifs et Guides
+# 5. Contrôle custom n°2 — frontière avec Comparatifs et Guides
+
+C'est le risque de cannibalisation principal du cluster.
 
 ## `/usages/` vs `/comparatifs/`
 
-La page usage répond à :
+La page usage doit répondre à :
 
-> Dans ce travail précis, quelles poussières/matières apparaissent, quelles frictions cela crée et quelles caractéristiques deviennent décisives ?
+> Qu'est-ce qui compte dans cette situation, quelles frictions apparaissent et quel type de solution convient ?
 
 Le comparatif répond à :
 
-> Quels modèles choisir entre eux une fois ces contraintes connues ?
+> Quels produits choisir entre eux pour cette décision ?
 
-Une page usage peut citer une famille ou un exemple pour illustrer une contrainte. Elle ne crée pas de podium, de ranking ni de pseudo-« meilleur aspirateur pour X » si la décision est réellement comparative.
+Une page usage peut citer des familles ou des exemples, mais elle ne doit pas créer un podium, un ranking ou un faux "meilleur produit".
+
+Exemples à contrôler explicitement :
+
+- `/usages/prise-de-notes-etudiant/` vs `/comparatifs/bloc-notes-numerique-etudiant/` ;
+- `/usages/prise-de-notes-professionnelle/` vs `/comparatifs/bloc-notes-numerique-professionnel/`.
 
 ## `/usages/` vs `/guides/`
 
-La page usage reste centrée sur le **job complet**.
+La page usage doit rester centrée sur le **job complet**. Une sous-question technique ou procédurale suffisamment autonome doit être expliquée dans un guide puis reliée depuis l'usage.
 
-Les sous-questions autonomes doivent être renvoyées vers les guides, par exemple :
+Exemple à contrôler explicitement :
 
-- classes L/M/H ;
-- décolmatage du filtre ;
-- aspiration eau/poussière ;
-- débit vs dépression ;
-- sac vs sans sac ;
-- entretien des filtres ;
-- règles de sécurité ou procédés spécifiques.
+- `/usages/annotation-pdf/` vs `/guides/annoter-pdf-tablette-e-ink/`.
 
 ### Test pratique
 
-Si une page usage et un guide/comparatif pourraient conserver le même H1, le même tableau principal et la même conclusion en modifiant seulement quelques mots, la frontière n'est pas assez nette.
+Si deux URLs pourraient garder le même H1, le même tableau central et la même conclusion en changeant seulement quelques mots, leur séparation n'est pas suffisamment nette.
 
 ---
 
-# 6. Contrôle custom n°3 — workflow réel de captage et critères
+# 6. Contrôle custom n°3 — workflow réel et critères
 
-Ne pas imposer un nombre fixe d'étapes.
+Ne pas imposer un diagramme ou un nombre fixe d'étapes.
 
-Selon le job, vérifier seulement les étapes qui changent la décision, par exemple :
+Vérifier seulement que les recommandations de la page peuvent être reliées à des tâches ou frictions réelles du job, par exemple :
 
-- production de poussière/matière ;
-- captage à la source ou nettoyage après émission ;
-- transfert via flexible/raccord ;
-- maintien du débit lorsque le filtre se charge ;
-- collecte dans sac/cuve ;
-- vidage et exposition secondaire ;
-- déplacement entre postes ;
-- gestion des liquides si pertinente.
+- entrée/import ;
+- travail principal ;
+- organisation/retrouvabilité ;
+- sortie/export/partage ;
+- continuité dans le temps ou entre appareils.
 
-Chaque critère doit répondre à :
+Toutes ces étapes ne sont pas obligatoires sur toutes les pages.
 
-> Qu'est-ce que ce critère change dans cet usage précis ?
+Un critère important doit pouvoir répondre à :
 
-Un critère générique sans conséquence sur le job doit être retiré ou rétrogradé.
+> Qu'est-ce que ce critère change dans ce job précis ?
 
----
-
-# 7. Contrôle custom n°4 — sécurité et comparabilité des claims aspirateurs
-
-Ces règles ne remplacent pas `fact-check` ; elles définissent uniquement les erreurs métier à interdire.
-
-- Ne jamais déduire une classe L/M/H depuis HEPA, puissance, débit, dépression ou décolmatage.
-- Filtration, nettoyage du filtre et classe de poussière sont des notions distinctes.
-- `wet/dry` ne signifie pas aptitude aux poussières dangereuses.
-- ACD ne doit pas être présenté comme équivalent à une certification ATEX/Zone 22.
-- Une classe de filtre ne transforme pas automatiquement la certification de la machine complète.
-- Débit et dépression cross-brand ne sont pas comparables sans contexte de mesure suffisamment homogène.
-- Les capacités brut/net/eau ne doivent pas être mélangées.
-- Les compatibilités de flexible, raccord outil, batterie et consommables doivent être vérifiées au niveau pertinent si elles influencent la recommandation.
-- Les cas à risque élevé (amiante, silice ou poussières réglementées) doivent rester prudents et renvoyer vers les prescriptions applicables ; ne pas simplifier la sécurité en « acheter une classe plus élevée ».
+Si la réponse est faible ou générique, le critère est probablement hérité d'un template ou d'une fiche produit.
 
 ---
 
-# 8. Similarité structurelle du cluster
+# 7. Contrôle custom n°4 — similarité structurelle du cluster
 
-En `AUDIT`, comparer la page aux sœurs les plus proches. En `CLUSTER_AUDIT` et `PUBLISH_REVIEW`, regarder tout le cluster pertinent.
+En `AUDIT`, comparer la page cible aux pages sœurs les plus proches. En `CLUSTER_AUDIT` et `PUBLISH_REVIEW`, regarder le cluster pertinent dans son ensemble.
 
 Comparer :
 
 - fonction sémantique des H2/H3 ;
 - ordre des questions ;
+- formes d'introduction et de conclusion ;
+- emplacement répétitif des tableaux, listes, CTA et blocs "pour qui / limites" ;
+- mêmes familles de solutions utilisées mécaniquement ;
 - mêmes critères dans le même ordre ;
-- même cadence « problème → tableau → produits → conclusion » ;
-- emplacement mécanique des tableaux, listes, CTA et blocs limites ;
-- mêmes familles de solutions répétées sans nécessité ;
 - formulations et transitions recyclées.
 
-Les composants visuels communs sont acceptables. Une architecture éditoriale décidée avant l'analyse du job ne l'est pas.
+Les composants visuels communs ne sont pas un problème. Le problème apparaît lorsque **l'architecture éditoriale semble déterminée avant l'analyse du job**.
+
+Une similarité substantielle non justifiée peut déclencher `DEEP_REWRITE`.
 
 ---
 
-# 9. Niveaux de preuve
+# 8. Preuves et niveaux d'incertitude
 
-Utiliser :
+Pour les affirmations importantes, utiliser les classes adaptées au registre usage :
 
 - `OBSERVED` ;
 - `SUPPORTED` ;
@@ -247,63 +280,150 @@ Utiliser :
 
 Principes :
 
-- une motivation utilisateur non observée reste une hypothèse ;
-- une capacité machine actuelle doit être vérifiée ;
-- un comportement en poussière fine ne devient pas prouvé par une puissance moteur ;
-- `UNKNOWN` ne devient jamais une certitude rédactionnelle ;
-- aucun hands-on n'est inventé.
+- une motivation utilisateur non observée reste `INFERRED` ou `HYPOTHESIS` ;
+- une capacité produit actuelle doit être vérifiée par une source fiable ;
+- une sensation d'usage ne devient pas un fait parce qu'une spec officielle existe ;
+- `UNKNOWN` ne peut pas devenir une certitude rédactionnelle ;
+- aucune expérience personnelle n'est inventée.
 
 ---
 
-# 10. Décisions
+# 9. Décisions `AUDIT` / `CLUSTER_AUDIT`
+
+Mapper l'ensemble des résultats vers cinq décisions simples.
 
 ## `KEEP`
 
-Job distinct, intention servie, page actuelle, suffisamment utile et différenciée.
+La page possède un job distinct, sert l'intention, est actuelle, utile et suffisamment différenciée des comparatifs/guides et des autres usages.
 
 ## `LIGHT_UPDATE`
 
-Corrections ciblées : faits, preuves, frontière, maillage, quelques critères ou passages. Architecture fondamentale pertinente.
+Corrections ciblées : facts, sources, formulation d'un critère, quelques passages, maillage ou séparation locale avec une autre page. L'architecture fondamentale reste pertinente.
 
 ## `DEEP_REWRITE`
 
-Job mal cadré, contenu devenu comparatif déguisé, preuve insuffisante sur des points structurants, architecture industrialisée ou valeur trop faible.
+Le job est mal cadré, la page sert une autre intention, la valeur est trop faible, les preuves sont insuffisantes sur des points structurants, le contenu est devenu un comparatif déguisé, ou l'architecture est substantiellement industrialisée.
 
-Préserver les éléments valides plutôt que repartir mécaniquement de zéro.
+`DEEP_REWRITE` ne signifie pas "tout jeter" : préserver les faits, exemples, passages, sources et raisonnements qui restent utiles.
 
 ## `MERGE`
 
-Une autre URL couvre pratiquement le même job/intention. Recommander une cible, sans merger/rediriger automatiquement.
+Une autre URL couvre pratiquement le même job ou la même intention et la distinction ne justifie pas deux pages autonomes.
+
+Indiquer l'URL cible recommandée, mais ne pas merger/rediriger automatiquement.
 
 ## `NOINDEX`
 
-Valeur/preuve/justification insuffisante. Aucune action destructive automatique.
+L'URL ne possède pas encore assez de valeur, de preuve ou de justification pour être indexée. Les recommandations `REDIRECT` ou `REMOVE` issues de `content-audit` peuvent être consignées, mais aucune action destructive n'est automatique.
 
-Pour chaque décision : confiance, preuves, unknowns, blockers, valeur à préserver, corrections, prochaine étape.
+Pour chaque décision fournir :
+
+- confiance ;
+- preuves utilisées ;
+- unknowns ;
+- blockers ;
+- valeur existante à préserver ;
+- corrections nécessaires ;
+- prochaine étape.
 
 ### Handoff
 
 - `KEEP` → aucune rédaction ;
-- `LIGHT_UPDATE` → `usage-content-workflow` scope limité ;
-- `DEEP_REWRITE` → `usage-content-workflow` reconstruction guidée par job + preuves ;
+- `LIGHT_UPDATE` → `usage-content-workflow` avec scope de correction limité ;
+- `DEEP_REWRITE` → `usage-content-workflow` avec reconstruction guidée par le job et les preuves ;
 - `MERGE` / `NOINDEX` → décision humaine avant action structurelle.
 
 ---
 
-# 11. `PUBLISH_REVIEW`
+# 10. Mode `PUBLISH_REVIEW`
 
-Sur une version considérée terminée :
+Exécuter uniquement sur une version considérée terminée.
 
-1. exécuter `python3 validate_usage_workflow.py` ;
-2. réexécuter au minimum intention, JTBD, fact-check, affiliate-value, anti-ai-slop, internal linking, SEO technique et editorial QA ;
-3. vérifier les frontières avec guides/comparatifs ;
-4. vérifier les claims de sécurité aspirateurs ;
-5. vérifier l'absence de ranking produit déguisé et de structure clonée ;
-6. confirmer `noindex, follow` tant que l'indexation n'a pas été explicitement demandée.
+## Étape A — validation machine
 
-Sortie exacte :
+Exécuter :
 
-- `PASS — READY_FOR_HUMAN_VALIDATION`
-- `FAIL — KEEP_NOINDEX`
+```bash
+python3 validate_usage_workflow.py
+```
 
-Le PASS machine n'est qu'un plancher structurel. La validation humaine reste obligatoire.
+Le PASS machine est un plancher structurel, jamais une validation JTBD ou éditoriale.
+
+## Étape B — gates substantiels
+
+Réexécuter au minimum :
+
+- intention satisfaite ;
+- job et circonstances réellement visibles ;
+- critères reliés aux frictions du job ;
+- hypothèses utilisateur signalées comme telles ;
+- alternatives hors E Ink considérées lorsqu'elles sont pertinentes ;
+- contre-indications honnêtes ;
+- absence de ranking produit déguisé ;
+- séparation claire avec comparatifs et guides ;
+- claims importants sourcés ;
+- pas de faux hands-on ;
+- valeur réelle sans affiliation ;
+- pas de merchant rewrite ;
+- pas de cannibalisation non résolue ;
+- pas de signal `HIGH` d'AI-slop ;
+- architecture justifiée par le job et les preuves, pas par un squelette du cluster ;
+- title/H1/canonical/robots cohérents ;
+- maillage vers les prochaines étapes réellement utiles.
+
+## Étape C — résultat
+
+### PASS
+
+Retourner exactement :
+
+`PASS — READY_FOR_HUMAN_VALIDATION`
+
+Lister les risques mineurs ou éléments de fraîcheur à surveiller.
+
+### FAIL
+
+Retourner exactement :
+
+`FAIL — KEEP_NOINDEX`
+
+Lister les gates en échec et router chaque correction vers le skill ou workflow approprié. Un FAIL n'entraîne pas automatiquement une réécriture complète.
+
+---
+
+# 11. Indexation et actions irréversibles
+
+Par défaut, conserver l'état robots existant pendant l'analyse et la correction. Pour les pages actuellement en brouillon, maintenir `noindex,follow`.
+
+Ce workflow n'est jamais autorisé à indexer, merger, rediriger ou supprimer automatiquement une URL.
+
+Conditions cumulatives avant indexation d'une page actuellement noindex :
+
+1. validateur machine sans blocker ;
+2. `PUBLISH_REVIEW` = `PASS — READY_FOR_HUMAN_VALIDATION` ;
+3. validation humaine explicite ;
+4. instruction explicite de rendre la route indexable.
+
+---
+
+# 12. Ce que ce workflow ne doit pas devenir
+
+Ne pas ajouter :
+
+- quota de mots ;
+- quota de headings ;
+- quota de liens ;
+- score artificiel de qualité ;
+- template fixe par type d'usage ;
+- nombre obligatoire d'étapes JTBD ;
+- matrice produit obligatoire ;
+- générateur de prose ;
+- copie locale des règles déjà maintenues dans les skills spécialisés.
+
+La couche custom doit rester limitée à :
+
+1. orchestration ;
+2. séparation des rôles entre usages, comparatifs et guides ;
+3. adéquation job → page ;
+4. cohérence workflow → critères ;
+5. comparaison structurelle du cluster.

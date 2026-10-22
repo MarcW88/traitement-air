@@ -1,63 +1,43 @@
 ---
 name: comparison-analysis-workflow
-description: Workflow unique d'analyse des pages /comparatifs/ d'aspirateurs-chantier.fr. Clone/adaptation du workflow bloc-notes-numerique, orchestrant majoritairement des skills GitHub existants, avec custom limité aux contrôles propres aux comparaisons d'aspirateurs de chantier. Décisions: KEEP, LIGHT_UPDATE, DEEP_REWRITE, MERGE ou NOINDEX.
+description: Workflow unique d'analyse des pages /comparatifs/ de bloc-notes-numeriques.fr. Orchestre principalement des skills GitHub externes pour l'intention, l'audit, les preuves, l'on-page et la qualité éditoriale, puis ajoute seulement les contrôles spécifiques à une comparaison. Décisions: KEEP, LIGHT_UPDATE, DEEP_REWRITE, MERGE ou NOINDEX. En PUBLISH_REVIEW, sert de gate final avant validation humaine.
 metadata:
-  adapted_for: aspirateurs-chantier.fr
-  source_workflow: MarcW88/bloc-notes-numerique/comparison-analysis-workflow
-  orchestration_target: ">=80% existing/vendored skills"
-  custom_scope: "orchestration + vacuum comparison sanity + cluster boundaries only"
+  adapted_for: bloc-notes-numeriques.fr
+  orchestration_target: ">=80% existing GitHub skills"
+  custom_scope: "orchestration + comparison sanity + cluster similarity"
 ---
 
-# Comparison Analysis Workflow — Aspirateurs Chantier
+# Comparison Analysis Workflow
 
 ## Rôle
 
 C'est le **seul workflow d'analyse** à utiliser pour `/comparatifs/`.
 
-Il reste un orchestrateur. Les méthodologies génériques vivent dans les skills partagés importés depuis `bloc-notes-numerique` et leurs upstreams. La couche custom couvre uniquement ce qui est réellement propre à la décision sur un aspirateur de chantier.
+Comme le `brand-analysis-workflow`, il doit rester un **orchestrateur**. Il ne doit pas reconstruire en interne les méthodologies déjà couvertes par les skills spécialisés.
 
 Principe :
 
 > **Évaluer la qualité de la décision offerte au lecteur, pas la sophistication apparente de la méthodologie.**
 
-## Gouvernance 80/20
-
-Le workflow doit conserver **>=80 % de responsabilités shared et <=20 % custom**.
-
-Le custom est limité à :
-
-1. périmètre comparatif aspirateurs ;
-2. sécurité/comparabilité des claims métier ;
-3. frontières du cluster ;
-4. décision finale KEEP/LIGHT/DEEP/MERGE/NOINDEX et PUBLISH_REVIEW.
-
-Il ne doit jamais réimplémenter `seo-keyword`, `seo-content-audit`, `evidence-based-reviews`, `fact-check`, `affiliate-value`, `anti-ai-slop`, `seo-onpage`, `internal-linking-audit` ou `editorial-qa`.
+Un comparatif n'a pas besoin d'un scoring, de poids, d'un univers exhaustif ou d'un Total Solution Cost pour être bon. Ces outils ne sont utilisés que lorsqu'ils améliorent réellement la décision.
 
 ---
 
 # 1. Modes
 
 ## `AUDIT`
-Analyse une URL existante et produit un diagnostic + décision, sans réécriture.
+Analyse une URL existante. Produit un diagnostic et une décision, sans réécriture.
 
 ## `CLUSTER_AUDIT`
-Compare les URLs `/comparatifs/` pour détecter :
-
-- chevauchement d'intention ;
-- recommandations recyclées ;
-- mêmes produits et arguments sous plusieurs promesses ;
-- architectures fonctionnellement clonées ;
-- profondeur insuffisante ;
-- preuves trop faibles ;
-- manque de valeur originale.
+Compare plusieurs URLs `/comparatifs/` afin de détecter chevauchements d'intention, recommandations recyclées et architectures industrialisées.
 
 ## `PUBLISH_REVIEW`
-Gate final :
+Gate final après rédaction. Retourne :
 
 - `PASS — READY_FOR_HUMAN_VALIDATION`
 - `FAIL — KEEP_NOINDEX`
 
-Un PASS doit être persisté dans `.content/comparisons/runs/<slug>.json`. Le générateur ne peut pas accorder ce statut.
+Un PASS ne retire jamais `noindex,follow`.
 
 ---
 
@@ -66,156 +46,247 @@ Un PASS doit être persisté dans `.content/comparisons/runs/<slug>.json`. Le g�
 Lire selon disponibilité :
 
 - page cible ;
-- comparatifs voisins ;
+- pages comparatives voisines ;
 - `comparison-workflow.config.yaml` ;
-- `.content/comparisons/<slug>.json` ;
-- `.content/comparisons/runs/<slug>.json` si existant ;
-- GSC / sémantique / historique ;
-- SERP actuelle si l'intention est incertaine ou mouvante ;
-- `/usages/`, `/marques/`, `/modeles/`, `/guides/` ;
-- `.content/models/model-evidence.json` ;
-- sources actuelles.
+- données `.content/comparisons/` associées ;
+- GSC / analyse sémantique / historique si disponibles ;
+- SERP actuelle quand l'intention est incertaine ou susceptible d'avoir changé ;
+- pages marques, usages et guides nécessaires au contexte ;
+- sources actuelles pour les faits qui peuvent évoluer.
 
 L'absence de données doit être signalée, jamais compensée par une précision inventée.
 
 ---
 
-# 3. Chaîne principale — skills partagés obligatoires
+# 3. Chaîne de skills — source principale de l'analyse
 
-## `seo-content-audit`
-Décider quoi conserver, mettre à jour ou consolider. Examiner la cannibalisation sans réécrire par réflexe.
+## 3.1 `seo-content-audit` — Rampstack
 
-## `seo-keyword`
-Confirmer requête/cluster, intention dominante, SERP, rôle de l'URL et différences avec les comparatifs proches.
+Utiliser `.agents/skills/seo-content-audit/SKILL.md` pour déterminer si la page mérite d'être conservée, mise à jour ou consolidée et pour examiner la cannibalisation.
 
-## `jobs-to-be-done`
-Utiliser lorsque le contexte change réellement la décision. Un `N/A` doit être justifié dans le run-evidence.
+Ce skill porte la logique `KEEP / UPDATE / MERGE / REDIRECT / DELETE`. Le workflow ne la réécrit pas.
 
-## `evidence-based-reviews`
-Distinguer specs officielles, synthèse d'expérience, preuves expertes et hands-on réel. Une fiche constructeur soutient un fait, pas une sensation d'usage inventée.
+## 3.2 `seo-keyword` — Rampstack
 
-## `fact-check`
-Vérifier modèles/générations, classe de poussière, fonctions, compatibilités, mesures, disponibilité et prix lorsqu'utilisés.
+Utiliser `.agents/skills/seo-keyword/SKILL.md` pour :
 
-## `affiliate-value`
-Vérifier que la page reste utile sans lien affilié : arbitrages, limites, incompatibilités, alternatives et conséquences pratiques.
+- confirmer la requête ou le cluster ;
+- classifier l'intention ;
+- vérifier la forme dominante de SERP ;
+- distinguer deux URLs proches ;
+- détecter un périmètre trop large ou trop étroit.
 
-## `seo-onpage`
-Title, meta, H1, structure, contenu, liens, canonical, URL et schema honnête. Aucun quota de mots/H2/liens.
+Si GSC ou données sémantiques existent, elles priment sur une supposition.
 
-## `internal-linking-audit`
-Vérifier les handoffs vers guides, usages, marques et modèles.
+## 3.3 `jobs-to-be-done` — Wondel.ai
 
-## `anti-ai-slop`
-Détecter non seulement des H2 identiques, mais aussi :
+Utiliser pour les comparatifs où le contexte change réellement la décision : étudiant, professionnel, PDF, mobilité, budget d'usage, etc.
 
-- même fonction éditoriale dans le même ordre ;
-- answer box systématique ;
-- module de décision systématique ;
-- tableau systématique ;
-- cadence `repères → tableau → limites → sources` recyclée ;
-- blocs produits mécaniquement symétriques ;
-- transitions et verdicts substituables entre URLs.
+Ne pas l'utiliser pour inventer un persona. Il sert à comprendre le travail à accomplir et les contraintes qui peuvent faire préférer un produit à un autre.
 
-## `editorial-qa`
-QA finale sur intention, valeur originale, factualité, naturel, SEO et utilité réelle.
+## 3.4 `evidence-based-reviews` — Rampstack
 
----
+C'est le skill principal pour l'intégrité des recommandations et des jugements produit.
 
-# 4. Couche custom minimale — sanity check Aspirateurs Chantier
+Il distingue :
 
-## A. Périmètre crédible
-Produits réellement plausibles ; candidats évidents considérés ou exclusion expliquée ; pas d'inclusion guidée par la monétisation ; pas de catalogue exhaustif sans valeur.
+- specs constructeur vérifiées ;
+- synthèse d'expérience utilisateurs ;
+- triangulation de sources expertes ;
+- hands-on uniquement lorsqu'il existe réellement.
 
-## B. Critères avant recommandation
-Selon la page : classe L/M/H, type de poussière, maintien du débit, décolmatage, raccord outil, antistatique, mobilité, volume, alimentation, plateforme batterie, consommables, eau/poussière, coût de configuration.
+Règle importante : une spec officielle peut soutenir un **fait**. Elle ne devient pas automatiquement une preuve d'une **sensation d'usage**. Inversement, un score éditorial n'a pas besoin d'être traité comme une mesure scientifique : il doit simplement être présenté comme un jugement éditorial et être explicable.
 
-## C. Sécurité et comparabilité honnête
-1. Classe appareil ≠ filtre.
-2. Puissance ≠ classe de sécurité.
-3. Débit/dépression : contexte de mesure obligatoire.
-4. Décolmatage ≠ certification.
-5. Wet/dry ≠ aptitude aux poussières dangereuses.
-6. Compatibilité batterie vérifiée au niveau plateforme.
-7. Cuve brute/net/eau distinguée si nécessaire.
+## 3.5 `fact-check`
 
-## D. Verdict traçable
-La page doit expliquer pourquoi un choix est recommandé, quand un autre devient meilleur et quelle limite peut inverser la décision.
+Vérifier les claims importants : génération, fonctions, compatibilités, prix, abonnement, disponibilité et comparatifs factuels.
 
-## E. Scoring/coût proportionnés
-Optionnels ; jamais imposés pour donner l'apparence d'une méthodologie.
+Le fact-check ne doit pas transformer une appréciation éditoriale en donnée scientifique.
 
----
+## 3.6 `affiliate-value`
 
-# 5. CLUSTER_AUDIT — standard renforcé
+Vérifier que la page reste utile sans les liens affiliés et apporte plus qu'une réécriture de fiches constructeurs : arbitrages, limites, incompatibilités, alternatives et conséquences pratiques.
 
-Le cluster audit ne peut plus conclure PASS uniquement parce que les signatures H2 diffèrent.
+## 3.7 `seo-onpage` — Rampstack
 
-Il doit comparer au minimum :
+Pour l'URL individuelle : title, meta, H1, structure, contenu, maillage, canonical, URL et schema honnête.
 
-- intention et rôle de chaque URL ;
-- overlap de candidats ;
-- overlap d'arguments ;
-- fonction réelle de chaque section ;
-- profondeur de l'analyse ;
-- qualité/diversité des preuves ;
-- présence de preuves indépendantes lorsqu'un jugement le nécessite ;
-- valeur originale par URL ;
-- utilité si les liens affiliés disparaissent ;
-- existence ou non d'un run-evidence v2 ;
-- similarité de cadence éditoriale au niveau cluster.
+Aucun quota de headings, mots ou liens.
 
-Partager CSS, composants ou tableaux n'est pas un problème. Partager la même pensée éditoriale l'est.
+## 3.8 `anti-ai-slop`
+
+Analyser la page comme un artefact éditorial : structure interchangeable, blocs trop symétriques, répétitions, verdicts génériques et sur-lissage.
+
+Ce skill ne sert pas à détecter qui a écrit le contenu.
+
+## 3.9 `editorial-qa`
+
+QA générique finale sur intention, valeur originale, factualité, naturel, SEO et utilité réelle.
 
 ---
 
-# 6. Décisions
+# 4. Couche custom minimale — sanity check comparatif
+
+Cette couche est volontairement courte. Elle ne remplace aucun skill ci-dessus.
+
+Vérifier seulement les points propres à une recommandation comparative :
+
+### A. Périmètre crédible
+
+- les options comparées sont plausibles pour la requête ;
+- les candidats majeurs manifestement pertinents ont été considérés **ou** le périmètre est expliqué ;
+- aucune exhaustivité artificielle n'est exigée ;
+- une exclusion importante mérite une raison, pas un registre de dizaines de produits sans intérêt.
+
+### B. Critères avant recommandation
+
+- les critères découlent de l'intention/JTBD ;
+- ils expliquent réellement les différences entre les choix ;
+- le gagnant n'a pas été choisi puis rationalisé après coup.
+
+### C. Verdict traçable
+
+La recommandation doit permettre de répondre :
+
+- pourquoi ce choix est recommandé ;
+- dans quelle situation un autre choix devient meilleur ;
+- quelle limite peut faire changer de décision.
+
+Un verdict conditionnel est souvent préférable à un gagnant universel.
+
+### D. Comparabilité honnête
+
+Lorsque les produits ou configurations diffèrent fortement, le texte l'explique. La comparaison n'a pas besoin d'une « equivalence engine » formelle si le lecteur comprend clairement ce qui est comparable et ce qui ne l'est pas.
+
+### E. Coût proportionné à l'intention
+
+Comparer le coût de façon équitable **lorsqu'il est décisionnel**. Pour une page budget ou sans abonnement, approfondir. Pour une page où le coût est secondaire, ne pas imposer un TSC complexe.
+
+### F. Scoring optionnel
+
+Le scoring est autorisé mais jamais obligatoire.
+
+S'il existe :
+
+- ses critères doivent être compréhensibles ;
+- les notes sont des jugements éditoriaux, sauf mesure réellement observée ;
+- éviter la fausse précision ;
+- le texte doit rester utile même sans le score.
+
+L'absence de scoring n'est jamais un blocker.
+
+---
+
+# 5. Contrôle custom — cluster et industrialisation
+
+Comparer la page aux comparatifs voisins.
+
+Chercher notamment :
+
+- même fonction de H2 dans le même ordre ;
+- même intro avec substitution de requête ;
+- mêmes fiches produit symétriques ;
+- mêmes produits et mêmes arguments sous plusieurs intentions ;
+- même verdict simplement repondéré ;
+- transitions ou conclusions recyclées ;
+- différence éditoriale trop faible entre `meilleur`, `étudiant`, `professionnel`, `tablette E Ink`, etc.
+
+Les composants visuels partagés sont normaux. Le problème apparaît lorsque **la pensée éditoriale** est clonée.
+
+Une similarité substantielle peut déclencher `DEEP_REWRITE` même si les facts sont corrects.
+
+---
+
+# 6. Décision
 
 ## `KEEP`
-Page distincte, actuelle, utile et convaincante, avec run-evidence valide si elle prétend être prête.
+Page distincte, actuelle, utile et convaincante. Aucun changement substantiel.
 
 ## `LIGHT_UPDATE`
-Corrections locales : faits, sources, sélection secondaire, formulation, maillage ou quelques arbitrages. Ne pas gonfler artificiellement la page.
+Corrections locales : faits, sources, sélection secondaire, formulation, title/meta, maillage ou quelques arbitrages. La logique fondamentale reste bonne.
 
 ## `DEEP_REWRITE`
-Problème structurel : rôle/intention mal cadré, sélection inadéquate, recommandation non justifiable, faible valeur affiliée, architecture industrialisée, profondeur insuffisante, obsolescence substantielle ou preuves trop faibles.
+Réserver ce statut aux cas où il faut réellement reconstruire :
+
+- intention ou rôle mal cadré ;
+- sélection manifestement inadéquate ;
+- recommandation impossible à justifier ;
+- valeur affiliée faible ;
+- architecture fortement industrialisée ;
+- contenu substantiellement obsolète ;
+- preuves trop faibles pour les principaux jugements publiés.
+
+**Ne pas** classer automatiquement `DEEP_REWRITE` parce qu'une note éditoriale n'a pas de test indépendant ou parce qu'un registre méthodologique sophistiqué est absent.
 
 ## `MERGE`
-Une autre URL sert essentiellement la même décision.
+Une autre URL sert essentiellement la même décision et la différenciation ne justifie pas deux pages.
 
 ## `NOINDEX`
-Valeur ou justification insuffisante. Aucune suppression/redirection automatique.
+La page n'a pas encore assez de valeur ou de justification pour être indexée. Aucune suppression/redirection automatique.
 
-Pour chaque décision fournir : confiance, valeur à préserver, blockers, améliorations secondaires, données manquantes et prochaine étape.
+Pour chaque décision fournir :
+
+- confiance ;
+- valeur existante à préserver ;
+- problèmes réellement bloquants ;
+- améliorations secondaires ;
+- données manquantes importantes ;
+- prochaine étape.
+
+Un `DEEP_REWRITE` passe au `comparison-content-workflow`.
 
 ---
 
 # 7. PUBLISH_REVIEW
 
-1. exécuter `python3 _validate_comparatifs.py` ;
-2. exécuter `python3 validate_comparison_run_evidence.py --slug <slug> --require-run` ;
-3. rejouer les skills pertinents ;
-4. comparer la fonction des sections aux pages sœurs ;
-5. vérifier verdict, preuves, limites et faux hands-on ;
+Après rédaction :
+
+1. exécuter `python3 validate_comparisons.py` ;
+2. rejouer les skills pertinents ci-dessus sur la version finale ;
+3. comparer la structure aux pages sœurs ;
+4. vérifier que le verdict est cohérent avec les preuves et les limites ;
+5. vérifier qu'aucun faux hands-on ou contenu marchand faible n'a été introduit ;
 6. vérifier title/H1/canonical/robots/schema ;
-7. vérifier utilité sans affiliation ;
-8. vérifier gates métier ;
-9. enregistrer le résultat dans le run-evidence.
+7. vérifier que la page reste utile sans liens affiliés.
 
-PASS : `PASS — READY_FOR_HUMAN_VALIDATION`
+### PASS
 
-FAIL : `FAIL — KEEP_NOINDEX`
+`PASS — READY_FOR_HUMAN_VALIDATION`
 
-`enforce_comparison_review_state.py` est ensuite la seule couche autorisée à refléter ce PASS dans le ledger.
+### FAIL
+
+`FAIL — KEEP_NOINDEX`
+
+Lister précisément le ou les gates en échec et router vers le skill concerné. Un FAIL ne déclenche pas automatiquement une réécriture totale.
 
 ---
 
 # 8. Indexation
 
-Conserver `noindex, follow` par défaut. Indexation uniquement après validateur machine sans blocker, run-evidence v2 valide, PUBLISH_REVIEW PASS, validation humaine explicite et instruction explicite d'indexer.
+Conserver `noindex,follow` par défaut.
+
+Indexation uniquement après :
+
+1. validateur machine sans blocker ;
+2. PUBLISH_REVIEW PASS ;
+3. validation humaine explicite ;
+4. instruction explicite de rendre la page indexable.
 
 ---
 
-# 9. Gouvernance finale
+# 9. Répartition 80/20
 
-La méthode vient majoritairement des skills partagés/vendored. Le custom de ce workflow se limite aux contrôles propres aux aspirateurs de chantier et à la décision de cluster. Aucun nouveau skill custom ne doit être ajouté pour compenser un mauvais output d'un skill partagé : il faut mieux exécuter le skill partagé concerné.
+La méthode doit venir majoritairement des skills GitHub existants :
+
+- Rampstack : `seo-content-audit`, `seo-keyword`, `evidence-based-reviews`, `seo-onpage` ;
+- Wondel.ai : `jobs-to-be-done` ;
+- stack externe éditoriale : `anti-ai-slop`, puis `editorial-qa`/skills de contrôle existants.
+
+La couche custom de ce workflow se limite à :
+
+1. orchestration ;
+2. sanity check de la comparaison ;
+3. similarité structurelle/cannibalisation spécifique au cluster ;
+4. mapping vers les cinq décisions du site.
+
+Ne jamais transformer ce workflow en deuxième copie des skills qu'il orchestre.

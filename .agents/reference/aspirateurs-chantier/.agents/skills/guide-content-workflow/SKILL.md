@@ -1,162 +1,317 @@
 ---
 name: guide-content-workflow
-description: Workflow unique de production et correction des guides SEO/GEO sous /guides/ d'aspirateurs-chantier.fr. Adapté de MarcW88/bloc-notes-numerique. Utiliser après guide-analysis-workflow lorsqu'une page existante nécessite LIGHT_UPDATE ou DEEP_REWRITE, ou pour créer un nouveau guide. Orchestre majoritairement des skills existants pour intention, recherche, preuves, brief, rédaction et QA.
+description: Workflow unique de production et correction des guides SEO/GEO sous /guides/ de bloc-notes-numeriques.fr. Utiliser après guide-analysis-workflow lorsqu'une page existante nécessite LIGHT_UPDATE ou DEEP_REWRITE, ou pour créer un nouveau guide. Orchestre majoritairement des skills GitHub existants pour intention, recherche, preuves, brief, rédaction et QA.
 metadata:
-  source_repo: MarcW88/bloc-notes-numerique
-  source_skill: .agents/skills/guide-content-workflow/SKILL.md
-  source_sha: 7562fb6c569ef18d4ec0bccecd6584d559f90291
-  adapted_for: aspirateurs-chantier.fr
-  orchestration_target: ">=80% existing skills"
-  custom_scope: "guide routing + vacuum-domain integrity + category boundaries + source-of-truth integration"
+  adapted_for: bloc-notes-numeriques.fr
+  orchestration_target: ">=80% existing GitHub skills"
+  custom_scope: "guide routing + category boundaries + source-of-truth integration"
 ---
 
-# Guide Content Workflow — aspirateurs-chantier.fr
+# Guide Content Workflow
 
 ## Rôle
 
-C'est le seul workflow de production/correction pour `/guides/`.
+C'est le **seul workflow de production/correction** à utiliser pour les URLs sous `/guides/`.
 
-Séquence :
+Pour une page existante, la séquence normale est :
 
-`guide-analysis-workflow / AUDIT` → décision → production si nécessaire → `guide-analysis-workflow / PUBLISH_REVIEW`.
+`guide-analysis-workflow / AUDIT` → décision → correction si nécessaire → `guide-analysis-workflow / PUBLISH_REVIEW`.
 
-- `KEEP` : ne pas réécrire ;
-- `LIGHT_UPDATE` : ne corriger que le scope audité ;
-- `DEEP_REWRITE` : reconstruire la page en préservant les éléments valides ;
-- `MERGE` / `NOINDEX` : aucune nouvelle version ou redirection sans décision humaine.
+Décisions consommées :
 
-Le workflow ne retire jamais `noindex, follow`.
+- `KEEP` → ne pas réécrire ;
+- `LIGHT_UPDATE` → corriger uniquement le scope identifié ;
+- `DEEP_REWRITE` → reconstruire la page tout en préservant les éléments valides ;
+- `MERGE` / `NOINDEX` → ne pas produire une nouvelle version sans décision humaine sur le rôle de l'URL.
 
-## Entrées
+Pour une **nouvelle URL**, effectuer directement intention, recherche, preuves et brief avant la rédaction.
 
-Lire :
+Le workflow ne retire jamais `noindex,follow` de lui-même.
 
-- `guide-workflow.config.yaml` ;
+---
+
+# 1. Entrées
+
+Lire avant toute production :
+
+- `AGENTS.md` et `DESIGN.md` si le rendu est concerné ;
 - `.agents/skills/guide-analysis-workflow/SKILL.md` ;
-- `.agents/skills/guide-skill-stack.json` ;
-- le cluster audit et la page cible ;
-- `.content/guides/<slug>.json` si présent ;
-- `.content/guides/v2/<slug>.html` et `render-map.json` pour un guide déjà migré ;
-- les guides voisins et pages `/usages/`, `/comparatifs/`, `/marques/` proches ;
+- l'audit de la page lorsqu'elle existe ;
+- la page cible et sa source de vérité dans le générateur ;
+- `.content/briefs/<slug>.md` et `.content/reviews/<slug>.md` lorsqu'ils existent ;
+- les guides voisins ;
+- les pages usages, comparatifs et marques qui répondent à des sous-questions proches ;
 - les données sémantiques, GSC ou autres signaux disponibles ;
 - les sources nécessaires aux faits actuels.
 
-`_generate_guides.py` reste la baseline historique du shell/contenu Guide. Pour les pages travaillées avec le workflow v2, **la source éditoriale finale est le fragment authored sous `.content/guides/v2/`**, matérialisé par `_materialize_guides_v2.py`. `_guide_quality_supplements.py` est déprécié et ne doit plus être exécuté : aucun seuil de longueur ne peut décider qu'une section est nécessaire.
+Ne pas utiliser la mémoire du modèle pour combler un manque factuel.
 
-## Router sans créer de template
+Pour une page existante, préserver explicitement la valeur identifiée par `guide-analysis-workflow / AUDIT`.
 
-Le type dominant sert uniquement à sélectionner les risques à vérifier :
+---
 
-- `CHOICE` : arbitrer entre options/contraintes ;
-- `EXPLAINER` : expliquer une mesure, classe, technologie ou mécanisme ;
-- `HOW_TO` : permettre une tâche vérifiable ;
-- `HYBRID` : uniquement lorsque plusieurs fonctions sont réellement nécessaires.
+# 2. Router le travail sans créer un template
 
-Les références `choice-guide`, `explainer-guide` et `how-to-guide` sont des questions de contrôle, jamais des plans obligatoires. Aucun quota de mots, H2, tableaux, FAQ, liens ou sources.
+Identifier le travail dominant uniquement pour choisir les risques à vérifier :
 
-## Chaîne partagée obligatoire
+- `CHOICE` — aider à arbitrer entre options, contraintes ou approches ;
+- `EXPLAINER` — expliquer une technologie, une mesure, un format ou un mécanisme ;
+- `HOW_TO` — permettre une tâche, un transfert, une intégration ou une procédure.
 
-### 1. Intention, cluster et rôle
+Un guide peut être hybride.
 
-Utiliser `seo-keyword`, `search-intent`, `seo-content-audit` et `content-refresh` selon la décision. Confirmer requête/topic, tâche du lecteur, périmètre, exclusions, prochaine étape et chevauchements internes.
+Lire si utile :
 
-Gate de frontière :
+- `references/choice-guide.md` ;
+- `references/explainer-guide.md` ;
+- `references/how-to-guide.md`.
 
-- `/guides/` = critère, risque, technologie, arbitrage ou procédure autonome ;
-- `/usages/` = job complet et contraintes de travail ;
-- `/comparatifs/` = choix entre modèles/familles ;
-- `/marques/` = gamme ou écosystème.
+Ces références sont des **questions de contrôle**, pas des architectures à reproduire. Elles ne doivent jamais imposer l'ordre ou le nombre de sections, un tableau, une FAQ, une checklist ou un nombre d'étapes.
 
-### 2. Recherche et preuve
+---
 
-Utiliser `fact-check` sur les claims vérifiables. Adapter la profondeur à la stabilité du fait : norme/réglementation/compatibilité/gamme actuelle → vérification actuelle ; mécanisme stable → source technique solide ; jugement expérientiel → `evidence-based-reviews` uniquement si nécessaire.
+# 3. Chaîne de production fondée sur les skills réutilisés
 
-Conserver claim, source, date, portée et incertitude. Une inconnue reste `UNKNOWN` ou est exclue.
+La majorité de la méthode doit provenir des skills existants. Le présent fichier orchestre ; il ne duplique pas leurs méthodologies.
 
-### 3. Intégrité métier aspirateurs
+## Étape 1 — intention, cluster et rôle
 
-Avant le brief :
+Utiliser :
 
-- L/M/H ne se déduisent jamais de HEPA, puissance, débit, dépression ou décolmatage ;
-- filtre H13/H14 ≠ aspirateur classe H ;
-- débit, dépression et puissance électrique sont trois métriques distinctes ;
-- une comparaison cross-brand exige un contexte de mesure suffisamment homogène ;
-- distinguer capacités brute/nette/eau ;
-- distinguer nettoyage manuel, semi-auto et automatique ;
-- distinguer prise asservie, télécommande, Bluetooth et Wireless Tool Control ;
-- vérifier compatibilités outil/flexible/batterie/sac/filtre lorsqu'elles changent la décision ;
-- traiter amiante, silice et poussières réglementées avec prudence et renvoi aux prescriptions applicables.
+- `seo-keyword` lorsque recherche, clustering ou validation du topic est nécessaire ;
+- `search-intent` pour la tâche exacte, les sous-questions et le résultat attendu ;
+- `seo-content-audit` et `content-refresh` pour une page existante lorsque l'audit l'a demandé.
 
-### 4. Valeur et brief
+Confirmer :
 
-Utiliser `affiliate-value` lorsque le guide influence l'achat. La page doit rester utile sans lien affilié.
+- requête/topic principal ;
+- intention ;
+- tâche ou décision du lecteur ;
+- périmètre ;
+- prochaine étape logique ;
+- chevauchements internes.
 
-Utiliser `content-brief-authoring` avec : tâche, angle, valeur propre, preuves, unknowns, valeur à préserver, maillage et structure issue de la recherche. Chaque grande section doit être justifiée par une question, étape, distinction, preuve, arbitrage ou limite.
+### Gate de frontière
 
-### 5. Rédaction
+Un guide ne doit pas devenir :
 
-Utiliser `content-and-copy`. Répondre tôt, écrire en français naturel et précis, distinguer faits/interprétations/inconnues, ne jamais inventer de test ou de mesure, et préserver en `LIGHT_UPDATE` ce que l'audit a jugé valide.
+- une page Usage qui traite un job complet et ses circonstances ;
+- un comparatif qui sélectionne ou classe des produits ;
+- une page Marque centrée sur un écosystème ou une gamme.
 
-Pour une page v2 :
+Si le rôle apparaît incorrect malgré l'audit, arrêter et renvoyer vers `guide-analysis-workflow` plutôt que forcer un texte dans le slug.
 
-- corps authored : `.content/guides/v2/<slug>.html` ;
-- title/meta/H1/lead/answer/TOC : `.content/guides/v2/render-map.json` ;
-- preuve d'exécution : `.content/guides/<slug>.json` ;
-- rendu : `_materialize_guides_v2.py`.
+## Étape 2 — recherche et registre de preuves
 
-Le renderer ne peut jamais rédiger la méthode, fabriquer les preuves ou attribuer un PASS.
+Utiliser `fact-check` pour les claims vérifiables.
 
-## Contrôles post-rédaction
+Adapter la recherche à la stabilité du sujet :
 
-Exécuter séparément :
+- mécanisme stable → exactitude et source solide ;
+- logiciel, cloud, abonnement, compatibilité, prix, génération produit ou procédure → vérification actuelle ;
+- claim expérientiel produit important → `evidence-based-reviews` si nécessaire.
 
-1. `fact-check` final ;
-2. `internal-linking-audit` ;
-3. `humanizer` ;
-4. `general-writing` ;
-5. `anti-ai-slop` ;
-6. `seo-drift` seulement avec baseline utile ;
-7. `seo-onpage` ;
-8. `seo-technical` ;
-9. `seo-best-practices` lorsque pertinent ;
-10. `editorial-qa` ;
-11. lecture complète dans l'ordre rendu et QA visuelle lorsque disponible.
+Pour les claims importants, conserver :
 
-Aucun PASS ne peut être déduit d'une simple validation machine.
+- affirmation ;
+- source ;
+- date de consultation ;
+- portée/conditions ;
+- stabilité ;
+- niveau d'incertitude.
 
-## Traçabilité
+Une inconnue reste inconnue, qualifiée ou exclue.
 
-Pour chaque guide audité, persister `.content/guides/<slug>.json` avec :
+## Étape 3 — questions propres au type dominant
 
-- slug, URL, type et décision ;
-- reader task ;
-- valeur à préserver ;
-- registre de preuves ;
-- outline evidence-led ;
-- exécution des skills partagés et des deux orchestrateurs ;
-- risques résiduels ;
-- `editorial.publish_review` ;
-- `human_validation: false` tant que Marc n'a pas validé ;
-- `robots: "noindex, follow"` tant que l'indexation n'a pas été explicitement demandée.
+### `CHOICE`
 
-Un `KEEP` peut avoir un record et un PASS sans fragment v2 s'il n'a nécessité aucune réécriture.
+Documenter seulement ce qui change l'arbitrage : critères, compromis, critères éliminatoires, dépendances, coût lorsque pertinent, situations où chaque option cesse d'être adaptée.
 
-## PUBLISH_REVIEW
+Ne pas créer de podium produit. Si la tâche devient « quel modèle acheter ? », passer au workflow Comparatif.
 
-Exécuter :
+### `EXPLAINER`
 
-- `python3 validate_guide_workflow.py` ;
-- `python3 validate_guide_quality.py` ;
-- fact-check, affiliate-value, anti-ai-slop, internal linking, SEO et editorial QA ;
-- comparaison finale au cluster.
+Documenter seulement ce qui permet de comprendre correctement : concept, termes voisins, mécanisme, causalité, conséquence pratique, limites et exceptions.
 
-Verdicts exacts :
+Une définition seule n'est pas une explication.
 
-- `PASS — READY_FOR_HUMAN_VALIDATION`
-- `FAIL — KEEP_NOINDEX`
+### `HOW_TO`
 
-Même avec PASS, aucune indexation automatique.
+Documenter seulement ce qui permet d'exécuter la tâche : contexte, prérequis, méthode vérifiée, variantes de plateforme/version, résultat attendu, vérification, échecs probables et alternatives utiles.
 
-## Interdictions
+Ne jamais inventer une étape parce qu'elle semble probable.
 
-Ne pas réintroduire : quota de mots, minimum de H2/H3, quota de liens/sources, nombre obligatoire d'étapes, tableau/FAQ obligatoire, score artificiel, architecture fixe par type ou duplication des règles déjà couvertes par les skills partagés.
+## Étape 4 — `affiliate-value` lorsque pertinent
+
+Si le guide influence l'achat, utiliser `affiliate-value` avant la rédaction finale.
+
+La page doit rester utile sans lien affilié. Les critères, limites, alternatives et conséquences pratiques doivent exister indépendamment d'un marchand.
+
+## Étape 5 — brief propre à la page
+
+Utiliser `content-brief-authoring` comme skill principal de brief et persister le résultat dans `.content/briefs/<slug>.md`, en conservant les champs utiles de `references/brief-template.md`.
+
+Le brief doit contenir uniquement ce qui change réellement la page :
+
+- intention/tâche ;
+- valeur propre ;
+- périmètre et exclusions ;
+- faits et entités nécessaires ;
+- preuves ;
+- risques ;
+- valeur existante à préserver pour une mise à jour ;
+- liens vers les prochaines questions ;
+- angle/thèse ;
+- structure proposée **issue de cette recherche**.
+
+### Règle centrale
+
+Il n'existe **aucune architecture éditoriale obligatoire par type de guide**.
+
+Le plan final est construit après l'intention et les preuves. Chaque grande section doit être justifiable par une question, une étape nécessaire, une distinction, une preuve, un arbitrage ou une limite.
+
+Deux guides de même type peuvent avoir des structures très différentes.
+
+## Étape 6 — rédaction
+
+Utiliser `content-and-copy` pour produire la prose à partir du brief et du registre de preuves.
+
+Règles :
+
+- répondre suffisamment tôt à la question principale ;
+- employer un français naturel, précis et sobre ;
+- expliquer ce que les faits changent pour le lecteur ;
+- distinguer faits, interprétations et inconnues ;
+- ne jamais inventer test, mesure, expérience personnelle, prix, compatibilité ou procédure ;
+- utiliser tableaux, listes et étapes uniquement lorsqu'ils améliorent la compréhension ;
+- éviter les FAQ répétitives ;
+- ne pas transformer le guide en classement produit ;
+- pour `LIGHT_UPDATE`, ne pas réécrire par réflexe les passages que l'audit a demandé de préserver.
+
+Intégrer le contenu dans la **source de vérité du générateur** (`_generate.py` ou module explicitement chargé), puis régénérer. Ne pas éditer uniquement le HTML généré.
+
+---
+
+# 4. Contrôles post-rédaction
+
+Exécuter les passes pertinentes séparément ; ne pas déclarer plusieurs contrôles effectués après une relecture générique.
+
+## Étape 7 — factualité après rédaction
+
+Relancer `fact-check` sur les claims réellement écrits. Si une modification ultérieure introduit un nouveau fait, repasser ce fait par ce gate.
+
+Utiliser `evidence-based-reviews` seulement pour les jugements expérientiels qui le nécessitent.
+
+## Étape 8 — maillage
+
+Utiliser `internal-linking-audit`.
+
+Un lien existe parce qu'il répond à la prochaine question logique, pas pour atteindre un quota. Vérifier les cibles et les ancres.
+
+## Étape 9 — finition éditoriale
+
+Dans cet ordre logique :
+
+1. `humanizer` sur l'intégralité du contenu visible ;
+2. `general-writing` avec le minimum de changements nécessaires ;
+3. `anti-ai-slop` en mode review/detection ;
+4. `seo-drift` uniquement si un baseline utile existe.
+
+Après ces passes, vérifier qu'aucun fait, prérequis, limite ou nuance n'a été perdu ou inventé.
+
+## Étape 10 — SEO et QA
+
+Utiliser :
+
+1. `seo-onpage` ;
+2. `seo-technical` ;
+3. `seo-best-practices` seulement pour les règles réellement applicables ;
+4. `editorial-qa` ;
+5. lecture complète dans l'ordre rendu, desktop/mobile lorsque le rendu est disponible.
+
+Le contrôle final doit notamment confirmer :
+
+- tâche satisfaite ;
+- architecture propre à la page ;
+- pas de clonage mécanique des références de type ;
+- faits/procédures actuels lorsque nécessaire ;
+- limites importantes préservées ;
+- frontière claire avec usages/comparatifs/marques ;
+- valeur sans affiliation ;
+- aucun faux hands-on.
+
+---
+
+# 5. PUBLISH_REVIEW obligatoire
+
+Une fois la correction/rédaction terminée, **ne pas auto-valider dans ce workflow**.
+
+Passer la main à :
+
+`guide-analysis-workflow / PUBLISH_REVIEW`
+
+Ce mode exécute :
+
+- `python3 validate_guide_quality.py` pour les blockers machine ;
+- les gates substantiels ;
+- la comparaison au cluster.
+
+Résultats possibles :
+
+- `PASS — READY_FOR_HUMAN_VALIDATION` ;
+- `FAIL — KEEP_NOINDEX`.
+
+Un PASS reste suivi d'une validation humaine explicite avant toute instruction d'indexation.
+
+---
+
+# 6. Statuts et traçabilité
+
+Le brief peut conserver :
+
+- `BRIEF_READY` ;
+- `DRAFT_READY` ;
+- `QA_IN_PROGRESS` ;
+- `REVISION_REQUIRED` ;
+- `HUMAN_APPROVED` ;
+- `PUBLISHABLE`.
+
+Ils ne remplacent pas la décision de `guide-analysis-workflow`.
+
+Dans `.content/reviews/<slug>.md`, consigner au minimum les passes réellement effectuées, les blockers, les corrections importantes et les risques résiduels. Ne pas marquer un skill `PASS` sur la seule base du validateur machine.
+
+`PUBLISHABLE` exige : PUBLISH_REVIEW PASS + validation humaine + contrôles techniques. L'indexation reste une instruction séparée.
+
+---
+
+# 7. Handoffs vers les autres workflows
+
+## Vers `usage-content-workflow`
+
+Lorsque la vraie question porte sur un contexte complet : étudiant, professionnel, réunion, dessin, remplacement du papier, lecture + notes, etc.
+
+## Vers `comparison-content-workflow`
+
+Lorsque la réponse nécessite de sélectionner, comparer, scorer, classer ou recommander des produits entre eux.
+
+## Vers `brand-content-workflow`
+
+Lorsque la question porte principalement sur une marque, une gamme, un produit ou un service de marque.
+
+---
+
+# 8. Ce que ce workflow ne doit pas devenir
+
+Ne pas ajouter :
+
+- quota de mots ;
+- nombre minimum de H2/H3 ;
+- quota de liens ou de sources ;
+- nombre obligatoire d'étapes ;
+- tableau ou FAQ obligatoire ;
+- score qualité artificiel ;
+- architecture fixe `CHOICE`, `EXPLAINER` ou `HOW_TO` ;
+- deuxième copie des règles de `fact-check`, SEO, rédaction, humanisation ou QA déjà présentes dans les skills spécialisés.
+
+La couche custom doit rester limitée au routing Guide, aux frontières de catégorie et à l'intégration dans la source de vérité du site.

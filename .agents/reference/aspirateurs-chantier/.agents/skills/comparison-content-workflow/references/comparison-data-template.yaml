@@ -1,35 +1,52 @@
-# Optional support file. Keep only fields actually used by the comparison.
-
 slug: "meilleur-produit"
 url: "/comparatifs/meilleur-produit/"
 updated_at: "YYYY-MM-DD"
 
 intent:
   query: "meilleur produit"
-  type: "BEST_OVERALL" # BEST_OVERALL | USE_CASE | BUDGET | FEATURE_SPECIFIC | HEAD_TO_HEAD
-  decision: ""
-  user_job: "" # optional
+  type: "best_overall"
+  user_job: ""
   primary_constraint: ""
 
-scope:
-  candidates:
-    - id: "product-a"
-      name: "Product A"
-      status: "ELIGIBLE"
-    - id: "product-b"
-      name: "Product B"
-      status: "ELIGIBLE"
-  major_exclusions: []
+product_universe:
+  - id: "product-a"
+    name: "Product A"
+    status: "ELIGIBLE"
+    equivalence: "FUNCTIONALLY_COMPARABLE"
+    exclusion_reason: null
+  - id: "product-b"
+    name: "Product B"
+    status: "ELIGIBLE"
+    equivalence: "FUNCTIONALLY_COMPARABLE"
+    exclusion_reason: null
 
 criteria:
   - id: "criterion-1"
     label: "Criterion 1"
-    rationale: "Why this changes the decision"
+    weight: 30
+    hard_gate: false
+    rationale: ""
   - id: "criterion-2"
     label: "Criterion 2"
-    rationale: "Why this changes the decision"
+    weight: 25
+    hard_gate: false
+    rationale: ""
+  - id: "criterion-3"
+    label: "Criterion 3"
+    weight: 20
+    hard_gate: false
+    rationale: ""
+  - id: "criterion-4"
+    label: "Criterion 4"
+    weight: 15
+    hard_gate: false
+    rationale: ""
+  - id: "criterion-5"
+    label: "Criterion 5"
+    weight: 10
+    hard_gate: false
+    rationale: ""
 
-# Evidence should concentrate on facts and judgments that can change the recommendation.
 evidence:
   - product: "product-a"
     criterion: "criterion-1"
@@ -37,25 +54,21 @@ evidence:
     value: ""
     source: ""
     source_date: ""
-    evidence_class: "VERIFIED" # VERIFIED | SUPPORTED | INFERRED | USER_PATTERN | FIRST_HAND | UNKNOWN
+    evidence_class: "VERIFIED"
 
-recommendation_logic:
-  default_choice: ""
-  choose_alternative_when: []
-  decisive_tradeoffs: []
+scores:
+  product-a:
+    criterion-1:
+      score: 8
+      evidence_class: "VERIFIED"
+      justification: ""
+  product-b:
+    criterion-1:
+      score: 7
+      evidence_class: "VERIFIED"
+      justification: ""
 
-measurement_notes: []
-price_configuration_notes: []
-
-# Optional. Add only if the brief explicitly justifies numeric scoring.
-# weights:
-#   criterion-1: 60
-#   criterion-2: 40
-# scores: {}
-# ranking: []
-
+ranking: []
 notes:
+  total_solution_cost_required: false
   affiliate_commission_used_in_ranking: false
-  desk_research_only: true
-
-status: "DRAFT_NOINDEX"

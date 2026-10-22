@@ -1,12 +1,10 @@
 ---
 name: seo-onpage
-description: "Run a single-page on-page SEO audit or optimization covering title, meta, headings, content quality, internal links, URL hygiene and honest schema. Adapted from Rampstack."
+description: "Run a single-page on-page SEO audit or optimization covering title, meta, headings, content quality, internal links, URL hygiene and honest schema. Adapted from Rampstack's seo-onpage skill."
 category: seo-foundation
 metadata:
   upstream: https://github.com/rampstackco/claude-skills/tree/main/skills/seo-onpage
-  source_repo: MarcW88/bloc-notes-numerique
-  source_sha: 7df9f0c63c5b6433ff808157667e71b56ccd2dd5
-  vendored_for: aspirateurs-chantier.fr
+  vendored_for: bloc-notes-numeriques.fr
 ---
 
 # On-Page SEO
@@ -15,32 +13,51 @@ Use this skill after the page's target query and role are known. Optimize for re
 
 ## Eight dimensions
 
-1. **Title** — unique, aligned with the query and the real promise.
-2. **Meta description** — accurate, useful for CTR, not a keyword list.
-3. **Heading structure** — one H1; H2/H3 represent real reader questions or decision stages. No arbitrary counts.
-4. **Body content** — answer intent early; use specifics, entities and real trade-offs.
-5. **Internal links** — descriptive anchors to logical next questions; no fixed quota.
-6. **Images/media** — useful media with appropriate alt text and stable dimensions.
-7. **URL** — preserve clean existing conventions; do not change a valid URL merely to insert a keyword.
-8. **Schema** — only when it matches visible content and the evidence basis. Do not use Review schema to imply hands-on testing that did not happen.
+### 1. Title
+Unique, aligned with the target query and the page's real promise. Avoid stuffing and unnecessary duplication with H1.
+
+### 2. Meta description
+Unique, useful for CTR, accurate to the page and not a keyword list.
+
+### 3. Heading structure
+One H1. H2/H3 should describe genuine reader questions or decision stages. No arbitrary heading count and no headings created solely for keywords.
+
+### 4. Body content
+Answer the dominant intent early. Cover the decision with the depth the topic requires. Prefer specifics, entities and real trade-offs over generic completeness.
+
+### 5. Internal links
+Use descriptive anchors and link only where the destination answers a logical next question. No fixed link quota.
+
+### 6. Images/media
+Meaningful images need appropriate alt text and stable dimensions. Decorative images do not need descriptive alt text.
+
+### 7. URL
+Respect the site's existing clean URL conventions. Do not change a valid URL merely to insert a keyword.
+
+### 8. Schema
+Use structured data only when it matches visible content and the evidence basis. For comparison/buying-guide content without genuine hands-on review evidence, prefer honest Article/ItemList-style markup over misleading Review markup.
 
 ## Workflow
 
 1. Confirm target query/cluster and page role.
-2. Review the actual page/rendered HTML.
-3. Assess each dimension as `PASS`, `NEEDS_WORK`, or `FAIL`.
-4. Prioritize by user/search impact.
+2. Review the actual page and rendered HTML.
+3. Assess the eight dimensions as `PASS`, `NEEDS_WORK`, or `FAIL`.
+4. Prioritize fixes by user/search impact, not by checklist count.
 5. Draft changes only when requested by the calling workflow.
 
 ## Failure patterns
 
-- optimizing unresolved intent;
+- optimizing a page whose intent is unresolved;
 - keyword-density targets;
-- arbitrary word/title/heading rules as hard quality signals;
-- forcing the same architecture across sibling pages;
+- arbitrary title/meta/word-count rules treated as hard quality signals;
+- forcing the same heading architecture across sibling pages;
 - misleading schema;
-- links added only to satisfy a quota.
+- adding internal links to satisfy a quota.
+
+## Output
+
+Return target query, page role, findings by dimension, critical fixes, important fixes and optional polish.
 
 ## Attribution
 
-Vendored and adapted from `rampstackco/claude-skills/skills/seo-onpage`, MIT licensed.
+Vendored and adapted from `rampstackco/claude-skills/skills/seo-onpage`, MIT licensed. The upstream skill remains the methodological reference.

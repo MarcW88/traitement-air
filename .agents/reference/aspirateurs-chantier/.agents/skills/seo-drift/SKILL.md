@@ -167,7 +167,7 @@ Top-level: `DRIFT-REPORT.md` only. The four delta step files are inlined into na
 |---|---|---|---|---|
 | 2026-04-27 | 42 | 18,500/mo | 1,247 | 89 |
 | 2026-03-15 | 41 | 17,200/mo | 1,213 | 85 |
-| ... |
+| ...
 ```
 
 ## Tips

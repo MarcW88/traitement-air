@@ -1,43 +1,68 @@
 ---
 name: search-intent
-description: Determine primary search intent, page role, user decision, and cannibalization risk before content work.
+description: Bewaak zoekintentie, paginafunctie en on-page SEO bij herstel van Nederlandse content op italiaanse-percolator.nl.
 license: MIT
-metadata:
-  source_repo: MarcW88/bloc-notes-numerique
-  source_sha: c1f347fbbfbad33b7abbde4e6b86e087bc919aff
-  adaptation: domain-neutralized
 ---
 
-# Search Intent
+# Search intent — italiaanse-percolator.nl
 
-Use before outlining or rewriting.
+## Doel
 
-## Determine
-- primary query or topic;
-- intent: informational, commercial investigation, transactional, or navigational;
-- actual user decision or problem;
-- correct page role in the site architecture;
-- next logical question;
-- overlap with neighboring URLs.
+Een goede tekst die de verkeerde intentie bedient, is geen succesvolle herstelpagina.
 
-Use historical query, GSC, SERP, or site data when available. Do not guess a target when evidence exists.
+## Bepaal eerst
 
-## Rules
-- Title, H1 and early answer must support the same primary intent.
-- Headings represent real subquestions or decision criteria, not keyword variants.
-- Keep useful internal links and add only links that help the next step.
-- Do not impose word counts or fixed heading counts.
-- A page type defines function, not a mandatory outline.
+Voor elke URL:
+- primaire query of querygroep;
+- intentie: informationeel, commercieel onderzoek, transactioneel of navigerend;
+- paginatype dat daarbij hoort;
+- belangrijkste vervolgvraag van de gebruiker.
 
-## Cannibalization
-When several URLs appear to serve the same primary intent, identify the likely primary URL, the distinct role required for the others, and whether MERGE is more rational.
+Gebruik GSC/SERP-data wanneer beschikbaar. Raad de targetquery niet wanneer historische data beschikbaar kan zijn.
+
+## Typische site-intenties
+
+### Informationeel
+Voorbeelden: hoe werkt een percolator, percolator schoonmaken, welke koffie voor mokapot.
+
+Antwoord vroeg en praktisch. Productlinks zijn secundair.
+
+### Commercieel onderzoek
+Voorbeelden: beste percolator, Bialetti vs ..., percolator voor inductie.
+
+Geef selectiecriteria, verschillen, beperkingen en aanbevelingen per use case.
+
+### Product / model
+De gebruiker wil weten of een specifiek model bij hem past. Focus op eigenschappen die de aankoopbeslissing veranderen, niet op een lang merkverhaal.
+
+### Categorie / merk
+Help oriënteren binnen het assortiment en leid logisch naar relevante subpagina's.
+
+## On-page regels
+
+- Titel en H1 moeten dezelfde hoofdintentie ondersteunen, niet noodzakelijk exact dezelfde woorden bevatten.
+- Noem het hoofdonderwerp vroeg en natuurlijk.
+- H2's moeten echte beslisvragen of deelonderwerpen vertegenwoordigen.
+- Voeg geen headings toe enkel om keywordvarianten te plaatsen.
+- Gebruik synoniemen alleen wanneer Nederlanders ze echt gebruiken.
+- Behoud sterke interne links; voeg alleen links toe die de volgende logische stap helpen.
+- Meta description is voor CTR, niet voor keyword stuffing.
+- Geen verplichte woordenaantallen.
+
+## Cannibalisatiecheck
+
+Flag wanneer meerdere repo-pagina's dezelfde primaire intentie lijken te bedienen. Geef aan:
+- welke URL waarschijnlijk primair moet zijn;
+- wat de andere URL uniek zou moeten maken;
+- of MERGE waarschijnlijk beter is.
 
 ## Output
-1. Primary intent
-2. Primary topic/query
-3. User decision/problem
-4. Correct page role
-5. Intent gaps
-6. Sections that do not serve intent
-7. Internal-link opportunities
-8. Cannibalization risk
+
+1. **Primary intent**
+2. **Primary query/topic**
+3. **User decision/problem**
+4. **Correct page type**
+5. **Intent gaps**
+6. **Sections that do not serve intent**
+7. **Internal-link opportunities**
+8. **Cannibalization risk**

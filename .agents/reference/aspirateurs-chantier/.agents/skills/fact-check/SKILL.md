@@ -1,38 +1,71 @@
 ---
 name: fact-check
-description: Verify material factual and comparative claims in a separate pass from writing.
+description: Verifieer product- en koffieclaims op italiaanse-percolator.nl in een aparte pass na de inhoudelijke rewrite.
 license: MIT
-metadata:
-  source_repo: MarcW88/bloc-notes-numerique
-  source_sha: 6e0b591fc55cd8075960f7525e3045576bde4d89
-  adaptation: domain-neutralized
 ---
 
-# Fact Check
+# Fact check — italiaanse-percolator.nl
 
-A claim is not reliable because it sounds plausible. Fact-checking is separate from drafting.
+Deze pass staat los van schrijven. Een claim is niet betrouwbaar omdat hij plausibel klinkt.
 
-## Source hierarchy
-1. Manufacturer / official documentation / manual
-2. Official distributor
-3. Reliable retailer for current commercial information
-4. Independent tests or specialist sources
-5. Multiple user sources for experience patterns
+## Claims die altijd gecontroleerd moeten worden
 
-Do not use another affiliate page as the primary specification source when a primary source exists.
+- materiaal (aluminium, RVS, coatings);
+- inhoud/capaciteit en cup-aanduidingen;
+- inductiecompatibiliteit;
+- vaatwasserbestendigheid;
+- warmtebronnen;
+- afmetingen en gewicht;
+- elektrische vermogens;
+- veiligheidsfuncties;
+- meegeleverde onderdelen;
+- modelvarianten;
+- garantie wanneer genoemd;
+- historische merkclaims;
+- vergelijkende claims zoals sneller, duurzamer, lichter of beter;
+- prijzen en beschikbaarheid wanneer als actueel gepresenteerd.
 
-## Process
-1. Extract verifiable claims.
-2. Label each as hard fact, soft fact, comparison, experience or opinion.
-3. Verify every material claim externally or against supplied evidence.
-4. Assign `VERIFIED`, `SUPPORTED`, `INFERRED`, `UNKNOWN`, `OUTDATED` or `CONTRADICTED`.
-5. Correct only from evidence.
-6. Keep uncertainty visible; never fill gaps with model memory.
+## Bronnenhiërarchie
 
-User or expert experience must never become the site's own experience unless a real first-hand test exists.
+1. fabrikant / officiële handleiding;
+2. officiële distributeur;
+3. betrouwbare retailer voor actuele verkoopinformatie;
+4. onafhankelijke tests of vakbronnen;
+5. meerdere gebruikersbronnen voor ervaringspatronen.
+
+Gebruik geen andere affiliatepagina als primaire bron voor een productspecificatie als een officiële bron beschikbaar is.
+
+## Proces
+
+1. Extraheer alle verifieerbare claims.
+2. Label: hard fact / soft fact / vergelijking / ervaring / mening.
+3. Zoek een externe bron voor elke belangrijke claim.
+4. Geef status:
+   - CONFIRMED
+   - PARTIAL
+   - UNVERIFIED
+   - CONTRADICTED
+   - OUTDATED
+5. Corrigeer alleen op basis van bewijs.
+6. Laat onzekerheid zichtbaar; vul gaten niet op met modelkennis.
+
+## Belangrijke grens
+
+Gebruikerservaring mag niet transformeren in eigen ervaring.
+
+"Gebruikers melden dat..." kan gerechtvaardigd zijn na voldoende brononderzoek.
+"Wij merkten dat..." is verboden zonder aantoonbare eigen test.
 
 ## Output
+
+Maak een compact verificatielog:
+
 | Claim | Status | Source | Action |
 |---|---|---|---|
 
-End with overall confidence, required corrections, and claims to remove or qualify.
+Eindig met:
+- **Overall confidence**
+- **Corrections required**
+- **Claims to remove if unverifiable**
+
+Pas daarna mag `natural-writing` draaien.

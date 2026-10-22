@@ -6,40 +6,33 @@ project:
 content:
   scope:
     - "/comparatifs/"
+  source_of_truth: "comparison_content.py"
   content_type: "affiliate-comparison"
   mode: "auto"
 
 quality:
-  draft_robots: "noindex, follow"
-  prohibit_word_count_quotas: true
-  prohibit_heading_count_quotas: true
-  prohibit_internal_link_quotas: true
-  prohibit_comparison_type_templates: true
-  require_cluster_structure_review: true
+  quality_reference: "/comparatifs/reference/"
+  draft_robots: "noindex,follow"
 
 comparison:
-  require_explicit_decision_logic: true
-  require_criteria_before_recommendation: true
-  require_reasonable_candidate_scope: true
-  scoring_optional: true
-  weighting_optional: true
-  hard_gates_optional: true
-  total_solution_cost_only_when_decision_relevant: true
-  exhaustive_product_universe_required: false
-  equivalence_engine_required: false
-  affiliate_commission_must_not_affect_ranking: true
+  score_scale_max: 10
+  require_weights_sum_100: true
+  enable_confidence_adjustment: true
+  require_hard_gates: true
+  require_total_solution_cost_when_relevant: true
 
 evidence:
-  prefer_primary_sources_for_hard_facts: true
-  prohibit_model_memory_gap_filling: true
-  prohibit_fake_hands_on: true
-  editorial_judgment_is_not_a_measurement: true
+  classes:
+    VERIFIED: 1.00
+    SUPPORTED: 0.95
+    INFERRED: 0.85
+    USER_PATTERN: 0.80
+    FIRST_HAND: 1.00
+  prohibit_unknown_for_scored_criteria: true
 
 workflow:
   comparisons_dir: ".content/comparisons"
   briefs_dir: ".content/briefs"
   reviews_dir: ".content/reviews"
-  final_review_mode: "PUBLISH_REVIEW"
   require_human_validation_before_publish: true
   allow_automatic_merge: false
-  allow_automatic_indexation: false
