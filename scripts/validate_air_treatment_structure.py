@@ -17,7 +17,7 @@ def main():
  for path in {ROOT/"index.html",*ROOT.glob("**/index.html")}:
   html=path.read_text(encoding="utf-8",errors="replace")
   if not re.search(r"<title>.+?</title>",html,re.I|re.S): errors.append("missing title "+str(path.relative_to(ROOT)))
-  if len(re.findall(r"<h1\\b",html,re.I))!=1: errors.append("invalid H1 count "+str(path.relative_to(ROOT)))
+  if len(re.findall(r"<h1\b",html,re.I))!=1: errors.append("invalid H1 count "+str(path.relative_to(ROOT)))
  if errors: fail("\n".join(errors))
  print(f"PASS: {len(CLUSTERS)} clusters and {total} child routes validated")
 if __name__=="__main__": main()
