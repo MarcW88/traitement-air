@@ -1,36 +1,36 @@
 ---
 name: usage-content-workflow
-description: Workflow unique de production et correction des pages SEO/GEO sous /usages/ de bloc-notes-numeriques.fr. Utiliser après usage-analysis-workflow lorsqu'une page nécessite LIGHT_UPDATE ou DEEP_REWRITE, ou pour produire une nouvelle page centrée sur un job-to-be-done. Ne pas utiliser pour classer des produits, expliquer principalement une technologie ou rédiger une page de marque.
+description: Workflow unique de production et correction des pages SEO/GEO sous /usages/ d'aspirateurs-chantier.fr. Adapté de MarcW88/bloc-notes-numerique. Utiliser après usage-analysis-workflow lorsqu'une page nécessite LIGHT_UPDATE ou DEEP_REWRITE, ou pour produire une nouvelle page centrée sur un job de chantier. Ne pas utiliser pour classer des produits, expliquer principalement une technologie ou rédiger une page de marque.
 metadata:
-  adapted_for: bloc-notes-numeriques.fr
+  source_repo: MarcW88/bloc-notes-numerique
+  source_skill: .agents/skills/usage-content-workflow/SKILL.md
+  adapted_for: aspirateurs-chantier.fr
   orchestration_target: ">=80% existing skills"
 ---
 
-# Usage Content Workflow
+# Usage Content Workflow — aspirateurs-chantier.fr
 
 ## Rôle
 
 C'est le **seul workflow de production/correction** à utiliser pour les URLs sous `/usages/`.
 
-Il ne décide plus seul si une page existante doit être réécrite. Pour une URL existante, la séquence normale est :
+Pour une URL existante :
 
 `usage-analysis-workflow / AUDIT` → décision → correction si nécessaire → `usage-analysis-workflow / PUBLISH_REVIEW`.
 
 Décisions consommées :
 
 - `KEEP` → ne pas rédiger ;
-- `LIGHT_UPDATE` → corriger uniquement le scope identifié par l'audit ;
-- `DEEP_REWRITE` → reconstruire la page en préservant les éléments valides ;
+- `LIGHT_UPDATE` → corriger uniquement le scope audité ;
+- `DEEP_REWRITE` → reconstruire en préservant les éléments valides ;
 - `MERGE` / `NOINDEX` → ne pas produire une nouvelle version sans décision humaine sur le rôle de l'URL.
-
-Pour une **nouvelle URL**, réaliser directement le cadrage intention + JTBD + recherche avant la rédaction ; il n'existe évidemment pas de contenu historique à auditer.
 
 Principe de séparation :
 
-- `/usages/` = comprendre le besoin, les circonstances, le workflow, les frictions et les critères ;
-- `/comparatifs/` = choisir entre des produits ;
-- `/guides/` = expliquer une technologie, un critère ou une procédure ;
-- `/marques/` = documenter un écosystème, une gamme ou un produit.
+- `/usages/` = circonstances, job, workflow, frictions et critères ;
+- `/comparatifs/` = choix entre modèles ;
+- `/guides/` = technologie, critère, sécurité ou procédure ;
+- `/marques/` = marque, gamme ou écosystème.
 
 Une page usage doit rester utile même si aucun produit précis ni lien affilié n'est cité.
 
@@ -40,39 +40,33 @@ Une page usage doit rester utile même si aucun produit précis ni lien affilié
 
 Lire avant toute production :
 
-- `AGENTS.md` et `DESIGN.md` ;
+- `AGENTS.md` / `DESIGN.md` lorsque pertinent ;
 - `usage-workflow.config.yaml` ;
+- `.agents/skills/usage-skill-stack.json` ;
 - `.agents/skills/usage-analysis-workflow/SKILL.md` ;
-- l'audit de la page lorsqu'elle existe ;
-- la page cible et son fichier `.content/usages/<slug>.json` ;
-- les autres pages `/usages/` pertinentes ;
-- les guides, comparatifs et pages marques susceptibles de répondre à une sous-question ;
-- les données sémantiques, GSC ou autres signaux disponibles ;
-- les sources nécessaires aux faits actuels.
+- l'audit de la page lorsqu'il existe ;
+- la page cible ;
+- `.content/usages/<slug>.json` ;
+- les pages usage proches ;
+- guides/comparatifs/marques voisins ;
+- données sémantiques, GSC, logs ou autres signaux disponibles ;
+- sources nécessaires aux faits actuels.
 
 Créer ou mettre à jour `.content/usages/<slug>.json` **avant la rédaction**.
 
-Ne pas utiliser la mémoire du modèle pour combler un manque factuel.
+Ne jamais utiliser la mémoire du modèle pour combler un manque factuel.
 
 ---
 
-# 2. Chaîne de production fondée sur les skills réutilisés
+# 2. Chaîne de production fondée sur les skills partagés
 
-La majorité de la méthode doit provenir des skills existants. Le présent workflow orchestre ; il ne doit pas recréer leurs méthodes sous forme de règles custom.
+La majorité de la méthode doit provenir des skills existants. Le présent workflow orchestre ; il ne recrée pas leurs méthodes.
 
 ## Étape 1 — intention et rôle
 
-Utiliser `search-intent` pour confirmer :
+Utiliser `search-intent` pour confirmer : requête/topic, intention, situation centrale, résultat attendu, pages internes proches et cannibalisation potentielle.
 
-- requête/topic principal ;
-- intention ;
-- situation ou problème central ;
-- niveau de maturité ;
-- résultat attendu ;
-- pages internes proches ;
-- risque de cannibalisation.
-
-Pour une page existante, respecter le diagnostic de `usage-analysis-workflow / AUDIT` et préserver la valeur déjà identifiée.
+Pour une page existante, respecter `usage-analysis-workflow / AUDIT` et préserver la valeur identifiée.
 
 ### Gate de frontière
 
@@ -80,54 +74,47 @@ Une page usage ne doit pas devenir :
 
 - un classement de produits ;
 - un guide technique autonome ;
-- une page de marque ;
-- un pseudo-persona générique.
+- une page marque ;
+- une simple page mot-clé « aspirateur + X » sans job distinct.
 
-Si la production révèle que le rôle de l'URL est mauvais malgré l'audit, arrêter la rédaction et renvoyer vers `usage-analysis-workflow` plutôt que forcer le contenu dans le slug.
+Si le rôle de l'URL est mauvais, arrêter et renvoyer vers `usage-analysis-workflow`.
 
 ## Étape 2 — `jobs-to-be-done`
 
-Utiliser le skill `jobs-to-be-done` avant toute recommandation de solution.
-
-Documenter uniquement les dimensions utiles au sujet :
+Documenter seulement les dimensions utiles :
 
 - circumstances ;
 - progress/outcome ;
 - functional jobs ;
-- emotional/social jobs lorsqu'ils sont réellement utiles ;
+- emotional/social jobs seulement s'ils apportent une vraie décision ;
 - Push / Pull / Anxiety / Habit ;
 - current hires ;
-- Big Hire / Little Hire.
+- Big Hire / Little Hire si pertinent.
 
-Ne pas remplir mécaniquement toutes les cases.
+Sans interview ou donnée comportementale, les motivations restent `INFERRED` ou `HYPOTHESIS`.
 
-### Gate de preuve JTBD
-
-Sans interview utilisateur ou donnée comportementale :
-
-- les motivations émotionnelles/sociales restent `INFERRED` ou `HYPOTHESIS` ;
-- ne jamais écrire « les étudiants veulent… », « les professionnels préfèrent… » ou équivalent comme un fait universel ;
-- les circonstances et tâches observables doivent primer sur les attributs démographiques.
+Dans cet univers, privilégier les circonstances observables : matériau, outil, fréquence, durée, localisation du captage, quantité de déchets, mobilité, contraintes de sécurité et de vidage.
 
 ## Étape 3 — cartographier le workflow utile
 
-Décomposer le job uniquement autant que nécessaire pour comprendre les frictions qui changent la décision.
+Décomposer uniquement les étapes qui changent le choix :
 
-Des étapes possibles sont : entrée/import, travail principal, organisation/retrouvabilité, sortie/export/partage, continuité dans le temps ou entre appareils.
+- émission de poussière/matière ;
+- captage à la source ou nettoyage après émission ;
+- transfert dans flexible/raccord ;
+- maintien des performances lorsque le filtre se charge ;
+- collecte/ensachage ;
+- vidage et exposition secondaire ;
+- déplacements entre postes ;
+- gestion des liquides lorsque pertinente.
 
-Pour chaque étape réellement pertinente, relier :
-
-- tâche ;
-- friction ;
-- conséquence si elle échoue ;
-- capacité ou caractéristique qui réduit la friction ;
-- niveau de preuve.
+Pour chaque étape réellement utile, relier : tâche → friction → conséquence → capacité qui réduit la friction → niveau de preuve.
 
 Aucun nombre d'étapes n'est obligatoire.
 
 ## Étape 4 — transformer les frictions en critères
 
-Hiérarchiser les critères seulement lorsque cette hiérarchie apporte une décision plus claire :
+Hiérarchiser seulement lorsque cela clarifie la décision :
 
 - `MUST_HAVE` ;
 - `HIGH` ;
@@ -135,127 +122,118 @@ Hiérarchiser les critères seulement lorsque cette hiérarchie apporte une déc
 - `LOW` ;
 - `CONTRAINDICATION`.
 
-Chaque critère doit pouvoir répondre à :
+Chaque critère doit répondre à :
 
 > Qu'est-ce que ce critère change dans ce job précis ?
 
-Ne pas attribuer de scores produit ici. Les critères proviennent du workflow réel, pas du catalogue de fonctionnalités disponibles.
+Exemples possibles, jamais automatiques : classe de poussière, décolmatage, antistatique, diamètre/longueur de flexible, prise asservie, collecte par sac, volume utile, vidange, mobilité, plateforme batterie, captage continu, compatibilité avec l'outil.
+
+Ne pas attribuer de score produit ici.
 
 ## Étape 5 — recherche et preuves
 
 Utiliser `fact-check` pour les claims vérifiables.
 
-Lorsque la page contient un jugement expérientiel important sur un appareil, utiliser également `evidence-based-reviews` avec un niveau de preuve proportionné au claim. Ne pas l'appeler mécaniquement pour chaque spec.
+Utiliser `evidence-based-reviews` uniquement lorsqu'une conclusion sur le comportement réel dépasse la fiche technique.
 
-Conserver dans le record usage, pour les claims importants :
+Pour les claims importants, conserver : claim, source, date, stabilité, evidence class.
 
-- claim ;
-- source ;
-- date ;
-- stabilité ;
-- evidence class.
+Classes : `OBSERVED`, `SUPPORTED`, `INFERRED`, `HYPOTHESIS`, `UNKNOWN`.
 
-Classes usage : `OBSERVED`, `SUPPORTED`, `INFERRED`, `HYPOTHESIS`, `UNKNOWN`.
+Règles métier incontournables :
 
-Pour les capacités produit ou logiciel susceptibles d'évoluer, privilégier des sources primaires et dater la vérification.
+- classe L/M/H explicitement sourcée ;
+- ne pas inférer une classe depuis HEPA, puissance, débit ou décolmatage ;
+- filtre et certification machine distincts ;
+- ACD distinct d'ATEX/Zone 22 ;
+- débit/dépression cross-brand seulement si contexte de mesure comparable ;
+- compatibilités outil/flexible/batterie/consommables vérifiées lorsqu'elles changent la décision ;
+- aucun faux hands-on.
 
 ## Étape 6 — familles et alternatives de solutions
 
-Déterminer les familles de solutions **après** le JTBD et les critères.
+Déterminer les familles **après** le JTBD et les critères.
 
-Une famille peut être, lorsque le sujet le justifie : appareil minimaliste, plateforme ouverte, grand écran PDF, couleur, liseuse avec stylet, tablette LCD, papier ou workflow hybride.
+Selon le job, les alternatives peuvent inclure :
+
+- aspirateur de chantier généraliste ;
+- extracteur classe M/H ;
+- extracteur compact lié à un outil ;
+- aspirateur sans fil ;
+- système eau/poussière ;
+- collecteur/aspirateur à copeaux dédié ;
+- captage fixe d'atelier ;
+- solution industrielle continue ;
+- méthode de travail qui réduit l'émission à la source.
 
 Ne jamais imposer les mêmes familles à toutes les pages.
 
-Pour chaque famille réellement utile, expliquer :
+Pour chaque famille utile : quand elle convient, friction résolue, compromis principal, contre-indication.
 
-- quand elle convient ;
-- quelle friction elle résout ;
-- son compromis principal ;
-- dans quelles circonstances elle devient un mauvais choix.
-
-Si le lecteur a désormais besoin de savoir **quel produit acheter**, créer un handoff vers `comparison-content-workflow` plutôt que construire un podium ici.
+Si la question devient « quel modèle acheter ? », faire le handoff vers `comparison-content-workflow`.
 
 ## Étape 7 — `affiliate-value`
 
 Si la page influence l'achat, utiliser `affiliate-value` avant la rédaction finale.
 
-La page doit apporter de la valeur même sans liens affiliés : compromis, limites, alternatives, critères, contre-indications et parcours de décision.
+La valeur indépendante des liens affiliés doit inclure au minimum des arbitrages, limites, alternatives, critères ou contre-indications réellement utiles.
 
 ## Étape 8 — brief et architecture bespoke
 
-Utiliser `content-brief-authoring` pour transformer :
+Utiliser `content-brief-authoring` pour transformer intention, JTBD, frictions, critères, preuves, valeur existante et handoffs en **plan propre à la page**.
 
-- intention ;
-- JTBD ;
-- frictions ;
-- critères ;
-- preuves ;
-- valeur existante à préserver ;
-- handoffs vers guides/comparatifs ;
+Il n'existe aucune architecture obligatoire pour les pages usages.
 
-en un **plan propre à cette page**.
+Ne pas imposer mécaniquement : situation → workflow → critères → produits → limites → conclusion.
 
-### Règle centrale
+Deux pages peuvent partager un shell visuel, mais les sections et leur ordre doivent découler du job.
 
-Il n'existe **aucune architecture éditoriale obligatoire par type d'usage**.
-
-Ne pas partir d'un plan fixe du genre : situation → workflow → critères → familles → contre-indications → conclusion si ce plan n'est pas celui que le research justifie.
-
-Deux pages usage peuvent partager des composants visuels, mais leurs sections, leur ordre, leur nombre de H2/H3, leur usage des tableaux et leur conclusion doivent découler de la décision propre au job.
-
-Le brief doit justifier les grandes sections par :
-
-- une question utilisateur ;
-- une friction ;
-- une preuve ;
-- un arbitrage ;
-- ou une prochaine étape nécessaire.
+Chaque grande section doit être justifiée par au moins une question utilisateur, une friction, une preuve, un arbitrage ou une prochaine étape.
 
 ## Étape 9 — rédaction
 
-Utiliser `content-and-copy` pour produire la page à partir du brief et du registre de preuves.
+Utiliser `content-and-copy` à partir du brief et des preuves.
 
 Règles :
 
-- répondre au job principal rapidement ;
-- employer un français naturel, précis et sobre ;
-- expliquer les compromis plutôt que promettre une solution idéale ;
+- répondre rapidement au problème principal ;
+- français naturel, précis et sobre ;
+- expliquer les compromis ;
 - distinguer faits, déductions et hypothèses ;
-- rendre les contre-indications aussi honnêtes que les bénéfices ;
-- ne jamais inventer test, expérience personnelle, autonomie mesurée, prix ou avis utilisateur ;
+- traiter les contre-indications sérieusement ;
+- ne jamais inventer test, expérience personnelle, autonomie, débit mesuré, prix ou avis utilisateur ;
 - ne pas transformer la page en comparatif produit ;
-- conserver l'état robots de brouillon défini par la politique du site ;
-- intégrer le contenu dans la vraie source de vérité (`usage_content.py` ou module explicitement relié à la génération), pas seulement dans le HTML généré.
+- conserver `noindex, follow` pendant la récupération ;
+- intégrer le contenu dans la vraie source de vérité du repo, pas uniquement dans un HTML généré.
 
-Pour `LIGHT_UPDATE`, ne pas réécrire par réflexe les passages que l'audit a demandé de préserver.
+Pour `LIGHT_UPDATE`, préserver les passages explicitement validés par l'audit.
 
 ## Étape 10 — contrôles post-rédaction
 
-Exécuter dans cet ordre logique, sans refaire inutilement les étapes déjà validées :
+Ordre recommandé :
 
-1. `fact-check` post-draft sur les claims réellement écrits ;
+1. `fact-check` post-draft ;
 2. `internal-linking-audit` ;
 3. `humanizer` ;
 4. `general-writing` ;
 5. `anti-ai-slop` ;
-6. `seo-drift` seulement si un baseline utile existe ;
+6. `seo-drift` si baseline utile ;
 7. `seo-technical` ;
-8. `seo-best-practices` / `seo-onpage` selon les éléments réellement applicables ;
+8. `seo-best-practices` / `seo-onpage` selon applicabilité ;
 9. `editorial-qa` ;
 10. lecture complète dans l'ordre rendu.
 
-Après `humanizer` et `general-writing`, ne jamais accepter une modification qui introduit un nouveau fait sans le repasser par `fact-check`.
+Tout fait nouveau introduit après humanisation doit repasser par `fact-check`.
 
-Le contrôle final doit notamment confirmer :
+Le contrôle final confirme :
 
-- que le job n'a pas été remplacé par une liste de specs ;
-- que les circonstances ou frictions nécessaires sont encore visibles ;
-- que les critères restent reliés au job ;
-- que les contre-indications n'ont pas disparu ;
-- que les hypothèses ne sont pas devenues des certitudes ;
-- que la page ne s'est pas transformée en comparatif ;
-- que la structure ne copie pas mécaniquement les pages sœurs.
+- job toujours visible ;
+- critères reliés aux frictions ;
+- hypothèses non transformées en certitudes ;
+- page non transformée en comparatif ;
+- claims de sécurité correctement bornés ;
+- structure non clonée mécaniquement ;
+- valeur maintenue sans affiliation.
 
 ---
 
@@ -263,80 +241,55 @@ Le contrôle final doit notamment confirmer :
 
 ## Vers `guide-content-workflow`
 
-Utiliser lorsqu'une sous-question mérite une explication autonome : fonctionnement E Ink, OCR, export, synchronisation, taille d'écran, prix, latence, annotation PDF procédurale, etc.
+Sous-question technique/procédurale autonome : classes L/M/H, décolmatage, entretien filtre, eau/poussière, débit/dépression, sac/sans sac, sécurité, etc.
 
 ## Vers `comparison-content-workflow`
 
-Utiliser dès qu'il faut réellement :
+Dès qu'il faut sélectionner des candidats, comparer des modèles, scorer, pondérer, classer ou désigner un choix.
 
-- sélectionner des candidats produits ;
-- comparer plusieurs modèles ;
-- scorer ou pondérer ;
-- classer ;
-- désigner un choix ou un meilleur modèle.
-
-Le record usage peut transmettre les contraintes/critères au comparatif mais ne doit pas stocker un ranking produit comme source de vérité.
+Le record usage transmet les contraintes au comparatif mais ne stocke pas un ranking produit comme source de vérité.
 
 ## Vers `brand-content-workflow`
 
-Utiliser lorsque la question porte principalement sur une marque, une gamme, un produit ou un service de marque.
+Quand la question porte principalement sur une marque, une gamme ou un écosystème.
 
 ---
 
-# 4. PUBLISH_REVIEW obligatoire
+# 4. `PUBLISH_REVIEW` obligatoire
 
-Une fois la correction/rédaction terminée, **ne pas auto-valider la page dans ce workflow**.
+Une fois la rédaction terminée, ne pas auto-valider la page ici.
 
-Passer la main à :
+Passer à :
 
 `usage-analysis-workflow / PUBLISH_REVIEW`
 
-Ce mode réexécute le validateur machine et les gates substantiels, puis retourne :
+Sorties :
 
 - `PASS — READY_FOR_HUMAN_VALIDATION` ;
-- ou `FAIL — KEEP_NOINDEX`.
+- `FAIL — KEEP_NOINDEX`.
 
-Un PASS reste suivi d'une validation humaine explicite avant toute instruction d'indexation.
+Un PASS reste suivi d'une validation humaine explicite. L'indexation est une instruction séparée.
 
 ---
 
 # 5. Échecs de production
 
-Arrêter ou renvoyer vers l'analyse si :
+Arrêter et renvoyer vers l'analyse si :
 
-- le job se réduit à « trouver le meilleur produit pour X » ;
-- la page repose surtout sur une catégorie démographique ;
-- des motivations hypothétiques sont traitées comme des faits ;
-- les critères viennent des produits plutôt que des frictions ;
-- aucune alternative hors E Ink n'est considérée alors qu'elle est plausible ;
+- le job se réduit à « meilleur aspirateur pour X » ;
+- les critères viennent surtout des fiches produits ;
 - un ranking produit apparaît ;
-- les contre-indications disparaissent sans justification ;
-- la page devient substantiellement identique à un guide ou comparatif proche ;
-- des claims instables sont non sourcés ;
-- l'architecture a été copiée d'une autre page sans justification ;
+- le rôle devient identique à un guide/comparatif ;
+- une classe de poussière est inférée ;
+- un claim ACD/ATEX est simplifié ;
+- les contre-indications disparaissent ;
+- des claims instables restent non sourcés ;
+- l'architecture copie une page sœur sans justification ;
 - un faux hands-on est introduit.
 
 ---
 
-# 6. Statuts du record usage
-
-Les statuts de production internes peuvent rester :
-
-- `JTBD_READY` ;
-- `EVIDENCE_READY` ;
-- `DRAFT_READY` ;
-- `QA_IN_PROGRESS` ;
-- `REVISION_REQUIRED` ;
-- `HUMAN_APPROVED` ;
-- `PUBLISHABLE`.
-
-Ils ne remplacent pas la décision de `usage-analysis-workflow`.
-
-`PUBLISHABLE` exige : PUBLISH_REVIEW PASS + validation humaine + contrôles techniques. L'indexation reste une instruction explicite séparée.
-
----
-
-# 7. Ce que ce workflow ne doit pas devenir
+# 6. Ce que ce workflow ne doit pas devenir
 
 Ne pas ajouter :
 
@@ -344,9 +297,9 @@ Ne pas ajouter :
 - nombre minimum de H2/H3 ;
 - quota de liens ;
 - score qualité artificiel ;
-- architecture fixe "par usage" ;
+- template unique par usage ;
 - matrice JTBD remplie mécaniquement ;
 - ranking produit ;
-- deuxième copie des méthodes déjà présentes dans les skills spécialisés.
+- deuxième copie des méthodes déjà présentes dans les skills partagés.
 
-La couche custom reste limitée à l'orchestration et aux frontières propres à `/usages/`.
+La couche custom reste limitée à l'orchestration et aux contraintes propres à l'usage d'un aspirateur de chantier.
