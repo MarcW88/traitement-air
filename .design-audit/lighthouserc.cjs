@@ -12,6 +12,11 @@ const routes = scope === 'all'
     ? allRoutes.filter((route) => route === '/')
     : allRoutes.filter((route) => route.startsWith(`/${scope}/`));
 
+if (routes.length === 0 && scope !== 'all' && scope !== 'home') {
+  const localIndex = `${scope}/index.html`;
+  if (fs.existsSync(localIndex)) routes.push(`/${scope}/`);
+}
+
 module.exports = {
   ci: {
     collect: {
