@@ -4,7 +4,9 @@ description: "Audit existing content to decide what to keep, update, merge, redi
 category: seo-foundation
 metadata:
   upstream: https://github.com/rampstackco/claude-skills/tree/main/skills/seo-content-audit
-  vendored_for: bloc-notes-numeriques.fr
+  source_repo: MarcW88/bloc-notes-numerique
+  source_sha: 5528c4bef76f9f52f1c3c00e17aaa31f806d2d36
+  vendored_for: aspirateurs-chantier.fr
 ---
 
 # SEO Content Audit
@@ -21,36 +23,23 @@ Every audited page maps first to one of these upstream actions:
 - `REDIRECT` — page has no future as a standalone URL but equity/intent should move elsewhere.
 - `DELETE` — no meaningful demand, value or assets worth preserving.
 
-For bloc-notes-numeriques.fr, destructive actions are recommendations only unless the user explicitly asks to implement them.
+For aspirateurs-chantier.fr, destructive actions are recommendations only unless the user explicitly asks to implement them.
 
 ## Evidence to consider
 
-When available, use:
-
-- Search Console queries, clicks, impressions, CTR and positions;
-- analytics/conversions;
-- backlinks/referring domains;
-- crawl/internal-link context;
-- last meaningful update;
-- current SERP and competing pages;
-- overlap with other URLs in the same cluster.
+When available, use Search Console, analytics/conversions, backlinks, crawl/internal-link context, last meaningful update, current SERP and competing pages, and overlap with other URLs in the same cluster.
 
 Do not fabricate missing metrics. If no performance data is available, audit editorial role, intent and overlap and mark the data gap.
 
 ## Cannibalization
 
-When two pages plausibly serve the same query/decision, determine:
-
-1. whether the intents are actually identical;
-2. which URL has the stronger role/signals;
-3. whether differentiation is meaningful;
-4. whether merge is preferable to maintaining two weak variants.
+When two pages plausibly serve the same query or decision, determine whether the intents are actually identical, which URL has the stronger role/signals, whether differentiation is meaningful, and whether merge is preferable to maintaining two weak variants.
 
 Do not call two pages cannibalizing merely because they share products or vocabulary.
 
 ## Single-page use
 
-For one URL, this skill answers:
+Answer:
 
 - does the page still deserve to exist independently?
 - what value should be preserved?
@@ -63,19 +52,12 @@ For one URL, this skill answers:
 - deleting or rewriting solely because traffic is low;
 - treating age alone as obsolescence;
 - updating two pages that should be merged;
-- rewriting a page without preserving its strong sections/signals;
-- inventing performance evidence that was not supplied.
+- rewriting without preserving strong sections/signals;
+- inventing performance evidence.
 
 ## Output
 
-Return:
-
-1. current role;
-2. evidence available / missing;
-3. strongest existing value;
-4. overlap/cannibalization findings;
-5. upstream action (`KEEP`, `UPDATE`, `MERGE`, `REDIRECT`, `DELETE`);
-6. confidence and rationale.
+Return current role, evidence available/missing, strongest existing value, overlap/cannibalization findings, upstream action, confidence and rationale.
 
 ## Attribution
 
