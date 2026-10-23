@@ -1,0 +1,21 @@
+{
+  "id": "pharmaceutique-production",
+  "page": "secteurs/traitement-air-pharmaceutique/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:pharmaceutique-production -->",
+  "placement": "replace",
+  "output_path": "assets/generated/pharmaceutique-production.webp",
+  "prompt": "Realistic editorial architectural photograph of a generic pharmaceutical production facility, wide contextual view of an immaculate industrial clean processing room with stainless steel vessels and enclosed pipework, large overhead HVAC supply diffusers visible, believable manufacturing proportions, no identifiable commercial equipment, no people manipulating substances, no scientific claims implied. Soft neutral industrial lighting, documentary photography, physically credible details, no signage, no logos, no readable text, no watermark.",
+  "alt": "Zone de production pharmaceutique avec équipements inox et environnement contrôlé",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
