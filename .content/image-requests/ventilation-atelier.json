@@ -1,0 +1,21 @@
+{
+  "id": "ventilation-atelier",
+  "page": "solutions-traitement-air/ventilation-industrielle/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:ventilation-atelier -->",
+  "placement": "replace",
+  "output_path": "assets/generated/ventilation-atelier.webp",
+  "prompt": "Documentary editorial wide landscape photograph of a credible medium-sized industrial workshop with visible overhead ventilation ductwork and an unbranded local extraction hood or flexible extraction arm near a generic workbench, no active hazardous operation and no workers, architecture and duct routing physically plausible, natural diffuse daylight and restrained industrial colors, no logos, no readable text, no watermark, not a 3D render.",
+  "alt": "Réseau de ventilation et bras de captage dans un atelier industriel",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
