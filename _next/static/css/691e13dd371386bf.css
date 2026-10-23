@@ -50,3 +50,8 @@ body:has(#air-diagnostic) .air-results a{display:inline-block;color:#116146;text
 body:has(#air-diagnostic) .air-results a:hover{text-decoration:underline;text-underline-offset:4px}
 body:has(#air-diagnostic) .air-results p{color:#60766a;font-size:13px;line-height:1.65}
 @media(max-width:680px){body:has(#air-diagnostic) .air-diagnostic{padding:20px;border-radius:16px}body:has(#air-diagnostic) #air-result{border-radius:14px;padding:18px}}
+
+/* Compact illustrations inside existing related-content cards */
+.related-grid a{display:flow-root;min-width:0}
+.related-grid a>.related-thumb{float:right;display:block;width:68px;height:60px;object-fit:cover;object-position:center;margin:0 0 8px 12px;border-radius:7px;max-width:34%;background:#e1ebe6}
+@media(max-width:600px){.related-grid a>.related-thumb{width:62px;height:56px}}
