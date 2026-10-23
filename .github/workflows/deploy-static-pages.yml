@@ -16,6 +16,7 @@ on:
       - "assets/generated/**"
       - "_next/static/css/**"
       - "index.html"
+      - "favicon.svg"
       - ".github/workflows/deploy-static-pages.yml"
 
 permissions:
