@@ -7,6 +7,14 @@ on:
     paths:
       - "problemes/**"
       - "guides/**"
+      - "secteurs/**"
+      - "solutions-traitement-air/**"
+      - "polluants/**"
+      - "air-interieur/**"
+      - "outils/**"
+      - "assets/generated/**"
+      - "_next/static/css/**"
+      - "index.html"
       - ".github/workflows/deploy-static-pages.yml"
 
 permissions:
