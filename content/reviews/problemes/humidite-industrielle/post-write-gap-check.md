@@ -1,5 +1,5 @@
-# Revue post-rédaction — humidite-industrielle
+# Post-write check — Humidité industrielle
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+5 sections spécifiquement rédigées, body canonique et HTML synchronisés.
+Liens vers condensation, hygrométrie, stockage et solutions. Pas de consigne hygrométrique universelle inventée.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX en attente de validation utilisateur et revue SERP exhaustive.
