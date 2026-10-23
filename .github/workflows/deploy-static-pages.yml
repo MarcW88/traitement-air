@@ -1,0 +1,40 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "problemes/condensation-industrielle/index.html"
+      - ".github/workflows/deploy-static-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: static-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify published page
+        run: |
+          test -f problemes/condensation-industrielle/index.html
+          grep -q 'Condensation industrielle : distinguer eau liquide' problemes/condensation-industrielle/index.html
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy static site
+        id: deployment
+        uses: actions/deploy-pages@v4
