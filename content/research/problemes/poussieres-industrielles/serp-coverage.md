@@ -1,6 +1,8 @@
-# Recherche — poussieres-industrielles
+# Recherche — Poussières industrielles
 Date : 2026-10-23
-Audit : DEEP_REWRITE.
-MUST : causes, méthodes de mesure, prévention et alternatives technologiques — couverts dans la page.
-Référence transversale : https://www.inrs.fr/risques/poussieres/ce-qu-il-faut-retenir
-Gap : inspection détaillée des concurrents dans les SERP non réalisée. Sources spécifiques et données terrain à approfondir. Research gate : INCOMPLET.
+Sources primaires consultées :
+- https://www.inrs.fr/risques/poussieres/ce-qu-il-faut-retenir
+- https://www.inrs.fr/publications/bdd/fichetox/fiche.html?refINRS=FICHETOX_232&section=VLEPMesurage
+- https://www.inrs.fr/risques/explosion/demarche-prevention-risques.html
+Éléments couverts : poussières inhalables/alvéolaires, émissions, exposition, VLEP substance, captage, réseau, ATEX, réception et maintenance.
+Limite : audit SERP exhaustif et comparaison concurrentielle non achevés.
