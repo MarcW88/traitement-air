@@ -2,6 +2,9 @@ name: Full design audit
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Generate approved editorial images with BFL"]
+    types: [completed]
   pull_request:
     paths:
       - "index.html"
@@ -14,6 +17,10 @@ on:
       - "problemes/**"
       - "demander-un-devis/**"
       - "air-interieur/**"
+      - "guides/**"
+      - "outils/**"
+      - "assets/generated/**"
+      - ".agents/skills/site-design-review/**"
       - "content/**"
       - "generate_pages.py"
       - ".design-audit/**"
@@ -35,6 +42,10 @@ on:
       - "problemes/**"
       - "demander-un-devis/**"
       - "air-interieur/**"
+      - "guides/**"
+      - "outils/**"
+      - "assets/generated/**"
+      - ".agents/skills/site-design-review/**"
       - "content/**"
       - "generate_pages.py"
       - ".design-audit/**"
@@ -102,6 +113,8 @@ jobs:
           - problemes
           - demander-un-devis
           - air-interieur
+          - guides
+          - outils
     steps:
       - name: Checkout
         uses: actions/checkout@v4
