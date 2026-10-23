@@ -1,0 +1,21 @@
+{
+  "id": "agroalimentaire-production",
+  "page": "secteurs/traitement-air-agroalimentaire/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Cette illustration situe le lecteur dans le contexte industriel du sujet, sans prétendre documenter un équipement réel.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:agroalimentaire-production -->",
+  "placement": "replace",
+  "output_path": "assets/generated/agroalimentaire-production.webp",
+  "prompt": "Photorealistic documentary editorial photography of a real-world generic food manufacturing hall, clean stainless processing equipment, plausible ceiling air handling and extraction ductwork, tidy hygienic workspace, realistic scale and materials, soft neutral diffuse light, no branded products, no readable text, no staff, no fabricated proof of hygiene certification, horizontal landscape composition.",
+  "alt": "Atelier agroalimentaire industriel avec réseau de traitement d’air",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
