@@ -11,3 +11,7 @@
 .directory-grid>a:hover>.directory-thumb{filter:saturate(1.08)}
 .directory-grid>a>b{margin-top:auto;padding-top:14px}
 @media(max-width:700px){.directory-grid>a>.directory-thumb{margin-bottom:14px}}
+
+/* Compact image in the six homepage technology cards only */
+.solution-card>.technology-thumb{display:block;width:100%;height:100px;max-width:100%;object-fit:cover;object-position:center;border-radius:8px;margin:0 0 14px;background:#e8efed}
+@media(max-width:600px){.solution-card>.technology-thumb{height:90px}}
