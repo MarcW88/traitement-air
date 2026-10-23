@@ -1,0 +1,21 @@
+{
+  "id": "filtration-air-contexte",
+  "page": "solutions-traitement-air/filtration-air-industrielle/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Cette illustration situe le lecteur dans le contexte industriel du sujet, sans prétendre documenter un équipement réel.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:filtration-air-contexte -->",
+  "placement": "replace",
+  "output_path": "assets/generated/filtration-air-contexte.webp",
+  "prompt": "Landscape editorial photograph of a plausible industrial filtration installation with a generic dust extraction unit and ductwork beside a clean workshop, industrial scale, durable metal finishes, visible service access, unbranded equipment, no readable signage, no unsupported specific filter ratings, natural documentary composition, realistic lighting and materials, no watermark.",
+  "alt": "Installation générique de filtration d’air dans un atelier industriel",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
