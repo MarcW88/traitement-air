@@ -6,7 +6,7 @@
   "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:pharmaceutique-production -->",
   "placement": "replace",
   "output_path": "assets/generated/pharmaceutique-production.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-23T14:10:51.630955+00:00",
+  "bfl_request_id": "a88063e5-b7d5-437f-a860-f0e3df308fa2",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }

@@ -6,7 +6,7 @@
   "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:refroidissement-adiabatique-installation -->",
   "placement": "replace",
   "output_path": "assets/generated/refroidissement-adiabatique-installation.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-23T14:10:59.167733+00:00",
+  "bfl_request_id": "e19dced9-5858-40d9-b945-3c9476fec822",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }

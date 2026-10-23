@@ -6,7 +6,7 @@
   "reason": "Cette illustration situe le lecteur dans le contexte industriel du sujet, sans prétendre documenter un équipement réel.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:filtration-air-contexte -->",
   "placement": "replace",
   "output_path": "assets/generated/filtration-air-contexte.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-23T14:10:40.587991+00:00",
+  "bfl_request_id": "a28d4d72-616c-4c26-9849-10b4977b2355",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
