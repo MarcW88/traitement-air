@@ -11,3 +11,26 @@
 .directory-grid>a:hover>.directory-thumb{filter:saturate(1.08)}
 .directory-grid>a>b{margin-top:auto;padding-top:14px}
 @media(max-width:700px){.directory-grid>a>.directory-thumb{margin-bottom:14px}}
+
+/* Homepage photographic editorial hierarchy */
+.home-photo{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:11px;margin:0 0 17px;background:#e4ebe9}
+.solution-card{min-width:0;overflow:hidden}
+.issue-list a .home-issue-photo{display:block;width:70px;height:66px;object-fit:cover;border-radius:9px;flex-shrink:0;margin-right:13px}
+.sector-list a{min-width:0;overflow:hidden}
+.sector-list a .home-sector-photo{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:9px;margin-bottom:13px}
+.home-feature{margin-top:75px;margin-bottom:75px;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(26px,5vw,78px)}
+.home-feature-media{overflow:hidden;border-radius:17px;background:#e4ebe9}
+.home-feature-media img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.home-feature-copy h2{font-size:clamp(1.7rem,3vw,2.8rem);line-height:1.12;margin:16px 0 20px;letter-spacing:-.035em}
+.home-feature-copy p{line-height:1.7;margin-bottom:20px}
+.home-editorial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.home-editorial-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #e3e9e5;border-radius:14px;text-decoration:none;color:inherit;background:#fff}
+.home-editorial-card img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;background:#e4ebe9}
+.home-editorial-card>div{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.home-editorial-card span{font-size:.71rem;letter-spacing:.1em;font-weight:750;color:#557268}
+.home-editorial-card h3{font-size:1.23rem;margin:0;line-height:1.3}
+.home-editorial-card p{margin:0;line-height:1.58;flex:1}
+.home-editorial-card b{font-size:.86rem;padding-top:9px}
+.home-editorial-card:hover img{filter:saturate(1.08)}
+@media(max-width:850px){.home-feature{grid-template-columns:1fr;gap:26px}.home-editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.home-editorial-grid{grid-template-columns:1fr}.home-feature{margin-top:45px;margin-bottom:45px}.issue-list a .home-issue-photo{width:58px;height:56px;margin-right:9px}}
