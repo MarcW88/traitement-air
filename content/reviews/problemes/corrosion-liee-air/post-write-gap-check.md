@@ -1,5 +1,4 @@
-# Revue post-rédaction — corrosion-liee-air
+# Post-write gap check — Corrosion liée à l’air
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+Sections dédiées : comprendre, sources, évaluer, prévenir, contrôler. Contenu canonique synchronisé avec page HTML.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX tant que l’audit SERP complet et la validation humaine ne sont pas réalisés.
