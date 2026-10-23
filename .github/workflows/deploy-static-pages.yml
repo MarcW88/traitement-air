@@ -12,6 +12,7 @@ on:
       - "polluants/**"
       - "air-interieur/**"
       - "outils/**"
+      - "demander-un-devis/**"
       - "assets/generated/**"
       - "_next/static/css/**"
       - "index.html"
