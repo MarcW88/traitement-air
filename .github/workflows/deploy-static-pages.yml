@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "problemes/**"
+      - "guides/**"
       - ".github/workflows/deploy-static-pages.yml"
 
 permissions:
