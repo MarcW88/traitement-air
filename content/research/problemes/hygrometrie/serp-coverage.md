@@ -1,6 +1,7 @@
-# Recherche — hygrometrie
+# Recherche — Hygrométrie industrielle
 Date : 2026-10-23
-Audit : DEEP_REWRITE.
-MUST : causes, méthodes de mesure, prévention et alternatives technologiques — couverts dans la page.
-Référence transversale : https://www.inrs.fr/risques/poussieres/ce-qu-il-faut-retenir
-Gap : inspection détaillée des concurrents dans les SERP non réalisée. Sources spécifiques et données terrain à approfondir. Research gate : INCOMPLET.
+Sources primaires vérifiées :
+- https://handbook.ashrae.org/Handbooks/F25/IP/F25_Ch01/F25_Ch01_ip.aspx
+- https://www.nist.gov/programs-projects/humidity-calibration-services-nist
+MUST : définition et grandeurs, processus psychrométriques, emplacement des mesures, calibration, humidification/déshumidification, maillage condensation : couverts.
+Manquent : audit exhaustif des SERP et inspection comparative complète des concurrents. Research gate non finalisé.

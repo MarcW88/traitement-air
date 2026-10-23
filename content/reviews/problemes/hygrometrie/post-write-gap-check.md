@@ -1,5 +1,4 @@
-# Revue post-rédaction — hygrometrie
+# Post-write gap check — Hygrométrie industrielle
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+Page spécifique avec 4 sections, sources ASHRAE et NIST, distinctions HR / rapport / point de rosée, maillage pertinent.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX en attente d'une revue SERP et validation humaine. Ne pas considérer les GitHub Actions comme validation de faits.
