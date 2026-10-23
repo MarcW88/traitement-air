@@ -1,9 +1,9 @@
 ---
 name: editorial-image-planner
-description: Décide si une page de bloc-notes-numeriques.fr a réellement besoin d'une image éditoriale générée, puis crée une requête compatible avec l'automatisation BFL. À utiliser après la rédaction et avant la publication.
+description: Décide si une page de traitement-air.fr a réellement besoin d'une image éditoriale générée, puis crée une requête compatible avec l'automatisation BFL. À utiliser après la rédaction et avant la publication.
 license: MIT
 metadata:
-  adapted_for: bloc-notes-numeriques.fr
+  adapted_for: traitement-air.fr
   generator: Black Forest Labs FLUX API
   default_model: FLUX.2 Pro Preview
 ---
@@ -54,11 +54,10 @@ Dans ces cas, conserver éventuellement la requête avec `status: BLOCKED` afin 
 
 Privilégier les scènes génériques, plausibles et éditoriales :
 
-- prise de notes pendant une réunion ;
-- étudiant utilisant un appareil E Ink générique dans un contexte de cours ;
-- lecture et annotation de documents sans interface ou marque identifiable ;
-- bureau, bibliothèque, déplacement, travail nomade ;
-- geste d'écriture ou contexte d'organisation documentaire.
+- locaux industriels, ateliers, environnements de stockage et installations CVC plausibles ;
+- scènes de filtration, humidification, ventilation ou maîtrise des contaminants sans prétendre démontrer une performance ;
+- situations spécifiques aux secteurs pharmaceutique, agroalimentaire ou salles propres, sans revendiquer une certification ;
+- photographies éditoriales génériques utiles à la compréhension de la page.
 
 Le rendu doit être photoréaliste et sobre : lumière naturelle, matériaux plausibles, imperfections réalistes, photographie éditoriale. Éviter les compositions publicitaires, les appareils futuristes, les logos inventés et le texte généré dans l'image.
 
@@ -118,7 +117,7 @@ Le prompt doit décrire :
 
 Terminer généralement par des contraintes du type :
 
-`photorealistic editorial photography, natural light, realistic proportions and materials, generic unbranded device, blank or non-readable screen content, no visible logo or watermark, candid documentary framing`
+`photorealistic editorial photography, natural light, realistic proportions and materials, generic unbranded industrial equipment, no readable technical markings, no visible logo or watermark, candid documentary framing`
 
 Ne pas demander au modèle d'inventer une marque, un écran lisible ou une référence produit précise.
 
