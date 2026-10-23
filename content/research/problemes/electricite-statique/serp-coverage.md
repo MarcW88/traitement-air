@@ -1,6 +1,8 @@
-# Recherche — electricite-statique
+# Recherche — Électricité statique industrielle
 Date : 2026-10-23
-Audit : DEEP_REWRITE.
-MUST : causes, méthodes de mesure, prévention et alternatives technologiques — couverts dans la page.
-Référence transversale : https://www.inrs.fr/risques/poussieres/ce-qu-il-faut-retenir
-Gap : inspection détaillée des concurrents dans les SERP non réalisée. Sources spécifiques et données terrain à approfondir. Research gate : INCOMPLET.
+Sources :
+- https://www.inrs.fr/risques/electriques/prevention-risque-electricite-statique
+- https://webstore.iec.ch/en/publication/651
+- https://app.nbn.be/data/r/platform/frontend/detail?p40_id=291089&p_lang=fr
+Couverture : sources de charge, risques ESD et ATEX, humidité, liaison équipotentielle, ionisation, suivi.
+Limite : pas d'audit comparatif SERP exhaustif ni validation terrain.

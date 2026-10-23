@@ -1,5 +1,5 @@
-# Revue post-rédaction — electricite-statique
+# Post-write check — Électricité statique industrielle
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+5 sections, lien avec la page poussières et l'humidification, HTML synchronisés.
+Aucune valeur d'humidité présentée comme seuil de sécurité universel.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX en attente de revue concurrentielle approfondie et validation utilisateur.

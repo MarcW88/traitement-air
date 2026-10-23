@@ -1,6 +1,8 @@
-# Brief — electricite-statique
+# Brief — Électricité statique industrielle
 Date : 2026-10-23
-Décision : DEEP_REWRITE, ancien placeholder.
-Intention : distinguer la définition, les causes, les mesures de diagnostic et les solutions avec limites.
-Ne pas prétendre à des données de performance sans mesure.
-Indexation désactivée. Revue concurrentielle et humaine nécessaires.
+Décision : DEEP_REWRITE.
+Public : production, qualité, maintenance, HSE.
+Intention : différencier défaut qualité ESD et risque ATEX ; causes, contrôles et prévention.
+Ne pas recommander l'humidification comme mesure ATEX autonome.
+Sources : INRS électricité statique ; IEC TS 60079-32-1.
+Validation humaine avant indexation.
