@@ -1,5 +1,4 @@
-# Revue post-rédaction — odeurs-gaz
+# Post-write — Odeurs et gaz industriels
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+5 sections spécialisées, article HTML et source canonique synchronisés. Maillage vers COV, ventilation et purification.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX en attente de revue SERP exhaustive et validation utilisateur.
