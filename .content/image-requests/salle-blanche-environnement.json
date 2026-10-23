@@ -1,0 +1,21 @@
+{
+  "id": "salle-blanche-environnement",
+  "page": "secteurs/traitement-air-salle-blanche/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:salle-blanche-environnement -->",
+  "placement": "replace",
+  "output_path": "assets/generated/salle-blanche-environnement.webp",
+  "prompt": "Photorealistic editorial photograph of a generic industrial cleanroom interior, wide angle at human eye height with clear floor, clean work surfaces, ceiling air supply elements and large glazed partition, realistic engineered construction details and soft cool neutral lighting, quiet operational scene without implying an ISO certification or showing imaginary technical performance. No logo, no readable labels, no futuristic effects, no watermark.",
+  "alt": "Salle blanche générique avec zone de travail et soufflage d’air au plafond",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
