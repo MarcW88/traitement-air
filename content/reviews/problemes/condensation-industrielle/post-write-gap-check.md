@@ -1,5 +1,5 @@
-# Revue post-rédaction — condensation-industrielle
+# Revue éditoriale — Condensation industrielle
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+Sections contrôlées : comprendre, causes, mesurer, solutions. Canonical body.html synchronisé avec index.html.
+Sources ASHRAE et INRS. Exemple de point de rosée approximatif explicitement signalé.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX en attente des contrôles concurrents complets et validation humaine.
