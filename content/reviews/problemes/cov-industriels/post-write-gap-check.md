@@ -1,5 +1,4 @@
-# Revue post-rédaction — cov-industriels
+# Contrôle post-rédaction — COV industriels
 Date : 2026-10-23
-Sections présentes : comprendre, causes, mesures, solutions.
-PUBLISH_REVIEW : FAIL — KEEP_NOINDEX.
-Motifs : SERP concurrentielle exhaustive, vérification factuelle spécifique et revue humaine non réalisées.
+Sections : identifier, sources, diagnostiquer, traiter, contrôler. Content canonique synchronisé avec HTML.
+PUBLISH_REVIEW : FAIL — KEEP_NOINDEX ; recherche SERP exhaustive et revue humaine manquantes.
