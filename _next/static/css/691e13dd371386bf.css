@@ -4,3 +4,10 @@
 .article-shell article figure.editorial-media img{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:32/21;object-fit:cover;object-position:center center;}
 .article-shell article figure.editorial-media figcaption{padding:10px 2px 0;color:#52615b;font-size:.85rem;line-height:1.5;background:transparent;}
 @media(max-width:700px){.article-shell article figure.editorial-media{width:100%;max-width:100%;margin:22px 0 28px;border-radius:8px}.article-shell article figure.editorial-media img{max-height:none;height:auto;}}
+
+/* Editorial photographs on clickable directory cards */
+.directory-grid>a{display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.directory-grid>a>.directory-thumb{display:block;order:-1;width:calc(100% + 2px);height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;margin:-1px -1px 18px;max-width:calc(100% + 2px);border-radius:10px 10px 0 0;transition:transform .25s ease,filter .25s ease}
+.directory-grid>a:hover>.directory-thumb{filter:saturate(1.08)}
+.directory-grid>a>b{margin-top:auto;padding-top:14px}
+@media(max-width:700px){.directory-grid>a>.directory-thumb{margin-bottom:14px}}
