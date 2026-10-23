@@ -1,6 +1,7 @@
-# Brief — contamination-particulaire
+# Brief — Contamination particulaire
 Date : 2026-10-23
-Décision : DEEP_REWRITE, ancien placeholder.
-Intention : distinguer la définition, les causes, les mesures de diagnostic et les solutions avec limites.
-Ne pas prétendre à des données de performance sans mesure.
-Indexation désactivée. Revue concurrentielle et humaine nécessaires.
+Décision : DEEP_REWRITE.
+Audience : responsables qualité, production, maintenance, environnement contrôlé.
+Intention : diagnostic des particules contaminant les produits, mesure et prévention.
+Différencier exposition professionnelle poussières et contamination du produit ; distinguer air, surfaces et contaminants moléculaires.
+Références ISO 14644-1:2015, ISO 14644-2:2015 et ISO 14644-3:2019.
