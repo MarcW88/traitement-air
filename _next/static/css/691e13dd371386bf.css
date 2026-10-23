@@ -28,3 +28,25 @@
 .air-results a{font-weight:750;color:#155848;text-decoration:underline;text-underline-offset:3px}
 .air-results p{margin:8px 0 0;font-size:14px;line-height:1.6}
 @media(max-width:680px){.air-diagnostic-fields{grid-template-columns:1fr}}
+
+/* 2026 diagnostic UI refresh: specific to the interactive decision tool */
+body:has(#air-diagnostic) .page-hero{background:linear-gradient(125deg,#e9f5ef 0%,#f7faf8 62%,#eaf2f3 100%);border-bottom:1px solid #dcebe3}
+body:has(#air-diagnostic) .page-hero .shell{max-width:1160px}
+body:has(#air-diagnostic) .page-hero h1{max-width:800px;letter-spacing:-.045em}
+body:has(#air-diagnostic) .article-shell{gap:clamp(28px,4vw,64px)}
+body:has(#air-diagnostic) .article-main h2{letter-spacing:-.03em;line-height:1.2}
+body:has(#air-diagnostic) .air-diagnostic{background:#fff;border:1px solid #dde7e1;border-radius:22px;padding:clamp(24px,3.4vw,38px);box-shadow:0 20px 70px rgba(20,62,51,.07),0 3px 12px rgba(20,62,51,.04);margin:26px 0 44px}
+body:has(#air-diagnostic) .air-diagnostic-fields{gap:18px;margin-bottom:24px}
+body:has(#air-diagnostic) .air-diagnostic-fields label{gap:11px;font-size:13px;font-weight:750;color:#213e33;letter-spacing:.005em}
+body:has(#air-diagnostic) .air-diagnostic-fields select{appearance:none;-webkit-appearance:none;border:1px solid #d2e0d8;border-radius:12px;background:#f5f9f6;color:#193c31;padding:14px 40px 14px 16px;font-size:14px;line-height:1.35;min-height:54px;box-shadow:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' viewBox='0 0 24 24' stroke='%232d5a49' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:18px;background-position:right 14px center}
+body:has(#air-diagnostic) .air-diagnostic-fields select:hover{border-color:#75a895;background-color:#eff7f1}
+body:has(#air-diagnostic) .air-diagnostic .button{border-radius:11px;min-height:49px;box-shadow:0 7px 17px rgba(15,73,54,.13);transition:transform .18s ease,box-shadow .18s ease}
+body:has(#air-diagnostic) .air-diagnostic .button:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(15,73,54,.17)}
+body:has(#air-diagnostic) .air-diagnostic-note{font-size:12px;line-height:1.5;color:#647d6f;margin-top:17px}
+body:has(#air-diagnostic) #air-result{border-radius:18px;background:linear-gradient(140deg,#f2f8f4,#f8faf9);border:1px solid #e1ebe4;padding:clamp(20px,2.8vw,30px);margin:22px 0 36px}
+body:has(#air-diagnostic) .air-results{gap:12px;margin:20px 0}
+body:has(#air-diagnostic) .air-results>div{background:#fff;border:1px solid #dce9df;border-radius:13px;padding:19px 21px;box-shadow:0 3px 9px rgba(31,64,48,.03)}
+body:has(#air-diagnostic) .air-results a{display:inline-block;color:#116146;text-decoration:none;font-size:15px;line-height:1.4}
+body:has(#air-diagnostic) .air-results a:hover{text-decoration:underline;text-underline-offset:4px}
+body:has(#air-diagnostic) .air-results p{color:#60766a;font-size:13px;line-height:1.65}
+@media(max-width:680px){body:has(#air-diagnostic) .air-diagnostic{padding:20px;border-radius:16px}body:has(#air-diagnostic) #air-result{border-radius:14px;padding:18px}}
