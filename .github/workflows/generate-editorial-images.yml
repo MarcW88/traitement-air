@@ -16,6 +16,7 @@ on:
       - 'marques/**/index.html'
       - 'bons-plans/**/index.html'
       - 'scripts/generate_bfl_images.py'
+      - 'scripts/plan_air_editorial_images.py'
       - '.github/workflows/generate-editorial-images.yml'
   workflow_dispatch:
 
@@ -45,6 +46,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Plan images per article
+        run: python scripts/plan_air_editorial_images.py
+
       - name: Validate image requests and detect work
         id: inspect
         shell: bash
@@ -63,7 +67,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.work_needed == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 120
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4
@@ -76,6 +80,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Plan images per article
+        run: python scripts/plan_air_editorial_images.py
 
       - name: Generate or restore approved images
         env:
