@@ -33,7 +33,7 @@ Ne pas générer d'image si :
 - l'image risque d'être interprétée comme une preuve d'un test ou d'une expérience réelle ;
 - le texte suffit parfaitement à accomplir la tâche du lecteur.
 
-Par défaut, **0 ou 1 image générée par page**. Une deuxième image exige un rôle éditorial distinct et explicite.
+Pour traitement-air.fr, prévoir **une image éditoriale contextuelle par article d'information**, sauf impossibilité technique ou risque de représentation trompeuse documenté. Ne jamais générer plusieurs visuels décoratifs pour respecter un quota. Une deuxième image exige un rôle distinct.
 
 ## 2. Interdictions de génération IA
 
@@ -134,3 +134,7 @@ Avant de créer une requête `PENDING`, confirmer :
 - le chemin de sortie est unique.
 
 Si un doute subsiste sur la fidélité nécessaire, choisir `BLOCKED` plutôt que générer.
+
+## Planification automatique sur Traitement Air
+
+`scripts/plan_air_editorial_images.py` parcourt les articles des six sections du site, vérifie les requêtes existantes, puis prépare un marqueur HTML dans la source éditoriale et la page publiée. Le workflow `generate-editorial-images.yml` le lance avant la validation et la génération BFL. Ne pas remplacer les images déjà GENERATED ni écraser les demandes existantes. Sur les articles où un équipement réel ou une preuve technique serait indispensable, suspendre la génération et utiliser des photographies documentaires vérifiables.
