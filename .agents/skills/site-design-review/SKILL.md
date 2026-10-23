@@ -1,6 +1,6 @@
 ---
 name: site-design-review
-description: Auditer le design et l’implémentation frontend de bloc-notes-numeriques.fr afin de détecter les interfaces génériques ou manifestement générées par IA, les défauts UX, les problèmes de confiance éditoriale, d’accessibilité et de cohérence. Utiliser pour les audits de pages, composants, captures, previews et pull requests frontend. Ne pas utiliser pour les contenus SEO seuls ou le backend sans interface.
+description: Auditer le design et l’implémentation frontend de traitement-air.fr afin de détecter les interfaces génériques ou manifestement générées par IA, les défauts UX, les problèmes de confiance éditoriale, d’accessibilité et de cohérence. Utiliser pour les audits de pages, composants, captures, previews et pull requests frontend. Ne pas utiliser pour les contenus SEO seuls ou le backend sans interface.
 ---
 
 # Audit design du site
@@ -25,7 +25,7 @@ Ne pas étendre l’audit à tout le site lorsqu’une modification locale suffi
 
 Une revue frontend complète inclut un rendu réel. Utiliser l’intégration Playwright du dépôt avant de conclure sur le responsive, les débordements, la densité, les états interactifs ou la hiérarchie visuelle.
 
-Pour auditer les pages marques ou lancer des routes précises, lire [references/playwright-visual-check.md](references/playwright-visual-check.md), exécuter le script indiqué, puis inspecter les captures générées avec un outil de lecture d’image. Le fichier `report.json` sert de diagnostic complémentaire ; ne pas le traiter comme un jugement esthétique.
+Pour auditer les pages sectorielles ou lancer des routes précises, lire [references/playwright-visual-check.md](references/playwright-visual-check.md), exécuter le script indiqué, puis inspecter les captures générées avec un outil de lecture d’image. Le fichier `report.json` sert de diagnostic complémentaire ; ne pas le traiter comme un jugement esthétique.
 
 Pendant la vérification :
 
@@ -42,7 +42,7 @@ Si Chromium ne peut pas être installé ou lancé, ne pas présenter la revue co
 
 ### Identité
 
-- La page évoque-t-elle un média éditorial consacré au papier numérique ?
+- La page évoque-t-elle un média éditorial consacré au traitement de l’air industriel ?
 - Possède-t-elle une direction reconnaissable sans copier une marque ?
 - La composition est-elle intentionnelle ou ressemble-t-elle à un assemblage de composants standards ?
 
@@ -106,3 +106,7 @@ Citer les fichiers ou composants concernés. Pour une revue visuelle, associer l
 Un audit reste en lecture seule. Ne modifier le code que si l’utilisateur demande explicitement de corriger ou d’implémenter les recommandations.
 
 Sources d’inspiration méthodologique : Microsoft Frontend Design Review et Impeccable. Les règles propres au projet dans `DESIGN.md` prévalent.
+
+## Adaptation Traitement Air
+
+L'audit est basé sur le workflow ACTIF `.github/workflows/design-audit.yml` et le script `.design-audit/run-visual-review.mjs`, qui dérive les routes réelles de `sitemap.xml`. Ne jamais utiliser les scopes brands/comparisons/usages du dépôt Bloc-notes Numérique. Auditer les secteurs, solutions, problèmes, polluants, guides, outils et la page d'accueil en desktop/mobile. Pour chaque image BFL, contrôler la présence du fichier, l'absence d'image cassée, la taille du rendu, la cohérence du ratio, sa largeur dans la colonne éditoriale, sa position, le recadrage et le contraste avec la page. Un audit automatique ne vaut pas correction visuelle ni validation de qualité photographique.
