@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "problemes/condensation-industrielle/index.html"
+      - "problemes/**"
       - ".github/workflows/deploy-static-pages.yml"
 
 permissions:
@@ -27,8 +27,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify published page
         run: |
-          test -f problemes/condensation-industrielle/index.html
-          grep -q 'Condensation industrielle : distinguer eau liquide' problemes/condensation-industrielle/index.html
+          test -f problemes/hygrometrie/index.html
+          grep -q 'Hygrométrie industrielle : ce que mesure' problemes/hygrometrie/index.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
