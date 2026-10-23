@@ -1,0 +1,21 @@
+{
+  "id": "refroidissement-adiabatique-installation",
+  "page": "guides/refroidissement-adiabatique-fonctionnement/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Visualiser clairement le contexte industriel et donner une respiration éditoriale spécifique à cette page.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:refroidissement-adiabatique-installation -->",
+  "placement": "replace",
+  "output_path": "assets/generated/refroidissement-adiabatique-installation.webp",
+  "prompt": "Photorealistic engineering editorial photograph of a generic industrial air handling installation in a clean plant room, contextual view with ductwork, accessible service panels and a plausible evaporative air cooling module enclosure without exposing invented internal workings, believable engineering scale, realistic utility room materials and soft daylight, horizontal architectural composition, no person, no brand, no labels or readable text, no watermark.",
+  "alt": "Installation générique de traitement de l’air avec modules de refroidissement industriel",
+  "caption": "",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
