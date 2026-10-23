@@ -122,6 +122,7 @@ try {
       const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts?.ready);
 
+      await page.evaluate(async () => { await Promise.all([...document.images].map(image => { image.loading = 'eager'; return image.decode().catch(() => null); })); });
       const measurements = await page.evaluate(() => ({
         title: document.title,
         horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -132,7 +133,9 @@ try {
         h1Count: document.querySelectorAll('h1').length,
         interactiveCount: document.querySelectorAll('a[href], button, input, select, textarea, [tabindex]').length,
         imageCount: document.images.length,
-        imagesWithoutAlt: [...document.images].filter((image) => !image.hasAttribute('alt')).length
+        imagesWithoutAlt: [...document.images].filter((image) => !image.hasAttribute('alt')).length,
+        brokenImages: [...document.images].filter((image) => !image.complete || image.naturalWidth === 0).map((image) => image.currentSrc || image.src),
+        editorialImages: [...document.querySelectorAll('figure.editorial-media img')].map((image) => { const r = image.getBoundingClientRect(); const parent = image.closest('article')?.getBoundingClientRect(); return {src: image.getAttribute('src'), naturalWidth:image.naturalWidth, naturalHeight:image.naturalHeight, renderedWidth:Math.round(r.width), renderedHeight:Math.round(r.height), overflowsArticle:!!parent && r.width > parent.width + 2, alt:image.alt}; })
       }));
 
       const axe = await new AxeBuilder({ page }).analyze();
