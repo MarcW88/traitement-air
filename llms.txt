@@ -1,0 +1,27 @@
+# traitement-air.fr
+
+> Centre d'information indépendant, en français, sur la qualité et le traitement de l'air dans l'industrie et les bâtiments. Informations pédagogiques et techniques, sans affiliation revendiquée à un fabricant.
+
+Site officiel : https://traitement-air.fr/
+Langue : français (fr-FR)
+Sitemap complet : https://traitement-air.fr/sitemap.xml
+Informations détaillées pour les assistants IA : https://traitement-air.fr/ai-info.txt
+
+## Points d'entrée
+
+- [Solutions et technologies](https://traitement-air.fr/solutions-traitement-air/) : ventilation, filtration, purification, centrales de traitement d'air, humidification et déshumidification industrielles, refroidissement adiabatique.
+- [Secteurs industriels et techniques](https://traitement-air.fr/secteurs/) : agroalimentaire, pharmaceutique, salles blanches, data centers, santé, peinture, bois, papier, impression, stockage et électronique.
+- [Problèmes de qualité de l'air](https://traitement-air.fr/problemes/) : hygrométrie, humidité, condensation, poussières, contamination, COV, odeurs, corrosion et électricité statique.
+- [Polluants](https://traitement-air.fr/polluants/) : COV, ammoniac, sulfure d'hydrogène, ozone, particules fines et poussières.
+- [Air intérieur](https://traitement-air.fr/air-interieur/) : qualité de l'air de l'habitat, humidité, moisissures, purificateurs et appareils de régulation.
+- [Guides pédagogiques](https://traitement-air.fr/guides/) : définitions, principes physiques et comparaisons de procédés.
+- [Outils](https://traitement-air.fr/outils/) : orientation, diagnostic informatif et calcul d'hygrométrie.
+- [Demander un devis](https://traitement-air.fr/demander-un-devis/) : point d'entrée pour une demande de projet.
+
+## Repères de lecture
+
+- Une technologie ne se choisit pas uniquement à partir du nom d'un polluant ou d'un symptôme : préciser le contexte, les mesures, les contraintes, le débit et les objectifs.
+- Distinguer traitement de l'air industriel, environnement contrôlé et air intérieur domestique.
+- Les pages sont des ressources d'information, pas des certifications, prescriptions réglementaires, diagnostics sur site ni garanties de performance.
+- Vérifier dans les textes réglementaires et documentations techniques primaires toute exigence, valeur limite ou donnée de sécurité.
+- Les URLs du sitemap font foi pour la liste exhaustive des pages ; ne pas inventer des pages, des partenariats ou des certifications.
