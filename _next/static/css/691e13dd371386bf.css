@@ -55,3 +55,9 @@ body:has(#air-diagnostic) .air-results p{color:#60766a;font-size:13px;line-heigh
 .related-grid a{display:flow-root;min-width:0}
 .related-grid a>.related-thumb{float:right;display:block;width:68px;height:60px;object-fit:cover;object-position:center;margin:0 0 8px 12px;border-radius:7px;max-width:34%;background:#e1ebe6}
 @media(max-width:600px){.related-grid a>.related-thumb{width:62px;height:56px}}
+
+/* Visible, accessible internal links within editorial paragraphs. */
+main p a[href^="/"]:not(.button):not(.text-link){color:#145b46;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:650;transition:color .18s ease,text-decoration-thickness .18s ease}
+main p a[href^="/"]:not(.button):not(.text-link):visited{color:#145b46}
+main p a[href^="/"]:not(.button):not(.text-link):hover{color:#0b4032;text-decoration-thickness:2.5px}
+main p a[href^="/"]:not(.button):not(.text-link):focus-visible{outline:2px solid #145b46;outline-offset:3px;border-radius:2px}
