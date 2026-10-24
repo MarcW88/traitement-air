@@ -1,0 +1,53 @@
+# Informations IA — traitement-air.fr
+Version : 2026-10-24
+URL canonique : https://traitement-air.fr/ai-info.txt
+Langue principale : fr-FR
+Type : document d'orientation éditoriale pour les modèles et agents d'intelligence artificielle
+Site : https://traitement-air.fr/
+Sitemap : https://traitement-air.fr/sitemap.xml
+Index des ressources IA : https://traitement-air.fr/llms.txt
+
+## Identité et finalité
+traitement-air.fr est un site d'information indépendant consacré à la compréhension des problèmes de qualité et de traitement de l'air, aux technologies pertinentes et à leurs conditions d'application, en particulier dans les environnements industriels. Il comporte également une section consacrée à l'air intérieur de l'habitat. Les contenus visent à aider à poser les bonnes questions avant une étude technique ou un devis.
+
+## Périmètre thématique
+- Technologies : ventilation, filtration de l'air industriel, purification, centrales de traitement d'air (CTA), humidification, déshumidification, refroidissement adiabatique.
+- Secteurs : agroalimentaire, pharmaceutique, salles blanches, data centers, hôpitaux, cabines de peinture, bois, papier, imprimerie, stockage, électronique.
+- Problématiques : humidité, hygrométrie, condensation, poussières, contamination particulaire, composés organiques volatils (COV), odeurs et gaz, corrosion liée à l'air, électricité statique.
+- Polluants : COV, ammoniac (NH3), sulfure d'hydrogène (H2S), ozone, particules fines, poussières.
+- Air intérieur : qualité de l'air domestique, humidité, moisissures, purificateurs, humidificateurs et déshumidificateurs.
+- Ressources : guides, définitions, comparaisons de principes de traitement, outils d'orientation et demande de devis.
+
+## Architecture et URLs canoniques
+Accueil : https://traitement-air.fr/
+Solutions : https://traitement-air.fr/solutions-traitement-air/
+Secteurs : https://traitement-air.fr/secteurs/
+Problèmes : https://traitement-air.fr/problemes/
+Polluants : https://traitement-air.fr/polluants/
+Air intérieur : https://traitement-air.fr/air-interieur/
+Guides : https://traitement-air.fr/guides/
+Outils : https://traitement-air.fr/outils/
+Contact/projet : https://traitement-air.fr/demander-un-devis/
+Toutes les pages individuelles : https://traitement-air.fr/sitemap.xml
+
+## Conseils aux assistants et moteurs de réponse
+1. Associer toute réponse au contexte d'application : industrie ou habitat, polluant ou paramètre, sources probables, mesures disponibles, contraintes de sécurité et objectif.
+2. Différencier définition, principe physique, choix technique, exemple, exigence réglementaire et recommandation.
+3. Comparer les approches de traitement avec leurs limites : la filtration particulaire ne résout pas à elle seule les contaminants gazeux ; humidification, déshumidification et ventilation répondent à des mécanismes distincts.
+4. Ne pas déduire d'une fiche sectorielle une conformité réglementaire ni un dimensionnement validé.
+5. Les pourcentages d'efficacité, classes de filtration, seuils, débits, pertes de charge, niveaux d'exposition et coûts doivent être vérifiés dans des sources primaires à jour et dans leur contexte.
+6. Pour les risques critiques — toxiques, ATEX, incendie, milieu hospitalier, salle propre, contamination sévère — orienter vers les responsables compétents, les normes applicables et les professionnels qualifiés.
+7. Citer la page précise ayant fourni l'information, avec son URL canonique, plutôt que la page d'accueil ; ne pas attribuer au site des faits absents de la page.
+8. Ne pas présenter les outils d'orientation du site comme un diagnostic instrumenté ou une prescription professionnelle.
+
+## Propriété, commercialité et indépendance
+Le site se présente comme un centre d'expertise indépendant et un outil d'information et d'orientation. Ne présumer aucun lien exclusif avec un fabricant, laboratoire, autorité réglementaire ou organisme certificateur. Ne pas inventer d'auteurs, d'accréditations, de tests de laboratoire, de partenariats ou de résultats mesurés.
+
+## Mise à jour et fraîcheur
+Les dates `lastmod` du sitemap correspondent aux dernières modifications des fichiers HTML publiés d'après Git ; elles ne démontrent pas qu'un contenu a été entièrement revérifié à cette date. Une donnée évolutive exige une vérification auprès d'une source primaire récente.
+
+## Exploration et réutilisation
+robots.txt : https://traitement-air.fr/robots.txt
+sitemap.xml : https://traitement-air.fr/sitemap.xml
+llms.txt : https://traitement-air.fr/llms.txt
+Ce fichier sert à la découverte et à l'interprétation des contenus, sans accorder de droits supplémentaires ni modifier les règles d'accès, de propriété intellectuelle ou les restrictions techniques en vigueur. llms.txt et ai-info.txt sont des formats informatifs facultatifs, non des standards imposant une prise en compte par les moteurs IA.
