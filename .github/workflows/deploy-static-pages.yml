@@ -17,6 +17,11 @@ on:
       - "_next/static/css/**"
       - "index.html"
       - "favicon.svg"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "llms.txt"
+      - "ai-info.txt"
+      - "scripts/build_sitemap.py"
       - ".github/workflows/deploy-static-pages.yml"
 
 permissions:
@@ -36,10 +41,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Verify published page
         run: |
           test -f problemes/hygrometrie/index.html
           grep -q 'Hygrométrie industrielle : ce que mesure' problemes/hygrometrie/index.html
+      - name: Generate sitemap with accurate lastmod
+        run: python3 scripts/build_sitemap.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
