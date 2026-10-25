@@ -61,3 +61,20 @@ main p a[href^="/"]:not(.button):not(.text-link){color:#145b46;text-decoration:u
 main p a[href^="/"]:not(.button):not(.text-link):visited{color:#145b46}
 main p a[href^="/"]:not(.button):not(.text-link):hover{color:#0b4032;text-decoration-thickness:2.5px}
 main p a[href^="/"]:not(.button):not(.text-link):focus-visible{outline:2px solid #145b46;outline-offset:3px;border-radius:2px}
+
+/* Transparence éditoriale : fiches guides uniquement. */
+.article-shell article aside.editorial-disclosure{display:block!important;position:static!important;top:auto!important;max-width:100%;height:auto;margin:42px 0 24px;padding:25px 29px;background:#f2f6f3;border:1px solid #dce8de;border-left:3px solid #23664f;border-radius:12px;color:#203c32;box-sizing:border-box;font-size:inherit;line-height:1.7}
+.article-shell article aside.editorial-disclosure .editorial-disclosure-kicker{display:block;margin:0 0 9px;color:#476557;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.article-shell article aside.editorial-disclosure h2{margin:0 0 15px;color:#173b2c;font-size:clamp(20px,2.2vw,25px);letter-spacing:-.025em;line-height:1.25;font-weight:700}
+.article-shell article aside.editorial-disclosure p{margin:0 0 12px;color:#38534a;font-size:14px;line-height:1.75}
+.article-shell article aside.editorial-disclosure a{display:inline-flex;margin-top:5px;color:#135a40;font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:4px}
+.article-shell article aside.editorial-disclosure a:hover{color:#093e2b}
+.article-shell article aside.editorial-disclosure a:focus-visible{outline:2px solid #135a40;outline-offset:3px}
+.editorial-policy{max-width:830px;margin:0 auto;padding:70px 24px 110px;color:#233d33}
+.editorial-policy .editorial-policy-back{display:inline-block;margin-bottom:26px;color:#145b46;text-decoration:underline;text-underline-offset:3px}
+.editorial-policy h1{font:700 clamp(32px,5vw,52px)/1.12 var(--font-title);letter-spacing:-.035em;max-width:760px}
+.editorial-policy .editorial-policy-lead{margin:21px 0 39px;font-size:18px;color:#53665c;line-height:1.75}
+.editorial-policy section{border-top:1px solid #dce4dc;padding:25px 0 21px}
+.editorial-policy h2{font:700 23px/1.3 var(--font-title);margin:0 0 12px}
+.editorial-policy p{margin:0 0 12px;color:#52665d;font-size:15px;line-height:1.8}
+@media(max-width:680px){.article-shell article aside.editorial-disclosure{padding:20px 18px;margin:30px 0 18px}.editorial-policy{padding:45px 20px 75px}}

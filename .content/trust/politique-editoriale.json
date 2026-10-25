@@ -1,0 +1,31 @@
+{
+  "page_type": "EDITORIAL_POLICY",
+  "status": "PUBLISHED_WITH_UNKNOWNS",
+  "claims": [
+    {
+      "text": "Guides explicatifs non assimilables à une étude technique",
+      "evidence": "REPO_EVIDENCE"
+    },
+    {
+      "text": "Outils automatisés présents dans le dépôt, sans preuve d’exécution systématique pour chaque guide",
+      "evidence": "REPO_EVIDENCE"
+    }
+  ],
+  "required_disclosures": [
+    "absence de validation experte démontrée",
+    "limites sécurité et dimensionnement"
+  ],
+  "unknowns": [
+    "identité juridique du responsable de publication",
+    "procédure de contact vérifiée",
+    "fréquence effective des relectures humaines"
+  ],
+  "editorial_rules": [
+    "aucun auteur fictif",
+    "aucune validation humaine ou experte non documentée",
+    "ne pas prétendre à une indépendance commerciale non établie"
+  ],
+  "qa": {
+    "status": "PENDING_VISUAL_BROWSER_VERIFICATION"
+  }
+}
