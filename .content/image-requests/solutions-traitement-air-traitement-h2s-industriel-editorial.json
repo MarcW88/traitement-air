@@ -1,0 +1,21 @@
+{
+  "id": "solutions-traitement-air-traitement-h2s-industriel-editorial",
+  "page": "solutions-traitement-air/traitement-h2s-industriel/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration d'une unité industrielle de traitement de gaz H2S",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-h2s-industriel-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/solutions-traitement-air-traitement-h2s-industriel-editorial.webp",
+  "prompt": "High quality original photorealistic 1024x672 landscape editorial photograph of an enclosed industrial odor treatment plant for H2S collected gas. Technically plausible outdoor vertical wet scrubber tower with closed ductwork and safe maintenance access, neutral overcast daylight, no personnel, no leaks, no hazard reenactment, no logos, no visible text or instruments readings, no watermark.",
+  "alt": "Unité industrielle fermée de traitement des gaz avec tour de lavage et conduites",
+  "caption": "Illustration IA d'un équipement représentatif ; aucune installation réelle n'est certifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
