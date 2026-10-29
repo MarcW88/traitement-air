@@ -1,0 +1,20 @@
+name: Lot 4 calculator Playwright QA
+on:
+  push:
+    branches: [editorial/technical-guides-tools-lot4-20261029]
+    paths: ['.github/workflows/lot4-calculator-qa.yml']
+permissions:
+  contents: read
+jobs:
+  chromium-calculator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Test calculator in Chromium and mobile viewport
+        run: node tests/lot4-calculator-playwright.cjs
