@@ -1,0 +1,39 @@
+name: Lot 3 humidity image generation (branch-only)
+on:
+  push:
+    branches: [editorial/humidity-condensation-lot3-20261029]
+    paths: ['.github/workflows/lot3-bfl-branch.yml']
+permissions:
+  contents: write
+jobs:
+  generate-two:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/humidity-condensation-lot3-20261029
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Isolate two approved requests
+        run: |
+          mkdir -p .content/lot3-bfl
+          cp .content/image-requests/problemes-condensation-tuyauterie-industrielle-editorial.json .content/lot3-bfl/
+          cp .content/image-requests/problemes-humidite-entrepot-editorial.json .content/lot3-bfl/
+          python scripts/generate_bfl_images.py --requests-dir .content/lot3-bfl --check-only
+      - name: Generate and integrate two visuals
+        env:
+          BFL_API_KEY: ${{ secrets.BFL_API_KEY }}
+        run: python scripts/generate_bfl_images.py --requests-dir .content/lot3-bfl
+      - name: Commit generated assets on the branch only
+        run: |
+          cp .content/lot3-bfl/*.json .content/image-requests/
+          rm -rf .content/lot3-bfl
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add assets/generated .content/image-requests problemes content
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(lot3): generate two editorial photos"
+            git push origin HEAD:editorial/humidity-condensation-lot3-20261029
+          fi
