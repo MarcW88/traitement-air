@@ -1,4 +1,5 @@
 name: Lot 2 image generation (branch-only)
+# Retry on up-to-date branch; no concurrent editorial writes.
 on:
   push:
     branches: [editorial/industrial-dust-capture-lot2-20261029]
