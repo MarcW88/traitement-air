@@ -40,7 +40,7 @@ jobs:
             errors:p.pageErrors.length>0||p.consoleErrors.length>0,
             imageArticleOverflow:p.editorialImages.some(e=>e.overflowsArticle)
           }).filter(([,v])=>v).map(([k])=>p.route+' '+p.viewport+' '+k));
-          console.log(JSON.stringify({tested:r.pages.length,problems,accessibility:r.pages.map(p=>({route:p.route,viewport:p.viewport,axe:p.axeViolationCount}))},null,2));
+          console.log(JSON.stringify({tested:r.pages.length,problems,accessibility:r.pages.map(p=>({route:p.route,viewport:p.viewport,axe:p.axeViolations.map(v=>({id:v.id,impact:v.impact,description:v.description,nodes:v.nodes.length}))}))},null,2));
           if(problems.length)process.exit(1);
           JS
       - uses: actions/upload-artifact@v4
@@ -48,3 +48,5 @@ jobs:
         with:
           name: lot5-six-page-qa
           path: .artifacts/lot5-six-pages
+
+# Rerun following responsive fixes
