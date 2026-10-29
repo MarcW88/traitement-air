@@ -6,7 +6,7 @@
   "reason": "Photographie documentaire distincte de l'installation d'adsorption sur charbon actif pour COV industriels.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-cov-charbon-actif-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/solutions-traitement-air-traitement-cov-charbon-actif-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-29T14:03:16.161842+00:00",
+  "bfl_request_id": "05dcd296-edb9-45bb-b59e-6b63642d164b",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
