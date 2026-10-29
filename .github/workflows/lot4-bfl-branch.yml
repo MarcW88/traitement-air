@@ -1,0 +1,43 @@
+name: Lot 4 six guide images branch-only
+on:
+  push:
+    branches: [editorial/technical-guides-tools-lot4-20261029]
+    paths: ['.github/workflows/lot4-bfl-branch.yml']
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/technical-guides-tools-lot4-20261029
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Isolate six approved requests
+        run: |
+          mkdir -p .content/lot4-bfl
+          cp .content/image-requests/guides-perte-charge-filtre-air-editorial.json .content/lot4-bfl/
+          cp .content/image-requests/guides-debit-air-renouvellement-air-editorial.json .content/lot4-bfl/
+          cp .content/image-requests/guides-classes-filtres-iso-16890-en-1822-editorial.json .content/lot4-bfl/
+          cp .content/image-requests/comparatifs-captage-source-vs-ventilation-generale-editorial.json .content/lot4-bfl/
+          cp .content/image-requests/comparatifs-filtre-hepa-vs-filtre-fin-editorial.json .content/lot4-bfl/
+          cp .content/image-requests/outils-calcul-renouvellement-air-editorial.json .content/lot4-bfl/
+          python scripts/generate_bfl_images.py --requests-dir .content/lot4-bfl --check-only
+      - name: Generate only six images
+        env:
+          BFL_API_KEY: ${{ secrets.BFL_API_KEY }}
+        run: python scripts/generate_bfl_images.py --requests-dir .content/lot4-bfl
+      - name: Commit to editorial branch only
+        run: |
+          cp .content/lot4-bfl/*.json .content/image-requests/
+          rm -rf .content/lot4-bfl
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add assets/generated .content/image-requests guides comparatifs outils content
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(lot4): integrate six technical editorial images"
+            git push origin HEAD:editorial/technical-guides-tools-lot4-20261029
+          fi
