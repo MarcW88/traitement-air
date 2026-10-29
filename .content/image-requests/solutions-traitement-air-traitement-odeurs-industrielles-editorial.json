@@ -1,0 +1,21 @@
+{
+  "id": "solutions-traitement-air-traitement-odeurs-industrielles-editorial",
+  "page": "solutions-traitement-air/traitement-odeurs-industrielles/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire du traitement industriel d'odeurs",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-odeurs-industrielles-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/solutions-traitement-air-traitement-odeurs-industrielles-editorial.webp",
+  "prompt": "Original photorealistic industrial documentary photo, landscape 1024x672. A tidy realistic industrial odor treatment installation with ductwork connected to one biological filter vessel and one wet chemical scrubber unit, service platforms and pipework, believable scale and safe maintenance access. Clean professional facility with daylight, no workers, no logos, no labels, no text, no watermarks, no smoke or imagined pollutant clouds, no claims of certified performance.",
+  "alt": "Installation industrielle de traitement des odeurs avec conduites et unités de désodorisation",
+  "caption": "Illustration générée par IA ; équipement représentatif, non installation contrôlée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
