@@ -1,0 +1,21 @@
+{
+  "id": "outils-calcul-renouvellement-air-editorial",
+  "page": "outils/calcul-renouvellement-air/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire ciblée",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:outils-calcul-renouvellement-air-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/outils-calcul-renouvellement-air-editorial.webp",
+  "prompt": "Original photorealistic industrial documentary editorial photograph 1024x672: clean warehouse air ventilation plant room with air measuring equipment. Mechanically credible, no human, no logos, no readable text, no fabricated certifications or equipment specs, no watermark, distinct composition.",
+  "alt": "Illustration technique de calcul renouvellement air",
+  "caption": "Illustration générée par IA, non installation réelle vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
