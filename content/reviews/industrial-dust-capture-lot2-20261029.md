@@ -28,7 +28,7 @@ Les sources servent de références de sécurité; les conditions réglementaire
 - Absence de chiffres de conformité inventés et distinction explicite entre pratiques de prévention et législation locale.
 
 ## Contrôles bloqués / restant à accomplir
-- Les SVG sont des schémas originaux mais **aucune photographie photoréaliste nouvelle n'a été générée**. Aucune demande BFL n'a été activée ; ne pas prétendre à des images photographiques.
+- Cinq photographies IA ont désormais été générées et intégrées, voir la section Finalisation effective.
 - Playwright desktop/mobile, axe, Lighthouse et captures écran réelles non exécutés.
 - Génération de sitemap et CI réelle non exécutées. Le sitemap doit être produit au build.
 - Pas de crawl HTTP complet ni validation indépendante par hygiéniste industriel.
@@ -36,3 +36,24 @@ Les sources servent de références de sécurité; les conditions réglementaire
 - Tables à vérifier sur petits écrans avec l'authentique feuille CSS ; aucune capture ne confirme l'absence de débordement.
 
 **Verdict : STAGING EDITORIAL ONLY — NEEDS HUMAN REVIEW AND QA BEFORE PUBLICATION.**
+
+
+## Finalisation effective — 29 octobre 2026
+
+- Cinq contenus approfondis sur les sujets du lot 2, sans changement des URL. Longueurs HTML approximatives après enrichissement : 903, 866, 847, 812 et 865 mots.
+- Cinq demandes BFL distinctes, chacune ciblant une scène industrielle et intégrant une légende précisant le caractère illustratif de l'image.
+- Génération réelle et commit des cinq WebP confirmés par le workflow GitHub Actions #40872931287, conclusion SUCCESS, y compris l'étape de commit.
+- Après vérification via GitHub : cinq requêtes au statut GENERATED et cinq attributs `src` dans les HTML pointant vers les bons fichiers `assets/generated/*.webp`.
+- Le workflow ponctuel de génération a été supprimé après réussite. Le workflow standard du site reste inchangé.
+- Vérifications statiques : 5/5 canonical, H1 unique, JSON-LD parseable, ancrages internes corrects. Trois pages parents liées aux nouveaux contenus.
+- PR #3 ouverte en **draft**, visant main, sans fusion ni déploiement.
+
+### Limites réelles de QA
+- Le succès BFL ne prouve pas une inspection humaine des images : géométrie, exactitude des machines et adéquation aux tâches non validées par captures.
+- Les SVG sont des schémas conceptuels, avec variantes de libellés : QA visuelle responsive du montage non certifiée.
+- Playwright, axe, Lighthouse et crawl complet sont confiés aux workflows de PR lorsqu'ils sont disponibles. Ne pas qualifier de PASS avant retour de CI.
+- Revue par un hygiéniste ou ingénieur ventilation non effectuée. Les sources INRS/HSE renseignent la prévention mais ne définissent pas automatiquement la réglementation belge.
+- Les articles restent pédagogiques : aucune capacité fabricant, VLEP locale ou efficacité de captage chiffrée n'est inventée.
+
+### Déploiement
+**INTERDIT AVANT VALIDATION EXPLICITE**. Branche et PR ouvertes pour relecture uniquement.
