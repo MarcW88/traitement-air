@@ -1,0 +1,21 @@
+{
+  "id": "comparatifs-filtre-hepa-vs-filtre-fin-editorial",
+  "page": "comparatifs/filtre-hepa-vs-filtre-fin/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire ciblée",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:comparatifs-filtre-hepa-vs-filtre-fin-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/comparatifs-filtre-hepa-vs-filtre-fin-editorial.webp",
+  "prompt": "Original photorealistic industrial documentary editorial photograph 1024x672: two industrial fine filter and HEPA filter housings on a clean service bench. Mechanically credible, no human, no logos, no readable text, no fabricated certifications or equipment specs, no watermark, distinct composition.",
+  "alt": "Illustration technique de filtre hepa vs filtre fin",
+  "caption": "Illustration générée par IA, non installation réelle vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
