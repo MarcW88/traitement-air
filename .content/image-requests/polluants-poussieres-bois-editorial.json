@@ -1,0 +1,21 @@
+{
+  "id": "polluants-poussieres-bois-editorial",
+  "page": "polluants/poussieres-bois/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration contextuelle pédagogique, sans prétention à représenter une installation réelle contrôlée.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:polluants-poussieres-bois-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/polluants-poussieres-bois-editorial.webp",
+  "prompt": "Photorealistic original editorial photograph, horizontal 1024x672, for a technical French industrial air treatment guide. Subject: Atelier de menuiserie professionnel vide, ponceuse et aspiration raccordée, réseau de gaines vers collecteur de poussières, lumière naturelle réaliste. Plausible scale and equipment, documentary industrial lighting, technically credible ducting, no logos, no labels, no watermark, no chart, no text, no active hazardous work, no dramatic particles. Avoid resembling generic stock photos; unique composition and camera angle.",
+  "alt": "Atelier bois équipé d’un captage des poussières",
+  "caption": "Illustration générée par IA, à visée documentaire et non photographique d'une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
