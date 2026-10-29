@@ -1,0 +1,21 @@
+{
+  "id": "polluants-fumees-soudage-editorial",
+  "page": "polluants/fumees-soudage/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire fictive distincte, pas un lieu certifié.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:polluants-fumees-soudage-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/polluants-fumees-soudage-editorial.webp",
+  "prompt": "Photorealistic original editorial photograph, horizontal 1024x672, French industrial welding fumes prevention article. Empty welding workplace with local extraction equipment, torch extraction positioned near steel workbench, believable workshop geometry and ventilation, no workers, no fumes, no logos, no text, no watermark, natural industrial documentary light. Distinct composition.",
+  "alt": "Poste de soudage avec dispositif de captage localisé",
+  "caption": "Illustration générée par IA ; installation non vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
