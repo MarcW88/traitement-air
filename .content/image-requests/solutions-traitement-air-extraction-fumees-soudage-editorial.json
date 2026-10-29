@@ -1,0 +1,21 @@
+{
+  "id": "solutions-traitement-air-extraction-fumees-soudage-editorial",
+  "page": "solutions-traitement-air/extraction-fumees-soudage/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration contextuelle pédagogique, sans prétention à représenter une installation réelle contrôlée.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-extraction-fumees-soudage-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/solutions-traitement-air-extraction-fumees-soudage-editorial.webp",
+  "prompt": "Photorealistic original editorial photograph, horizontal 1024x672, for a technical French industrial air treatment guide. Subject: Poste de soudage MIG/MAG à l’arrêt avec bras d’aspiration articulé positionné près d’une table métallique, atelier réaliste sans soudeur ni arc. Plausible scale and equipment, documentary industrial lighting, technically credible ducting, no logos, no labels, no watermark, no chart, no text, no active hazardous work, no dramatic particles. Avoid resembling generic stock photos; unique composition and camera angle.",
+  "alt": "Bras de captage localisé au-dessus d’un poste de soudage inactif",
+  "caption": "Illustration générée par IA, à visée documentaire et non photographique d'une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
