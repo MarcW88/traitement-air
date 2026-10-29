@@ -6,7 +6,7 @@
   "reason": "Illustration contextuelle pédagogique, sans prétention à représenter une installation réelle contrôlée.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-extraction-fumees-soudage-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/solutions-traitement-air-extraction-fumees-soudage-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-29T12:25:08.093723+00:00",
+  "bfl_request_id": "fc1b3e99-39ad-4e82-98ff-b0a0a98020ca",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }

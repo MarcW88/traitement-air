@@ -6,7 +6,7 @@
   "reason": "Illustration documentaire fictive distincte, pas un lieu certifié.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:polluants-fumees-soudage-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/polluants-fumees-soudage-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-29T12:24:18.660819+00:00",
+  "bfl_request_id": "5aa6d0fa-3359-4beb-8828-d88f3143b521",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }

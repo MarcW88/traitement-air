@@ -6,7 +6,7 @@
   "reason": "Illustration contextuelle pédagogique, sans prétention à représenter une installation réelle contrôlée.",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:problemes-poussieres-en-suspension-atelier-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/problemes-poussieres-en-suspension-atelier-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-29T12:24:43.302006+00:00",
+  "bfl_request_id": "be9b120a-4602-424c-88fc-a974ed2986b7",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
