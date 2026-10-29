@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm ci
+      - run: npm install --no-save --no-package-lock --ignore-scripts @playwright/test@1.63.0
       - run: npx playwright install --with-deps chromium
       - name: Test calculator in Chromium and mobile viewport
         run: node tests/lot4-calculator-playwright.cjs
