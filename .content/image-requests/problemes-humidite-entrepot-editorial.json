@@ -1,0 +1,21 @@
+{
+  "id": "problemes-humidite-entrepot-editorial",
+  "page": "problemes/humidite-entrepot/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration contextuelle originale propre au sujet, sans prétendre montrer une installation expertisée.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:problemes-humidite-entrepot-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/problemes-humidite-entrepot-editorial.webp",
+  "prompt": "Original photorealistic editorial landscape photograph for a technical French industrial building diagnostics website: Entrepôt de stockage européen avec palettes filmées, racks métalliques et portes de quai fermées, capteur hygrométrique discret, lumière naturelle, aucune flaque ni humidité dramatisée. Technically plausible construction, documentary photography, wide 1024 by 672 framing, no humans, no logos, no watermarks, no rendered words, no fake measurements, no diagram; distinct composition from other articles.",
+  "alt": "Entrepôt avec zones de stockage et portes de quai",
+  "caption": "Illustration générée par IA : scène représentative, sans diagnostic d'une installation réelle.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
