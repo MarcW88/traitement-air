@@ -51,3 +51,28 @@ Le sitemap de production et celui de `main` n'ont pas été modifiés. **Simulat
 
 **Intégration GitHub effectuée, contrôle structurel ponctuel PASS, QA complète BLOQUÉE.**
 Attendre la validation humaine et les contrôles non exécutés avant toute fusion / déploiement.
+
+
+## QA finale complémentaire — 29 octobre 2026
+
+Deux pages existantes ont reçu un maillage entrant ciblé, sans réécriture de leurs contenus :
+- `solutions-traitement-air/deshumidification-industrielle/index.html` relie les deux procédés et le comparatif ;
+- `solutions-traitement-air/index.html` relie le hub Comparatifs et le comparatif.
+Le hub Comparatifs pointe vers son article et le comparatif pointe vers ses deux fiches sœurs.
+
+### Contrôles réellement exécutés par lecture du contenu GitHub (six fichiers HTML)
+- 6/6 un seul H1, un title, une meta description, canonical conforme au chemin.
+- 6/6 JSON-LD décodable et aucune ancre interne locale sans ID correspondant.
+- Deux pages parentes et quatre nouvelles pages possèdent des liens entrants/sortants vérifiés textuellement.
+- Le code de `scripts/build_sitemap.py` parcourt les `index.html`, filtre les pages noindex et vérifie les canoniques; les 4 nouvelles pages répondent à ses préconditions observables. Le script n'a pas été exécuté: sitemap **prévisionnel**, non certifié par CI.
+- Aucun changement apporté au sitemap de `main`.
+
+### Contrôles non exécutés
+- Playwright desktop/mobile et axe : environnement d'exécution avec navigateur/clone local indisponible ici.
+- html-validate, Lighthouse, build complet, crawl exhaustif du site et vérification HTTP des liens.
+- Contrôle scientifique indépendant et analyse GSC/SERP.
+
+### Réserve QA
+Le HTML réutilise les CSS du site; aucune capture réelle ne certifie l'adaptation de la table comparative aux petits écrans. Avant fusion, exécuter le workflow de QA dans un environnement capable de cloner la branche et de lancer un serveur local, avec captures à 375px, 768px et 1440px, contrôle du débordement horizontal et navigation clavier.
+
+**Verdict : PASS statique ciblé / BLOCKED QA navigateur et CI / PAS READY FOR MERGE.**
