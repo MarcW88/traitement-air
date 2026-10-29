@@ -1,0 +1,21 @@
+{
+  "id": "problemes-poussieres-en-suspension-atelier-editorial",
+  "page": "problemes/poussieres-en-suspension-atelier/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration contextuelle pédagogique, sans prétention à représenter une installation réelle contrôlée.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:problemes-poussieres-en-suspension-atelier-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/problemes-poussieres-en-suspension-atelier-editorial.webp",
+  "prompt": "Photorealistic original editorial photograph, horizontal 1024x672, for a technical French industrial air treatment guide. Subject: Atelier industriel vide pendant une inspection de son réseau d’aspiration, gaines et capteurs, poussière déposée subtile mais pas de nuage inventé. Plausible scale and equipment, documentary industrial lighting, technically credible ducting, no logos, no labels, no watermark, no chart, no text, no active hazardous work, no dramatic particles. Avoid resembling generic stock photos; unique composition and camera angle.",
+  "alt": "Inspection d'un captage de poussières dans un atelier",
+  "caption": "Illustration générée par IA, à visée documentaire et non photographique d'une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
