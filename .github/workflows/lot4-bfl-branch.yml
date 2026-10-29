@@ -1,4 +1,5 @@
 name: Lot 4 six guide images branch-only
+# Retry after editorial branch has settled.
 on:
   push:
     branches: [editorial/technical-guides-tools-lot4-20261029]
