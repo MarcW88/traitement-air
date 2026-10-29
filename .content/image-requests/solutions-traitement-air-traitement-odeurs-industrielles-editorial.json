@@ -6,7 +6,7 @@
   "reason": "Illustration documentaire du traitement industriel d'odeurs",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-odeurs-industrielles-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/solutions-traitement-air-traitement-odeurs-industrielles-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-29T14:06:25.380771+00:00",
+  "bfl_request_id": "8426438f-4cfb-4e0f-892a-2acd2c404698",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
