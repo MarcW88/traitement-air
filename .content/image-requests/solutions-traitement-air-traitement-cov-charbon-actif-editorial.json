@@ -1,0 +1,21 @@
+{
+  "id": "solutions-traitement-air-traitement-cov-charbon-actif-editorial",
+  "page": "solutions-traitement-air/traitement-cov-charbon-actif/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Photographie documentaire distincte de l'installation d'adsorption sur charbon actif pour COV industriels.",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-cov-charbon-actif-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/solutions-traitement-air-traitement-cov-charbon-actif-editorial.webp",
+  "prompt": "Photorealistic independent editorial documentary photograph, 1024x672 landscape, of a believable European industrial VOC activated carbon adsorption treatment installation. Idle steel activated-carbon vessel with ductwork, inspection hatches, modest pressure monitoring instrumentation (no readable values), service access and ventilation connections in a tidy industrial plant room. Technically plausible mechanical installation, restrained natural lighting, no operators, no fumes, no logos, no text, no watermark, no simulated certificates or safety claims.",
+  "alt": "Adsorbeur industriel à charbon actif et conduites de traitement de l'air",
+  "caption": "Illustration générée par IA : équipement représentatif, non installation réellement vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
