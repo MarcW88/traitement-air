@@ -1,0 +1,21 @@
+{
+  "id": "solutions-traitement-air-traitement-ammoniac-industriel-editorial",
+  "page": "solutions-traitement-air/traitement-ammoniac-industriel/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration technique originale dédiée au traitement des émissions de NH3",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:solutions-traitement-air-traitement-ammoniac-industriel-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/solutions-traitement-air-traitement-ammoniac-industriel-editorial.webp",
+  "prompt": "Realistic photorealistic landscape editorial industrial photograph 1024x672 of a professional factory ammonia air emissions wet scrubber, large vertical packed scrubbing column with air exhaust duct and liquid circulation pipework, an accessible safe service platform, no people, no brands, no signage, no text or readings, technically credible, natural neutral light. No emergency chemical spill or release, no watermarks.",
+  "alt": "Tour de lavage humide de rejets gazeux industriels et conduites d'extraction",
+  "caption": "Illustration IA d'un système de lavage ; aucune installation réelle n'est représentée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
