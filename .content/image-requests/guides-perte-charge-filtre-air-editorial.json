@@ -1,0 +1,21 @@
+{
+  "id": "guides-perte-charge-filtre-air-editorial",
+  "page": "guides/perte-charge-filtre-air/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire distincte adaptée à ce guide technique",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:guides-perte-charge-filtre-air-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/guides-perte-charge-filtre-air-editorial.webp",
+  "prompt": "Original photorealistic documentary editorial image 1024x672 for French industrial ventilation technical guide: industrial air handling filtration unit with differential pressure measurement taps and clean metal ducts. Mechanically plausible scale and materials, natural industrial light, no diagrams, text, brands, fake instrument readings, workers or unsafe practices. Unique composition distinct from other images.",
+  "alt": "Illustration de perte charge filtre air",
+  "caption": "Illustration générée par IA, non photographie d'une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
