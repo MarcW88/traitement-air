@@ -6,7 +6,7 @@
   "reason": "Illustrer la ventilation et le captage chimique dans un laboratoire de recherche",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-laboratoires-recherche-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/secteurs-traitement-air-laboratoires-recherche-editorial.webp",
@@ -16,5 +16,9 @@
   "width": 1024,
   "height": 672,
   "prompt_upsampling": true,
-  "seed": null
+  "seed": null,
+  "generated_at": "2026-10-30T16:11:13.665202+00:00",
+  "bfl_request_id": "0dc5381b-84a2-4540-9f86-a5682ffd0612",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
