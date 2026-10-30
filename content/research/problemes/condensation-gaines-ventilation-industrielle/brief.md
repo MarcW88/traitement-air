@@ -1,0 +1,2 @@
+# Brief page 5
+Public : techniciens CVC, responsables HSE/maintenance industrielle. Intent : comprendre eau sur ou dans gaines, choisir diagnostic et prévention. 11 sections, causes interne/externe, point de rosée, isolation et pare-vapeur, fuites, tableau comparatif, schéma et suivi. Éviter règles d'épaisseur universelles et confusion entre condensation et infiltration. Métadonnées et liens internes vers tuyauterie, ventilation et humidité. QA 1440px et 390px, aucun déploiement.
