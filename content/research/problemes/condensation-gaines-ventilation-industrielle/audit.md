@@ -1,0 +1,2 @@
+# Audit page 5 — condensation des gaines
+Existants : /problemes/condensation-tuyauterie-industrielle/ traite les tuyaux (fluides dans la tuyauterie) ; /problemes/condensation-industrielle/ traite le problème de manière globale. La nouvelle page cible spécifiquement les conduits aérauliques, condensation externe/interne, point de rosée, discontinuités d'isolant et pare-vapeur, fuites et drainage. Maillage contextuel pour éviter la cannibalisation.
