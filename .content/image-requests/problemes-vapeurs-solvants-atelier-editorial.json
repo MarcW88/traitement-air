@@ -6,7 +6,7 @@
   "reason": "Photo spécifique au captage de vapeurs de solvants sur un poste de dégraissage industriel",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:problemes-vapeurs-solvants-atelier-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/problemes-vapeurs-solvants-atelier-editorial.webp",
@@ -17,5 +17,8 @@
   "height": 672,
   "prompt_upsampling": true,
   "seed": null,
-  "generated_at": null
+  "generated_at": "2026-10-30T08:56:23.819098+00:00",
+  "bfl_request_id": "fc9f791b-d3f0-44e5-b67f-9674e0824ced",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
