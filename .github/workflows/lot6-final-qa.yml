@@ -37,3 +37,5 @@ jobs:
         with:
           name: lot6-final-desktop-mobile
           path: .artifacts/lot6-final
+
+# Recheck after brand color accessibility fix
