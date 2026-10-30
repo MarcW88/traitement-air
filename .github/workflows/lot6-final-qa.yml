@@ -1,0 +1,39 @@
+name: Lot 6 final five-page QA
+on:
+  push:
+    branches: [editorial/brouillards-huile-lot6-20261030]
+    paths: ['.github/workflows/lot6-final-qa.yml']
+permissions:
+  contents: read
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /problemes/brouillards-huile-usinage/ \
+            --route /problemes/chaleur-excessive-atelier/ \
+            --route /problemes/vapeurs-solvants-atelier/ \
+            --route /problemes/aerosols-nettoyage-industriel/ \
+            --route /problemes/condensation-gaines-ventilation-industrielle/ \
+            --output .artifacts/lot6-final
+      - name: Validate all rendered routes
+        run: |
+          node - <<'JS'
+          const fs=require('fs'),r=JSON.parse(fs.readFileSync('.artifacts/lot6-final/report.json'));
+          const issues=r.pages.flatMap(p=>Object.entries({http:p.httpStatus!==200,h1:p.h1Count!==1,overflow:p.horizontalOverflow,brokenImages:p.brokenImages.length>0,alt:p.imagesWithoutAlt>0,js:p.pageErrors.length>0||p.consoleErrors.length>0}).filter(([,v])=>v).map(([k])=>p.route+' '+p.viewport+' '+k));
+          console.log(JSON.stringify({tested:r.pages.length,issues,accessibility:r.pages.map(p=>({route:p.route,viewport:p.viewport,axe:p.axeViolations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length}))}))},null,2));
+          if(r.pages.length!==10||issues.length)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lot6-final-desktop-mobile
+          path: .artifacts/lot6-final
