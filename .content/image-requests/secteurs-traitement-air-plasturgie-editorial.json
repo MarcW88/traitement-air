@@ -6,7 +6,7 @@
   "reason": "Illustrer captage des fumées en atelier de transformation des plastiques",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-plasturgie-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/secteurs-traitement-air-plasturgie-editorial.webp",
@@ -16,5 +16,9 @@
   "width": 1024,
   "height": 672,
   "prompt_upsampling": true,
-  "seed": null
+  "seed": null,
+  "generated_at": "2026-10-30T16:26:57.302177+00:00",
+  "bfl_request_id": "fad82b3f-5583-4b92-92d2-d7cf46f3f20e",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
