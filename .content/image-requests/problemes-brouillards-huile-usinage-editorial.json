@@ -1,0 +1,21 @@
+{
+  "id": "problemes-brouillards-huile-usinage-editorial",
+  "page": "problemes/brouillards-huile-usinage/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire brouillards huile machine CNC en atelier",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:problemes-brouillards-huile-usinage-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/problemes-brouillards-huile-usinage-editorial.webp",
+  "prompt": "Original photorealistic professional editorial landscape image 1024x672 of an enclosed CNC metal machining center in a modern European mechanical workshop, side mounted local oil-mist extractor with ducting and compact oil mist separator, viewed from outside machine transparent doors, realistic stainless steel machinery, subtle coolant residue, tidy environment, no people, no exaggerated fog, no text, no logos, no watermark.",
+  "alt": "Centre d'usinage CNC capoté relié à un extracteur de brouillards d'huile",
+  "caption": "Illustration générée par IA d'un dispositif représentatif, non d'une installation inspectée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
