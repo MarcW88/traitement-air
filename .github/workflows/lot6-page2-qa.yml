@@ -1,0 +1,57 @@
+name: Lot 6 page2 BFL and Chromium
+on:
+  push:
+    branches: [editorial/brouillards-huile-lot6-20261030]
+    paths: ['.github/workflows/lot6-page2-qa.yml']
+permissions:
+  contents: write
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p .content/lot6-page2-image
+          cp .content/image-requests/problemes-chaleur-excessive-atelier-editorial.json .content/lot6-page2-image/
+          python scripts/generate_bfl_images.py --requests-dir .content/lot6-page2-image --check-only
+      - env:
+          BFL_API_KEY: ${{ secrets.BFL_API_KEY }}
+        run: python scripts/generate_bfl_images.py --requests-dir .content/lot6-page2-image
+      - run: |
+          cp .content/lot6-page2-image/*.json .content/image-requests/
+          rm -rf .content/lot6-page2-image
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add assets/generated .content/image-requests problemes content
+          if ! git diff --cached --quiet; then
+            git commit -m "images(lot6): integrate page2 heat photo"
+            git push origin HEAD:editorial/brouillards-huile-lot6-20261030
+          fi
+  playwright:
+    needs: image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/brouillards-huile-lot6-20261030
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: node .design-audit/run-visual-review.mjs --route /problemes/chaleur-excessive-atelier/ --output .artifacts/lot6-page2
+      - run: |
+          node - <<'JS'
+          const fs=require('fs'),r=JSON.parse(fs.readFileSync('.artifacts/lot6-page2/report.json'));
+          const defects=r.pages.flatMap(p=>Object.entries({http:p.httpStatus!==200,h1:p.h1Count!==1,overflow:p.horizontalOverflow,brokenImages:p.brokenImages.length>0,alt:p.imagesWithoutAlt>0,js:p.pageErrors.length>0||p.consoleErrors.length>0}).filter(([,v])=>v).map(([k])=>p.viewport+' '+k));
+          console.log(JSON.stringify({tested:r.pages.length,defects,accessibility:r.pages.map(p=>({viewport:p.viewport,violations:p.axeViolations.map(v=>v.id)}))},null,2));
+          if(defects.length)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lot6-page2-chromium
+          path: .artifacts/lot6-page2
