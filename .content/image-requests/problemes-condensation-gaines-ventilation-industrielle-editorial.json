@@ -1,0 +1,21 @@
+{
+  "id": "problemes-condensation-gaines-ventilation-industrielle-editorial",
+  "page": "problemes/condensation-gaines-ventilation-industrielle/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Photo illustrative d'inspection de gaine isolée dans usine",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:problemes-condensation-gaines-ventilation-industrielle-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/problemes-condensation-gaines-ventilation-industrielle-editorial.webp",
+  "prompt": "Original realistic editorial photograph 1024x672 landscape of an industrial HVAC technician-free mechanical plant room with large insulated galvanized air ducts and vapor-sealed joints, one duct transition and inspection hatch, neat European industrial ventilation facility, subtle small condensation beads on an uninsulated metal flange illustrating problem, safe clean scene, no people, no lettering, no brand, no watermark.",
+  "alt": "Réseau de gaines de ventilation industrielle isolées avec brides et trappes d'inspection",
+  "caption": "Illustration générée par IA d'un réseau représentatif, non photographie d'une installation contrôlée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null,
+  "generated_at": null
+}
