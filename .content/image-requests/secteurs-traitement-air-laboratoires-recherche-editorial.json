@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-laboratoires-recherche-editorial",
+  "page": "secteurs/traitement-air-laboratoires-recherche/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustrer la ventilation et le captage chimique dans un laboratoire de recherche",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-laboratoires-recherche-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-laboratoires-recherche-editorial.webp",
+  "prompt": "Original editorial architectural photograph, landscape 1024x672. Modern European chemical research laboratory, empty room, realistic ducted chemical fume hood with glass sash and exhaust connection, clean benches and laboratory cabinetry, plausible ventilation infrastructure, no scientists, no text, no logos, no watermark. No claims of technical compliance.",
+  "alt": "Sorbonne chimique raccordée à une extraction dans un laboratoire de recherche",
+  "caption": "Illustration générée par IA : configuration indicative, non photographie d’une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
