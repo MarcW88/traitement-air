@@ -1,0 +1,59 @@
+name: Final lot five-pages Chromium QA
+on:
+  push:
+    branches: [editorial/secteurs-industriels-lot-final-20261030]
+    paths: ['.github/workflows/lot-final-five-pages-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Audit five page routes
+        run: |
+          set -e
+          for slug in metallurgie laboratoires-recherche entrepots-logistiques plasturgie industrie-chimique; do
+            node .design-audit/run-visual-review.mjs --route "/secteurs/traitement-air-$slug/" --output ".artifacts/final-lot/$slug"
+          done
+      - name: Enforce desktop/mobile health and accessibility
+        if: always()
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          const slugs = ['metallurgie','laboratoires-recherche','entrepots-logistiques','plasturgie','industrie-chimique'];
+          let fail = false;
+          for (const slug of slugs) {
+            const path = '.artifacts/final-lot/'+slug+'/report.json';
+            if (!fs.existsSync(path)) { console.error(slug+': missing report'); fail = true; continue; }
+            const r = JSON.parse(fs.readFileSync(path,'utf8'));
+            if(r.pages.length!==2) { console.error(slug+': expected 2 viewports, got '+r.pages.length); fail = true; }
+            for(const p of r.pages) {
+              const errors = Object.entries({
+                http: p.httpStatus!==200,
+                h1: p.h1Count!==1,
+                horizontalOverflow: p.horizontalOverflow,
+                brokenImages: p.brokenImages.length>0,
+                missingAlt: p.imagesWithoutAlt>0,
+                pageErrors: p.pageErrors.length>0,
+                consoleErrors: p.consoleErrors.length>0,
+                axe: p.axeViolations.length>0
+              }).filter(([,bad])=>bad).map(([key])=>key);
+              console.log(JSON.stringify({slug,viewport:p.viewport,errors,axe:p.axeViolations.map(x=>x.id)}));
+              if(errors.length)fail=true;
+            }
+          }
+          if(fail)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-lot-five-pages-chromium
+          path: .artifacts/final-lot
+          retention-days: 14
