@@ -16,12 +16,15 @@ jobs:
           node-version: '22'
       - run: npm install --no-save --no-package-lock --ignore-scripts
       - run: npx playwright install --with-deps chromium
-      - name: Audit five page routes
+      - name: Audit five page routes in one Chromium session
         run: |
-          set -e
-          for slug in metallurgie laboratoires-recherche entrepots-logistiques plasturgie industrie-chimique; do
-            node .design-audit/run-visual-review.mjs --route "/secteurs/traitement-air-$slug/" --output ".artifacts/final-lot/$slug"
-          done
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/traitement-air-metallurgie/ \
+            --route /secteurs/traitement-air-laboratoires-recherche/ \
+            --route /secteurs/traitement-air-entrepots-logistiques/ \
+            --route /secteurs/traitement-air-plasturgie/ \
+            --route /secteurs/traitement-air-industrie-chimique/ \
+            --output .artifacts/final-lot
       - name: Enforce desktop/mobile health and accessibility
         if: always()
         run: |
@@ -29,25 +32,28 @@ jobs:
           const fs = require('fs');
           const slugs = ['metallurgie','laboratoires-recherche','entrepots-logistiques','plasturgie','industrie-chimique'];
           let fail = false;
-          for (const slug of slugs) {
-            const path = '.artifacts/final-lot/'+slug+'/report.json';
-            if (!fs.existsSync(path)) { console.error(slug+': missing report'); fail = true; continue; }
-            const r = JSON.parse(fs.readFileSync(path,'utf8'));
-            if(r.pages.length!==2) { console.error(slug+': expected 2 viewports, got '+r.pages.length); fail = true; }
-            for(const p of r.pages) {
-              const errors = Object.entries({
-                http: p.httpStatus!==200,
-                h1: p.h1Count!==1,
-                horizontalOverflow: p.horizontalOverflow,
-                brokenImages: p.brokenImages.length>0,
-                missingAlt: p.imagesWithoutAlt>0,
-                pageErrors: p.pageErrors.length>0,
-                consoleErrors: p.consoleErrors.length>0,
-                axe: p.axeViolations.length>0
-              }).filter(([,bad])=>bad).map(([key])=>key);
-              console.log(JSON.stringify({slug,viewport:p.viewport,errors,axe:p.axeViolations.map(x=>x.id)}));
-              if(errors.length)fail=true;
-            }
+          const reportPath='.artifacts/final-lot/report.json';
+          if(!fs.existsSync(reportPath)) { console.error('Missing report.json'); process.exit(1); }
+          const r=JSON.parse(fs.readFileSync(reportPath,'utf8'));
+          if(r.pages.length!==10) { console.error('Expected exactly ten viewport results, got '+r.pages.length); fail=true; }
+          for (const slug of slugs) for(const viewport of ['desktop','mobile']) {
+            const route='/secteurs/traitement-air-'+slug+'/';
+            const p=r.pages.find(x=>x.route===route&&x.viewport===viewport);
+            if(!p) { console.error('Missing result: '+slug+' '+viewport); fail=true; continue; }
+            const errors=Object.entries({
+              http:p.httpStatus!==200,
+              h1:p.h1Count!==1,
+              horizontalOverflow:p.horizontalOverflow,
+              brokenImages:p.brokenImages.length>0,
+              missingAlt:p.imagesWithoutAlt>0,
+              pageErrors:p.pageErrors.length>0,
+              consoleErrors:p.consoleErrors.length>0,
+              axe:p.axeViolations.length>0,
+              editorialImageMissing:!p.editorialImages?.length,
+              editorialImageOverflow:p.editorialImages?.some(x=>x.overflowsArticle)===true
+            }).filter(([,bad])=>bad).map(([key])=>key);
+            console.log(JSON.stringify({slug,viewport,httpStatus:p.httpStatus,errors,axe:p.axeViolations.map(x=>x.id),screenshot:p.screenshot}));
+            if(errors.length)fail=true;
           }
           if(fail)process.exit(1);
           JS
