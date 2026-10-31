@@ -1,0 +1,2 @@
+# Audit — Entrepôts logistiques
+La page /secteurs/traitement-air-stockage/ couvre surtout la conservation des marchandises (humidité et écarts thermiques). Nouvelle intention distincte : qualité de l’air respiré par les opérateurs, gaz d’échappement des chariots, polluants aux quais, recharge des batteries et ventilation de halls à grande hauteur. Éviter les promesses de débit standard et la confusion entre concentration ambiante et exposition individuelle.

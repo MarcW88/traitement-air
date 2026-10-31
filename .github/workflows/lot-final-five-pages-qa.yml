@@ -1,0 +1,65 @@
+name: Final lot five-pages Chromium QA
+on:
+  push:
+    branches: [editorial/secteurs-industriels-lot-final-20261030]
+    paths: ['.github/workflows/lot-final-five-pages-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Audit five page routes in one Chromium session
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/traitement-air-metallurgie/ \
+            --route /secteurs/traitement-air-laboratoires-recherche/ \
+            --route /secteurs/traitement-air-entrepots-logistiques/ \
+            --route /secteurs/traitement-air-plasturgie/ \
+            --route /secteurs/traitement-air-industrie-chimique/ \
+            --output .artifacts/final-lot
+      - name: Enforce desktop/mobile health and accessibility
+        if: always()
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          const slugs = ['metallurgie','laboratoires-recherche','entrepots-logistiques','plasturgie','industrie-chimique'];
+          let fail = false;
+          const reportPath='.artifacts/final-lot/report.json';
+          if(!fs.existsSync(reportPath)) { console.error('Missing report.json'); process.exit(1); }
+          const r=JSON.parse(fs.readFileSync(reportPath,'utf8'));
+          if(r.pages.length!==10) { console.error('Expected exactly ten viewport results, got '+r.pages.length); fail=true; }
+          for (const slug of slugs) for(const viewport of ['desktop','mobile']) {
+            const route='/secteurs/traitement-air-'+slug+'/';
+            const p=r.pages.find(x=>x.route===route&&x.viewport===viewport);
+            if(!p) { console.error('Missing result: '+slug+' '+viewport); fail=true; continue; }
+            const errors=Object.entries({
+              http:p.httpStatus!==200,
+              h1:p.h1Count!==1,
+              horizontalOverflow:p.horizontalOverflow,
+              brokenImages:p.brokenImages.length>0,
+              missingAlt:p.imagesWithoutAlt>0,
+              pageErrors:p.pageErrors.length>0,
+              consoleErrors:p.consoleErrors.length>0,
+              axe:p.axeViolations.length>0,
+              editorialImageMissing:!p.editorialImages?.length,
+              editorialImageOverflow:p.editorialImages?.some(x=>x.overflowsArticle)===true
+            }).filter(([,bad])=>bad).map(([key])=>key);
+            console.log(JSON.stringify({slug,viewport,httpStatus:p.httpStatus,errors,axe:p.axeViolations.map(x=>x.id),screenshot:p.screenshot}));
+            if(errors.length)fail=true;
+          }
+          if(fail)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-lot-five-pages-chromium
+          path: .artifacts/final-lot
+          retention-days: 14

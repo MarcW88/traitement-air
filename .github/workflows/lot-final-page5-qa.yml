@@ -1,0 +1,57 @@
+name: Final lot page5 chemical-industry BFL and Playwright
+on:
+  push:
+    branches: [editorial/secteurs-industriels-lot-final-20261030]
+    paths: ['.github/workflows/lot-final-page5-qa.yml']
+permissions:
+  contents: write
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p .content/final-page5-image
+          cp .content/image-requests/secteurs-traitement-air-industrie-chimique-editorial.json .content/final-page5-image/
+          python scripts/generate_bfl_images.py --requests-dir .content/final-page5-image --check-only
+      - env:
+          BFL_API_KEY: ${{ secrets.BFL_API_KEY }}
+        run: python scripts/generate_bfl_images.py --requests-dir .content/final-page5-image
+      - run: |
+          cp .content/final-page5-image/*.json .content/image-requests/
+          rm -rf .content/final-page5-image
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add assets/generated .content/image-requests secteurs content
+          if ! git diff --cached --quiet; then
+            git commit -m "images(final-lot): integrate chemical-industry illustration"
+            git push origin HEAD:editorial/secteurs-industriels-lot-final-20261030
+          fi
+  playwright:
+    needs: image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/secteurs-industriels-lot-final-20261030
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: node .design-audit/run-visual-review.mjs --route /secteurs/traitement-air-industrie-chimique/ --output .artifacts/final-page5
+      - run: |
+          node - <<'JS'
+          const fs=require('fs'),r=JSON.parse(fs.readFileSync('.artifacts/final-page5/report.json'));
+          const issues=r.pages.flatMap(p=>Object.entries({http:p.httpStatus!==200,h1:p.h1Count!==1,overflow:p.horizontalOverflow,brokenImages:p.brokenImages.length>0,alt:p.imagesWithoutAlt>0,js:p.pageErrors.length>0||p.consoleErrors.length>0,axe:p.axeViolations.length>0}).filter(([,v])=>v).map(([k])=>p.viewport+':'+k));
+          console.log(JSON.stringify({tested:r.pages.length,issues},null,2));
+          if(r.pages.length!==2||issues.length)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-page5-chemical-industry-chromium
+          path: .artifacts/final-page5
