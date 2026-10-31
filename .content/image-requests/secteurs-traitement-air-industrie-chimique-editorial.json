@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-industrie-chimique-editorial",
+  "page": "secteurs/traitement-air-industrie-chimique/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustrer une installation industrielle chimique et la ventilation des procédés",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-industrie-chimique-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-industrie-chimique-editorial.webp",
+  "prompt": "Realistic editorial photograph landscape 1024x672 of clean modern European chemical processing facility interior, enclosed process vessels and transfer pipework, visible realistic localized extraction and ceiling ventilation ducting, no workers, no labels, no logos, no watermark, no certification implied.",
+  "alt": "Installation de production chimique avec cuves, tuyauteries et dispositifs de ventilation",
+  "caption": "Illustration générée par IA, ne représentant pas une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
