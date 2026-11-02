@@ -1,0 +1,2 @@
+# Audit — traitement de surface
+La page spécifique n'existe pas sur la branche. Différenciation : contrairement à Industrie chimique (procédés généralistes) et Cabines de peinture (application de revêtement), cette page cible les cuves de traitement de surface, décapage, galvanoplastie, anodisation et leurs émissions. Angle commercial B2B : concevoir et contrôler le captage sur bains ; éviter promesse de débits standards. Ne pas déborder vers procédés de projection thermique.
