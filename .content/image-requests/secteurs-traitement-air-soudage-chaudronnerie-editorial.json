@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-soudage-chaudronnerie-editorial",
+  "page": "secteurs/traitement-air-soudage-chaudronnerie/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration documentaire du captage local des fumées au poste de soudage",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-soudage-chaudronnerie-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-soudage-chaudronnerie-editorial.webp",
+  "prompt": "Photorealistic editorial industrial photograph, landscape 1024x672, modern European metal fabrication welding workshop, realistic MIG MAG welding workstation with a metal workpiece on stable bench, correctly positioned close local fume extraction arm and visible overhead ducting, no sparks directed at camera, no people, no text, no logos, no watermarks, no implied certification.",
+  "alt": "Poste de soudage en atelier de chaudronnerie avec bras de captage des fumées près de la zone de travail",
+  "caption": "Illustration générée par IA, ne représentant pas une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
