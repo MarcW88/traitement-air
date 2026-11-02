@@ -1,0 +1,2 @@
+# Brief éditorial : air en atelier de soudage et chaudronnerie
+H1 ciblé : Traitement de l’air en soudage et chaudronnerie : fumées et captage. 9 sections : diagnostic d'émissions ; réduction à la source ; torches et dosserets ; bras et tables ; découpe et préparation ; air neuf et rejet ; comparaison des postes ; contrôles ; sources. Éviter débits universels et promesses de sécurité. Ajouter illustration clairement marquée comme IA et maillage vers métallurgie, poussières, filtration et demande de devis. CTA discret, fondé sur cahier des charges.
