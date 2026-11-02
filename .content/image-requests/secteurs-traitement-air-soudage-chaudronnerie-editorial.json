@@ -6,7 +6,7 @@
   "reason": "Illustration documentaire du captage local des fumées au poste de soudage",
   "allow_ai_generation": true,
   "truth_risk": "LOW",
-  "status": "PENDING",
+  "status": "GENERATED",
   "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-soudage-chaudronnerie-editorial -->",
   "placement": "replace",
   "output_path": "assets/generated/secteurs-traitement-air-soudage-chaudronnerie-editorial.webp",
@@ -16,5 +16,9 @@
   "width": 1024,
   "height": 672,
   "prompt_upsampling": true,
-  "seed": null
+  "seed": null,
+  "generated_at": "2026-11-02T10:03:12.753420+00:00",
+  "bfl_request_id": "bc9665a2-3db3-4d6c-aaea-39102caf60e6",
+  "bfl_endpoint": "https://api.bfl.ai/v1/flux-2-pro-preview",
+  "bfl_cost": 3.0
 }
