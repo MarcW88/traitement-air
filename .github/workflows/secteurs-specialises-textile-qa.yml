@@ -1,7 +1,7 @@
 name: Specialized sector 2 textile BFL and Chromium QA
 on:
   push:
-    branches: [editorial/secteurs-specialises-textile-20261102]
+    branches: [editorial/secteurs-specialises-soudage-20261102]
     paths: ['.github/workflows/secteurs-specialises-textile-qa.yml']
 permissions:
   contents: write
@@ -28,7 +28,7 @@ jobs:
           git add assets/generated .content/image-requests secteurs content
           if ! git diff --cached --quiet; then
             git commit -m "images(specialized-textile): integrate textile illustration"
-            git push origin HEAD:editorial/secteurs-specialises-textile-20261102
+            git push origin HEAD:editorial/secteurs-specialises-soudage-20261102
           fi
   playwright:
     needs: image
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: editorial/secteurs-specialises-textile-20261102
+          ref: editorial/secteurs-specialises-soudage-20261102
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
