@@ -1,0 +1,2 @@
+# Audit : soudage et chaudronnerie
+Nouvelle page inexistante sur branche source. Page métallurgie déjà présente, angle plus général : éviter cannibalisation en ciblant la protection du soudeur au poste et l'organisation d'atelier (MIG/MAG, TIG, MMA, découpe, meulage). Requêtes : aspiration fumées soudage, ventilation atelier chaudronnerie, captage torche aspirante. Public : HSE, responsables production, maintenance et bureaux d'études. Vérifier liens et compatibilité SEO avant publication.
