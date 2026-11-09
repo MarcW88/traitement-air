@@ -2,7 +2,7 @@ name: Automobile editorial BFL and Chromium QA
 on:
   push:
     branches: [editorial/secteurs-industries-complementaires-20261109]
-    paths: ['.github/workflows/automobile-editorial-qa.yml']
+    paths: ['.github/workflows/automobile-editorial-qa.yml', 'secteurs/traitement-air-industrie-automobile/index.html']
   workflow_dispatch:
 permissions:
   contents: write
