@@ -243,5 +243,5 @@ assert len(re.findall(r'<a href="/secteurs/traitement-air-[^/]+/">',hub))>=26
 for slug,_ in ALL:
     p=ROOT/("secteurs/traitement-air-"+slug+"/index.html")
     text=p.read_text(encoding="utf-8")
-    assert 'class="sector-crosslinks"' in text and 'class="sector-nav"' in text,slug
+    assert 'class="sector-crosslinks"' in text and 'sector-nav-links' in text,slug
 print(f"Modified {changed} shared nav pages, 26 sector pages and four category/home panels")
