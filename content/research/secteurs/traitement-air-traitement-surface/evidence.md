@@ -1,0 +1,5 @@
+# Evidence — traitement de surface
+INRS ED 6523 (02/2024), *Cuves de traitement de surface*, https://www.inrs.fr/media.html?refINRS=ED+6523 : démarche 3 étapes : évaluer le risque et les bains ; sélectionner le captage, privilégier les couvercles ; concevoir l'extraction, les rejets et la compensation d'air. Le calcul des débits dépend du bain et du dispositif.
+INRS Retour d'expérience 2025, https://www.inrs.fr/inrs/recherche/etudes-publications-communications/doc/communication.html?refINRS=EL2019-009%2FC2025-054 : défaillance du captage de bains constatée dans un établissement, mesures de chrome hexavalent réduites après maintenance ; cas particulier, ne pas généraliser les résultats.
+INRS risques chimiques : https://www.inrs.fr/risques/chimiques/protection-collective ; priorité à la suppression/confinement puis captage.
+Limites : ne donner aucune consigne générale de vitesse de captage, de débit ou de compatibilité matériaux. Risques ATEX, corrosion, émissions de Cr(VI) ou composés cyanurés à évaluer selon produits et procédés ; ne pas assimiler tous bains à mêmes émissions.

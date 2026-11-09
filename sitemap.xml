@@ -315,4 +315,9 @@
 <changefreq>monthly</changefreq>
 <priority>0.8</priority>
 </url>
+<url><loc>https://traitement-air.fr/secteurs/traitement-air-soudage-chaudronnerie</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://traitement-air.fr/secteurs/traitement-air-industrie-textile</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://traitement-air.fr/secteurs/traitement-air-traitement-surface</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://traitement-air.fr/secteurs/traitement-air-recyclage-industriel</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://traitement-air.fr/secteurs/traitement-air-fabrication-batteries</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
