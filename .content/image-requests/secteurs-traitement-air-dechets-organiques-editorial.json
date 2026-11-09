@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-dechets-organiques-editorial",
+  "page": "secteurs/traitement-air-dechets-organiques/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustrer le traitement industriel des biodéchets et la collecte d'air odorant en installation confinée",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-dechets-organiques-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-dechets-organiques-editorial.webp",
+  "prompt": "Photorealistic editorial landscape photo 1024x672 of a modern European enclosed organic waste treatment and composting facility, indoor biodéchets receiving and pre-treatment hall with enclosed conveyors, composting tunnels in background, visible realistic local extraction ducting and ventilation collecting odorous air, tidy safe industrial site, no people, no logos, no signs or readable text, no watermarks, no implied regulatory compliance.",
+  "alt": "Installation industrielle de traitement des biodéchets avec réception confinée et réseau de captage de l'air",
+  "caption": "Illustration générée par IA, non photographie d'une installation vérifiée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
