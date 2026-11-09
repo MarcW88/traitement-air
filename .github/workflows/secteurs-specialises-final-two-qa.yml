@@ -1,0 +1,93 @@
+name: Specialized sectors recycling batteries BFL and Chromium
+on:
+  push:
+    branches: [editorial/secteurs-specialises-soudage-20261102]
+    paths: ['.github/workflows/secteurs-specialises-final-two-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/secteurs-specialises-soudage-20261102
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare only the two pending BFL requests
+        run: |
+          mkdir -p .content/final-two-image-requests
+          cp .content/image-requests/secteurs-traitement-air-recyclage-industriel-editorial.json .content/final-two-image-requests/
+          cp .content/image-requests/secteurs-traitement-air-fabrication-batteries-editorial.json .content/final-two-image-requests/
+          python scripts/generate_bfl_images.py --requests-dir .content/final-two-image-requests --check-only
+      - name: Generate and integrate images once
+        env:
+          BFL_API_KEY: ${{ secrets.BFL_API_KEY }}
+        run: python scripts/generate_bfl_images.py --requests-dir .content/final-two-image-requests
+      - name: Save only generated illustrations and their integration
+        run: |
+          cp .content/final-two-image-requests/*.json .content/image-requests/
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add assets/generated .content/image-requests secteurs/traitement-air-recyclage-industriel secteurs/traitement-air-fabrication-batteries content/secteurs/traitement-air-recyclage-industriel content/secteurs/traitement-air-fabrication-batteries
+          if ! git diff --cached --quiet; then
+            git commit -m "images(specialized): add recycling and batteries BFL illustrations"
+            git push origin HEAD:editorial/secteurs-specialises-soudage-20261102
+          fi
+  playwright:
+    needs: images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial/secteurs-specialises-soudage-20261102
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Audit five specialized sector pages on desktop and mobile
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/traitement-air-soudage-chaudronnerie/ \
+            --route /secteurs/traitement-air-industrie-textile/ \
+            --route /secteurs/traitement-air-traitement-surface/ \
+            --route /secteurs/traitement-air-recyclage-industriel/ \
+            --route /secteurs/traitement-air-fabrication-batteries/ \
+            --output .artifacts/specialized-five
+      - name: Verify ten viewport reports, images and accessibility
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('.artifacts/specialized-five/report.json','utf8'));
+          const slugs=['soudage-chaudronnerie','industrie-textile','traitement-surface','recyclage-industriel','fabrication-batteries'];
+          let failure=r.pages.length!==10;
+          for(const slug of slugs) for(const viewport of ['desktop','mobile']){
+            const p=r.pages.find(x=>x.route==='/secteurs/traitement-air-'+slug+'/'&&x.viewport===viewport);
+            if(!p){console.error('Missing page report',slug,viewport);failure=true;continue;}
+            const errors={
+              http:p.httpStatus!==200,
+              h1:p.h1Count!==1,
+              overflow:p.horizontalOverflow,
+              brokenImages:p.brokenImages.length>0,
+              missingAlt:p.imagesWithoutAlt>0,
+              consoleErrors:p.consoleErrors.length>0,
+              pageErrors:p.pageErrors.length>0,
+              axe:p.axeViolations.length>0,
+              imageMissing:!p.editorialImages||p.editorialImages.length===0,
+              imageOverflow:p.editorialImages?.some(i=>i.overflowsArticle)===true
+            };
+            const problems=Object.keys(errors).filter(key=>errors[key]);
+            console.log(JSON.stringify({slug,viewport,problems,axe:p.axeViolations.map(x=>x.id),screenshot:p.screenshot}));
+            if(problems.length)failure=true;
+          }
+          if(failure)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: specialized-five-desktop-mobile-axe
+          path: .artifacts/specialized-five
+          retention-days: 14
