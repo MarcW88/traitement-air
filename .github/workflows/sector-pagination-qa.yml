@@ -2,7 +2,7 @@ name: Validate sector directory pagination and BFL images
 on:
   push:
     branches: [ux/architecture-secteurs-maillage-20261109]
-    paths: ['.github/workflows/sector-pagination-qa.yml']
+    paths: ['.github/workflows/sector-pagination-qa.yml', 'secteurs/page/**', 'secteurs/index.html']
   workflow_dispatch:
 permissions:
   contents: read
@@ -38,6 +38,9 @@ jobs:
               assert (Path('secteurs')/f'traitement-air-{slug}'/'index.html').is_file(),slug
               all_slugs.append(slug)
           assert len(set(all_slugs))==26,len(set(all_slugs))
+          for n in (2,3):
+            page=pages[n-1].read_text(encoding='utf-8')
+            assert 'undefined' not in page, f'Undefined metadata/content on page {n}'
           print('Pagination 8+10+8; all 26 sector images present and linked to valid pages.')
           PY
           python3 scripts/build_sitemap.py
