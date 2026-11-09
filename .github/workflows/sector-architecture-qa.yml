@@ -18,7 +18,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Apply sitewide navigation and sector clusters
-        run: python3 scripts/improve_sector_architecture.py
+        run: |
+          if grep -q 'class="sector-catalogue"' secteurs/index.html; then
+            echo "Sector architecture already staged: applying verified refinements"
+          else
+            python3 scripts/improve_sector_architecture.py
+          fi
+          python3 scripts/polish_sector_architecture.py
       - name: Validate changed HTML links and sector structure
         run: |
           python3 - <<'PY'
