@@ -1,0 +1,126 @@
+name: Prepare scoped five specialized sectors release
+on:
+  push:
+    branches: [editorial/secteurs-specialises-soudage-20261102]
+    paths: ['.github/workflows/publish-specialized-five-staging.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  stage-and-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository and main baseline
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Build scoped release branch from main
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC='editorial/secteurs-specialises-soudage-20261102'
+          git fetch origin "$SRC" main
+          git checkout -B staging/secteurs-specialises-five-20261109 origin/main
+          for slug in soudage-chaudronnerie industrie-textile traitement-surface recyclage-industriel fabrication-batteries; do
+            git checkout "origin/$SRC" -- \
+              "secteurs/traitement-air-$slug/index.html" \
+              "content/secteurs/traitement-air-$slug/body.html" \
+              "content/research/secteurs/traitement-air-$slug" \
+              ".content/image-requests/secteurs-traitement-air-$slug-editorial.json" \
+              "assets/generated/secteurs-traitement-air-$slug-editorial.webp"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          names = [
+            ("soudage-chaudronnerie","Soudage et chaudronnerie","Fumées métalliques, extraction et captage au poste."),
+            ("industrie-textile","Industrie textile","Poussières de fibres, finition et ventilation."),
+            ("traitement-surface","Traitement de surface","Vapeurs de cuves, capotages et captage local."),
+            ("recyclage-industriel","Recyclage industriel","Captage des poussières de tri et de broyage."),
+            ("fabrication-batteries","Fabrication de batteries","Poudres, solvants, air sec et ventilation de procédé.")
+          ]
+          # The previous five-sector editorial batch is not on main. Avoid broken links.
+          old_links = [
+            '<a href="/secteurs/traitement-air-metallurgie/">métallurgie</a>',
+            '<a href="/secteurs/traitement-air-industrie-chimique/">industrie chimique</a>'
+          ]
+          for slug,*_ in names:
+            for p in [Path(f'secteurs/traitement-air-{slug}/index.html'),Path(f'content/secteurs/traitement-air-{slug}/body.html')]:
+              html=p.read_text(encoding='utf-8')
+              html=html.replace(old_links[0], 'métallurgie').replace(old_links[1], 'industrie chimique')
+              p.write_text(html,encoding='utf-8')
+          hub=Path('secteurs/index.html')
+          h=hub.read_text(encoding='utf-8')
+          target='</div></section><section class="section shell" aria-labelledby="secteurs-analyse"'
+          assert target in h, 'Hub insertion marker missing'
+          cards=''.join(
+            f'<a href="/secteurs/traitement-air-{slug}/"><span>{12+i:02}</span><h2>{title}</h2><p>{detail}</p><b>Explorer →</b></a>'
+            for i,(slug,title,detail) in enumerate(names)
+          )
+          h=h.replace(target,cards+target,1)
+          h=h.replace('onze environnements industriels','seize environnements industriels')
+          hub.write_text(h,encoding='utf-8')
+          sitemap=Path('sitemap.xml')
+          xml=sitemap.read_text(encoding='utf-8')
+          assert '</urlset>' in xml
+          for slug,*_ in names:
+            url='https://traitement-air.fr/secteurs/traitement-air-'+slug
+            if '<loc>'+url+'</loc>' not in xml:
+              xml=xml.replace('</urlset>',f'<url><loc>{url}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n</urlset>')
+          sitemap.write_text(xml,encoding='utf-8')
+          for slug,*_ in names:
+            assert Path(f'secteurs/traitement-air-{slug}/index.html').exists()
+            assert Path(f'assets/generated/secteurs-traitement-air-{slug}-editorial.webp').exists()
+          print('Five pages, five images, selective hub and sitemap ready')
+          PY
+          git add secteurs content/secteurs content/research/secteurs .content/image-requests assets/generated sitemap.xml
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git commit -m "feat(sectors): stage five specialized industrial sector pages"
+          git push origin HEAD:refs/heads/staging/secteurs-specialises-five-20261109
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Capture desktop/mobile and assess accessibility
+        continue-on-error: true
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/traitement-air-soudage-chaudronnerie/ \
+            --route /secteurs/traitement-air-industrie-textile/ \
+            --route /secteurs/traitement-air-traitement-surface/ \
+            --route /secteurs/traitement-air-recyclage-industriel/ \
+            --route /secteurs/traitement-air-fabrication-batteries/ \
+            --output .artifacts/specialized-release
+      - name: Summarize failures for review
+        if: always()
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const path='.artifacts/specialized-release/report.json';
+          if(!fs.existsSync(path)){console.error('No report found'); process.exit(1);}
+          const r=JSON.parse(fs.readFileSync(path,'utf8'));
+          const problems=[];
+          if(r.pages.length!==10)problems.push('wrong viewport count:'+r.pages.length);
+          for(const p of r.pages){
+            const x={
+              http:p.httpStatus!==200,h1:p.h1Count!==1,
+              overflow:p.horizontalOverflow,brokenImages:p.brokenImages.length>0,
+              missingAlt:p.imagesWithoutAlt>0,
+              js:p.pageErrors.length>0||p.consoleErrors.length>0,
+              axe:p.axeViolations.length>0,
+              missingEditorialImage:!p.editorialImages?.length,
+              imageOverflow:p.editorialImages?.some(i=>i.overflowsArticle)===true
+            };
+            for(const [key,value] of Object.entries(x))if(value)problems.push(p.route+' '+p.viewport+' '+key);
+          }
+          console.log(JSON.stringify({total:r.pages.length,problems},null,2));
+          if(problems.length)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: specialized-five-release-chromium-axe
+          path: .artifacts/specialized-release
+          retention-days: 14
