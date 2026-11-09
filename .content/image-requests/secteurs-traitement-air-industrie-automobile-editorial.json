@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-industrie-automobile-editorial",
+  "page": "secteurs/traitement-air-industrie-automobile/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Visualiser des captages localisés dans une usine de production automobile",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-industrie-automobile-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-industrie-automobile-editorial.webp",
+  "prompt": "Photorealistic professional editorial photograph, landscape 1024x672 of a modern European automotive vehicle body manufacturing facility, automated body-in-white assembly line with realistic industrial robotic welding equipment and nearby localized fume extraction hoods and ducts, coherent safe industrial layout, no people, no text, no logos, no watermarks, no implied certification or guarantee.",
+  "alt": "Atelier de fabrication automobile avec postes d'assemblage robotisés et captage local des fumées",
+  "caption": "Illustration générée par IA, ne représentant pas une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
