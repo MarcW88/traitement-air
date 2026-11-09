@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-recyclage-industriel-editorial",
+  "page": "secteurs/traitement-air-recyclage-industriel/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustration d'un centre industriel de recyclage avec convoyeurs et captage des poussières",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-recyclage-industriel-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-recyclage-industriel-editorial.webp",
+  "prompt": "Photorealistic industrial editorial landscape photograph 1024x672, modern European recycling sorting plant with enclosed conveyor transfers and shredding equipment, plausible dust extraction ducting and local aspiration hoods near transfer points, no people, no logos, no readable text, no watermarks, no environmental performance certification implied.",
+  "alt": "Centre de recyclage industriel avec convoyeurs et dispositifs d'aspiration des poussières",
+  "caption": "Illustration générée par IA, non photographie d'une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
