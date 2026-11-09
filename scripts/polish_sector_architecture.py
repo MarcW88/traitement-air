@@ -36,7 +36,7 @@ for p in ROOT.rglob("index.html"):
 p=ROOT/"secteurs/index.html"
 s=p.read_text(encoding="utf-8")
 start=s.index('<div class="sector-catalogue">')
-end=s.index('</div></section>',start)
+end=s.index('<section class="section shell" aria-labelledby="secteurs-analyse"',start)
 before=s[start:end]
 ordinal=0
 def enhance(match):
