@@ -8,6 +8,7 @@ on:
       - "problemes/**"
       - "guides/**"
       - "secteurs/**"
+      - "content/secteurs/**"
       - "solutions-traitement-air/**"
       - "polluants/**"
       - "air-interieur/**"
