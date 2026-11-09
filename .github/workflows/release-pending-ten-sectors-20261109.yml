@@ -1,0 +1,144 @@
+name: Stage and QA ten pending industrial sectors
+on:
+  push:
+    branches: [editorial/secteurs-industries-complementaires-20261109]
+    paths: ['.github/workflows/release-pending-ten-sectors-20261109.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: release-ten-sectors-20261109
+  cancel-in-progress: false
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Stage only the ten sector pages, illustrations, and editorial materials
+        shell: bash
+        run: |
+          set -euo pipefail
+          A="editorial/secteurs-industriels-lot-final-20261030"
+          B="editorial/secteurs-industries-complementaires-20261109"
+          STAGE="staging/secteurs-deux-lots-20261109"
+          git fetch origin "$A" "$B" main
+          git checkout -B "$STAGE" origin/main
+          for slug in metallurgie laboratoires-recherche entrepots-logistiques plasturgie industrie-chimique; do
+            git checkout "origin/$A" -- "secteurs/traitement-air-$slug/index.html" "content/secteurs/traitement-air-$slug/body.html" "content/research/secteurs/traitement-air-$slug" ".content/image-requests/secteurs-traitement-air-$slug-editorial.json" "assets/generated/secteurs-traitement-air-$slug-editorial.webp"
+          done
+          for slug in industrie-automobile fabrication-composites industrie-caoutchouc cimenteries-carrieres dechets-organiques; do
+            git checkout "origin/$B" -- "secteurs/traitement-air-$slug/index.html" "content/secteurs/traitement-air-$slug/body.html" "content/research/secteurs/traitement-air-$slug" ".content/image-requests/secteurs-traitement-air-$slug-editorial.json" "assets/generated/secteurs-traitement-air-$slug-editorial.webp"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          from html import escape
+          cards=[
+            ("metallurgie","Métallurgie et fonderie","Fumées et émissions des procédés thermiques."),
+            ("laboratoires-recherche","Laboratoires de recherche","Sorbonnes et captage des émissions chimiques."),
+            ("entrepots-logistiques","Entrepôts logistiques","Ventilation des halls et émissions liées aux flux."),
+            ("plasturgie","Plasturgie","Captage sur presses et transformation des polymères."),
+            ("industrie-chimique","Industrie chimique","Vapeurs, cuves et prévention des émissions."),
+            ("industrie-automobile","Industrie automobile","Captage du soudage, usinage et collage."),
+            ("fabrication-composites","Fabrication de composites","Résines, gelcoat et poussières de fibres."),
+            ("industrie-caoutchouc","Industrie du caoutchouc","Poussières de charges et fumées de vulcanisation."),
+            ("cimenteries-carrieres","Cimenteries et carrières","Poussières minérales, concassage et convoyage."),
+            ("dechets-organiques","Traitement des déchets organiques","Odeurs, bioaérosols et traitement des biodéchets.")
+          ]
+          hub=Path("secteurs/index.html")
+          text=hub.read_text(encoding="utf-8")
+          needle='</div></section><section class="section shell" aria-labelledby="secteurs-analyse"'
+          assert text.count(needle)==1, "Could not locate sector card grid end"
+          assert "seize environnements" in text, "Unexpected base hub introduction"
+          for slug,title,description in cards:
+            assert f'href="/secteurs/traitement-air-{slug}/"' not in text, "Duplicate existing sector card: "+slug
+          block=''.join(f'<a href="/secteurs/traitement-air-{slug}/"><span>{i:02d}</span><h2>{escape(title)}</h2><p>{escape(description)}</p><b>Explorer →</b></a>' for i,(slug,title,description) in enumerate(cards,17))
+          text=text.replace(needle,block+needle).replace("seize environnements","vingt-six environnements")
+          hub.write_text(text,encoding="utf-8")
+          for slug,*_ in cards:
+            page=Path(f"secteurs/traitement-air-{slug}/index.html")
+            image=Path(f"assets/generated/secteurs-traitement-air-{slug}-editorial.webp")
+            assert page.is_file() and image.is_file(), slug
+          assert text.count('<a href="/secteurs/traitement-air-') == 26
+          print('Staged 10 pages; hub now lists 26 sectors')
+          PY
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add secteurs content/secteurs content/research/secteurs .content/image-requests assets/generated
+          git commit -m "feat(sectors): stage ten pending industrial sectors with images"
+      - name: Regenerate complete sitemap with canonical URLs and Git dates
+        run: |
+          python3 scripts/build_sitemap.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as E
+          path=Path('sitemap.xml')
+          tree=E.parse(path)
+          urls={n.text for n in tree.iter() if n.tag.endswith('}loc')}
+          slugs="metallurgie laboratoires-recherche entrepots-logistiques plasturgie industrie-chimique industrie-automobile fabrication-composites industrie-caoutchouc cimenteries-carrieres dechets-organiques".split()
+          for slug in slugs:
+            url=f"https://traitement-air.fr/secteurs/traitement-air-{slug}/"
+            assert url in urls, f"Missing sitemap URL: {url}"
+          print('Sitemap contains all ten new canonical URLs')
+          PY
+          git add sitemap.xml
+          git commit -m "seo(sitemap): regenerate indexable canonical URLs with lastmod"
+          git push --force-with-lease origin HEAD:refs/heads/staging/secteurs-deux-lots-20261109
+  qa:
+    needs: stage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging/secteurs-deux-lots-20261109
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Run Chromium desktop/mobile Axe audit for all ten pages
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/traitement-air-metallurgie/ \
+            --route /secteurs/traitement-air-laboratoires-recherche/ \
+            --route /secteurs/traitement-air-entrepots-logistiques/ \
+            --route /secteurs/traitement-air-plasturgie/ \
+            --route /secteurs/traitement-air-industrie-chimique/ \
+            --route /secteurs/traitement-air-industrie-automobile/ \
+            --route /secteurs/traitement-air-fabrication-composites/ \
+            --route /secteurs/traitement-air-industrie-caoutchouc/ \
+            --route /secteurs/traitement-air-cimenteries-carrieres/ \
+            --route /secteurs/traitement-air-dechets-organiques/ \
+            --output .artifacts/release-ten-sectors
+      - name: Check twenty screenshots and Axe reports
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('.artifacts/release-ten-sectors/report.json','utf8'));
+          let failure=r.pages.length!==20;
+          for(const p of r.pages){
+            const defects={
+              http:p.httpStatus!==200,
+              h1:p.h1Count!==1,
+              overflow:p.horizontalOverflow,
+              brokenImages:p.brokenImages.length>0,
+              alt:p.imagesWithoutAlt>0,
+              errors:p.pageErrors.length>0||p.consoleErrors.length>0,
+              axe:p.axeViolations.length>0,
+              image:!p.editorialImages?.length,
+              imageOverflow:p.editorialImages?.some(i=>i.overflowsArticle)===true
+            };
+            const errors=Object.keys(defects).filter(key=>defects[key]);
+            console.log(JSON.stringify({route:p.route,viewport:p.viewport,errors,axe:p.axeViolations.map(x=>x.id)}));
+            if(errors.length)failure=true;
+          }
+          if(failure)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pending-ten-sectors-chromium-axe
+          path: .artifacts/release-ten-sectors
+          retention-days: 14
