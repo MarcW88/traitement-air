@@ -1,0 +1,2 @@
+# Brief éditorial — plasturgie
+Personas HSE, maintenance, responsables de production, bureaux d'études. Angle : identifier les émissions selon matière/procédé/phase, réduire à la source, capter pics des purges et décapages, traiter et vérifier l'exposition réelle. Structurer par opérations et tableau de décision, relier COV, poussières, ventilation et filtration. Éviter les affirmations de conformité sans mesures ni cahier des charges.

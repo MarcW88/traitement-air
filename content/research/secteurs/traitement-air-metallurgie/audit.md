@@ -1,0 +1,2 @@
+# Audit du lot final — secteurs industriels
+Le répertoire secteurs comprend bois, agroalimentaire, pharmacie, imprimerie, salle blanche, papier, électronique, data center, stockage, cabines peinture et hôpitaux, mais aucune page dédiée à la métallurgie. Angle distinct : risques à la source dans fonderies, soudage, meulage et traitement de surface. Maillage vers extraction fumées, dépoussiérage, brouillards d'huile, ventilation. Ne pas dupliquer les fiches solution.

@@ -1,0 +1,12 @@
+# Sources techniques — déchets organiques, compostage, méthanisation
+Consultées le 2026-11-09.
+
+1. INRS, *Filière biodéchets : risques professionnels* (mise à jour 20/05/2025), https://www.inrs.fr/metiers/environnement/filieres-dechets/dechets-biodechets/dechets-biodechets-risques.html — travailleurs des activités de collecte et de valorisation, risques biologiques, chimiques et organisationnels.
+2. INRS, *Caractérisation des niveaux de concentration et d'exposition aux agents biologiques et chimiques dans les unités de méthanisation-compostage*, EC 49, HST n° 284, 09/2026, https://www.inrs.fr/media.html?refINRS=EC+49 — étude récente des expositions professionnelles en méthanisation/compostage, à ne pas confondre avec rejets réglementaires.
+3. INRS, *Méthanisation de déchets* ED 6153, https://www.inrs.fr/dms/inrs/CataloguePapier/ED/TI-ED-6153/ed6153.pdf — risques liés aux intrants et digestats, bioaérosols, ammoniac, sulfure d'hydrogène, dioxyde de carbone, méthane et prévention.
+4. INRS, *Endotoxines en milieu professionnel*, https://www.inrs.fr/risques/endotoxines-en-milieu-professionnel — émission possible d'endotoxines lors de tâches génératrices d'aérosols, y compris compost/déchets.
+5. Légifrance, arrêté du 20/04/2012 (rubrique ICPE 2780, enregistrement), article 50, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037150831 — prévention et captage des rejets atmosphériques selon la configuration et le régime concerné, attention au champ et aux exceptions.
+6. GOV.UK Environment Agency, *Biological waste treatment, 11. Emissions control*, https://www.gov.uk/guidance/biological-waste-treatment-appropriate-measures-for-permitted-facilities/11-emissions-control — document de référence étranger utile pour envisager les sources de bioaérosols, mais n'établit aucune obligation française.
+7. Légifrance, arrêté du 10/11/2009 sur méthanisation soumise à déclaration rubrique 2781-1, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043740666 — ventilations et détection dans certains locaux à risque de biogaz, exigences spécifiques non généralisables.
+
+Fact-check : différencier protection des salariés, émissions à l'émissaire et odeurs perçues dans le voisinage. L'absence d'odeur ne prouve jamais l'absence de H2S ou de danger. La méthanisation en circuit fermé ne supprime pas les risques lors de la réception, des ouvertures ou de la maintenance. La conformité d'une installation exige étude selon son régime et les prescriptions réellement applicables.

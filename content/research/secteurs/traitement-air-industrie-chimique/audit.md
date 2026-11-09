@@ -1,0 +1,2 @@
+# Audit — industrie chimique
+Aucune page sectorielle dédiée à l'industrie chimique trouvée sur la branche. Angle distinct des pages COV, solvants et laboratoires : industrie de procédé, transferts, réacteurs, cuves, chargement, poussières et ventilation de locaux. Privilégier l'évaluation des risques, suppression/substitution et captage local avant ventilation générale. Ne pas présenter un système standard ou un taux d'air universel.
