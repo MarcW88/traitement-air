@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-fabrication-batteries-editorial",
+  "page": "secteurs/traitement-air-fabrication-batteries/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustrer le captage et le contrôle d'atmosphère pendant fabrication de cellules lithium-ion",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-fabrication-batteries-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-fabrication-batteries-editorial.webp",
+  "prompt": "Photorealistic editorial landscape photograph 1024x672 of clean modern European lithium ion battery cell manufacturing facility, industrial electrode coating machinery and enclosed dry-room production line with realistic ducts and local extraction system, no workers, no logos, no labels or text, no watermarks, no implied performance certifications.",
+  "alt": "Ligne industrielle de fabrication de cellules de batteries avec confinement et ventilation des procédés",
+  "caption": "Illustration générée par IA, non photographie d'une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
