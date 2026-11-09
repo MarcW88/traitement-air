@@ -1,0 +1,2 @@
+# Audit — fabrication de matériaux composites
+Page dédiée inexistante dans la branche. Différencier de plasturgie, textile et automobile : associer les vapeurs de résines/gelcoat pendant la fabrication aux poussières de détourage, perçage et ponçage des pièces composites. Sous-segments : stratification manuelle en moule ouvert, infusion/sous vide, préimprégnés, finition et réparation. Intention principale : ventilation atelier composites, aspiration styrène stratification, captage gelcoat, poussières fibre de verre et fibre de carbone.
