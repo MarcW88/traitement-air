@@ -1,0 +1,6 @@
+# Sources et précautions factuelles
+- INRS ED 665, *Mise en œuvre manuelle des polyesters stratifiés* : https://www.inrs.fr/dam/inrs/CataloguePapier/ED/TI-ED-665.pdf — guide de ventilation spécifique aux techniques en moule ouvert, captage local, sources annexes pendant préparation, nettoyage et finition.
+- INRS dossier *Le styrène et les polyesters stratifiés* : https://www.inrs.fr/dam/jcr:1e7b9d84-a96e-43d5-b164-f773f4a24e5f/do8.pdf — émissions à la pulvérisation et au moulage contact, prévenir à la source.
+- INRS *Fibres autres que l'amiante : fibres inorganiques* : https://www.inrs.fr/risques/fibres-hors-amiante/fibres-inorganiques.html — poussières/fibres de carbone produites lors de découpe, perçage et ponçage de composites.
+- INRS *Poussières : prévenir les risques* : https://www.inrs.fr/risques/poussieres/ce-qu-il-faut-retenir.html — caractérisation, suppression/substitution, captage sur machines.
+Limites : ne pas généraliser la présence de styrène à toutes les résines, les émissions dépendent des procédés et formulations. Évaluer les risques chimiques, poussières combustibles, incendie et exigences applicables suivant le poste et le matériau. Réception avec mesure de captage et d'exposition pertinente.

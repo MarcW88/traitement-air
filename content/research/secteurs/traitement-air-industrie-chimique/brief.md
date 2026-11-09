@@ -1,0 +1,2 @@
+# Brief — traitement de l'air en industrie chimique
+Public : HSE, ingénierie procédés, responsables exploitation, maintenance. Intentions : émissions process, stratégie de captage, compatibilité chimique, rejet, compensation d'air, maintenance et mesure des expositions. Neuf sections, tableau comparatif des opérations, sources INRS et maillage vers COV, ventilation et filtration. Aucune prescription d'ingénierie sans caractérisation et contexte réglementaire.

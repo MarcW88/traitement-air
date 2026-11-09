@@ -1,0 +1,2 @@
+# Brief — Traitement de l'air dans les laboratoires de recherche
+Persona : responsables HSE, responsables de laboratoire, gestionnaires immobiliers universitaires, bureaux d'études. Intention : comprendre quelle ventilation et quels dispositifs de captage choisir selon la manipulation. H1 ciblé ; 9 sections (risques, cartographie, sorbonnes, isolateurs, ventilation et compensation, rejets, tableau de choix, réception-maintenance, sources). Positionnement informatif, sans recommandations de réglages non contextualisées. Validation page par page ; pas de fusion ni déploiement.

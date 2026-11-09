@@ -1,0 +1,2 @@
+# Audit — Laboratoires de recherche
+Page sectorielle absente sur la branche. Angle distinct de la pharmacie, salle blanche et hôpital : manipulations chimiques variées, risques incertains, sorbonnes, boîtes à gants, réseaux d'extraction et mise en service. Ne pas présenter les PSM comme des sorbonnes chimiques. Ne pas inventer de valeurs de débit universelles ni de performances garanties. La page devra être maillée depuis l'index secteurs lors d'une intégration ultérieure validée.
