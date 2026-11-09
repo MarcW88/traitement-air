@@ -2,7 +2,7 @@ name: Sector navigation architecture and internal links
 on:
   push:
     branches: [ux/architecture-secteurs-maillage-20261109]
-    paths: ['.github/workflows/sector-architecture-qa.yml', 'scripts/polish_sector_architecture.py']
+    paths: ['.github/workflows/sector-architecture-qa.yml', 'scripts/polish_sector_architecture.py', 'index.html']
   workflow_dispatch:
 permissions:
   contents: write
