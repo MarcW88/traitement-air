@@ -1,0 +1,20 @@
+{
+  "id": "secteurs-traitement-air-cimenteries-carrieres-editorial",
+  "page": "secteurs/traitement-air-cimenteries-carrieres/index.html",
+  "slot": "editorial",
+  "required": true,
+  "reason": "Illustrer le captage des poussières aux transferts en cimenterie ou carrière",
+  "allow_ai_generation": true,
+  "truth_risk": "LOW",
+  "status": "PENDING",
+  "marker": "<!-- EDITORIAL_IMAGE:secteurs-traitement-air-cimenteries-carrieres-editorial -->",
+  "placement": "replace",
+  "output_path": "assets/generated/secteurs-traitement-air-cimenteries-carrieres-editorial.webp",
+  "prompt": "Photorealistic professional editorial landscape image 1024x672 of a modern European cement processing plant and quarry transfer station, industrial enclosed conveyor and limestone aggregate crusher feeding a tall silo with realistic localized dust extraction hoods and metal ducts, industrial dust collection equipment visible, grounded plausible engineering, no operators, no visible logos, no writing, no watermarks, no compliance claims.",
+  "alt": "Installation de concassage et convoyage de matériaux minéraux avec captage industriel des poussières",
+  "caption": "Illustration générée par IA, non photographie d'une installation auditée.",
+  "width": 1024,
+  "height": 672,
+  "prompt_upsampling": true,
+  "seed": null
+}
