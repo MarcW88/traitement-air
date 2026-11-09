@@ -29,7 +29,7 @@ jobs:
           missing=[]
           for p in html_pages:
               html=p.read_text(encoding='utf-8')
-              if '<nav class="nav-links">' in html and 'class="sector-nav"' not in html: missing.append(str(p)+': nav missing')
+              if '<nav class="nav-links">' in html and 'sector-nav-links' not in html: missing.append(str(p)+': nav missing')
           hub=(root/'secteurs/index.html').read_text(encoding='utf-8')
           if hub.count('class="sector-group"')!=4:missing.append('Sector groups != 4')
           card_count=len(re.findall(r'<a href="/secteurs/traitement-air-[^/]+/">',hub))
