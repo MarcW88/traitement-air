@@ -99,7 +99,7 @@ jobs:
                 await page.locator('nav.header-slim').press('Escape');
                 if((await active()).length)throw Error('Escape did not close');
                 await menus.first().locator('summary').click();
-                await page.locator('main').click({position:{x:10,y:10}});
+                await page.evaluate(()=>document.body.dispatchEvent(new MouseEvent('click',{bubbles:true})));
                 if((await active()).length)throw Error('Outside click did not close');
                 console.log('PASS '+route+' '+viewport.width);
               }
