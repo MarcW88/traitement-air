@@ -17,7 +17,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python3 scripts/fix_exclusive_header_menus.py
+      - run: |
+          if grep -q 'id="header-exclusive-menu"' index.html; then
+            echo 'Exclusive-menu hooks already installed on this branch'
+          else
+            python3 scripts/fix_exclusive_header_menus.py
+          fi
       - name: Verify every HTML page has one hook
         run: |
           python3 - <<'PY'
@@ -35,8 +40,10 @@ jobs:
           git config user.name "traitement-air editorial automation"
           git config user.email "146358493+MarcW88@users.noreply.github.com"
           git add -- '*.html'
-          git commit -m "fix(nav): close previous menu when opening another"
-          git push origin HEAD:fix/header-menu-exclusive-20261110
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(nav): close previous menu when opening another"
+            git push origin HEAD:fix/header-menu-exclusive-20261110
+          fi
   qa:
     needs: install
     runs-on: ubuntu-latest
