@@ -83,7 +83,8 @@ jobs:
                 if(await menus.count()!==4)throw Error('Missing four menus '+route);
                 const active=async()=>await menus.evaluateAll(elements=>elements.map((e,i)=>e.open?i:-1).filter(i=>i>=0));
                 for(let i=0;i<4;i++){
-                  await menus.nth(i).locator('summary').click();
+                  if(viewport.width<901){await menus.nth(i).locator('summary').focus();await page.keyboard.press('Enter');}
+                  else await menus.nth(i).locator('summary').click();
                   await page.waitForTimeout(80);
                   const open=await active();
                   if(JSON.stringify(open)!==JSON.stringify([i]))throw Error('Overlap '+route+' '+viewport.width+' '+JSON.stringify(open));
