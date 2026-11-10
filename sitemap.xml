@@ -330,4 +330,12 @@
 <url><loc>https://traitement-air.fr/secteurs/traitement-air-industrie-caoutchouc/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 <url><loc>https://traitement-air.fr/secteurs/traitement-air-cimenteries-carrieres/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 <url><loc>https://traitement-air.fr/secteurs/traitement-air-dechets-organiques/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://traitement-air.fr/secteurs/page/2/</loc>
+    <lastmod>2026-11-09</lastmod>
+  </url>
+  <url>
+    <loc>https://traitement-air.fr/secteurs/page/3/</loc>
+    <lastmod>2026-11-09</lastmod>
+  </url>
 </urlset>

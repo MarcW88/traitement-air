@@ -1,0 +1,103 @@
+name: Sector navigation architecture and internal links
+on:
+  push:
+    branches: [ux/architecture-secteurs-maillage-20261109]
+    paths: ['.github/workflows/sector-architecture-qa.yml', 'scripts/polish_sector_architecture.py', 'index.html']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  implement:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/architecture-secteurs-maillage-20261109
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply sitewide navigation and sector clusters
+        run: |
+          if grep -q 'class="sector-catalogue"' secteurs/index.html; then
+            echo "Sector architecture already staged: applying verified refinements"
+          else
+            python3 scripts/improve_sector_architecture.py
+          fi
+          python3 scripts/polish_sector_architecture.py
+      - name: Validate changed HTML links and sector structure
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path('.')
+          html_pages=[p for p in root.rglob('index.html') if not any(x in {'_next','assets','content','.agents','scripts'} or x.startswith('.') for x in p.parts[:-1])]
+          missing=[]
+          for p in html_pages:
+              html=p.read_text(encoding='utf-8')
+              if '<nav class="nav-links">' in html and 'sector-nav-links' not in html: missing.append(str(p)+': nav missing')
+          hub=(root/'secteurs/index.html').read_text(encoding='utf-8')
+          if hub.count('class="sector-group"')!=4:missing.append('Sector groups != 4')
+          card_count=len(re.findall(r'<a href="/secteurs/traitement-air-[^/]+/">',hub))
+          if card_count<26:missing.append('Sector cards <26')
+          if len(html_pages)<100:missing.append('Site page count below expected')
+          if missing:raise SystemExit('\n'.join(missing))
+          print('Pages',len(html_pages),'sector links',card_count,'group headings',4)
+          PY
+      - name: Commit changes only on editorial branch
+        run: |
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add -- '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(ux): group sectors, sitewide sector menu and contextual cross-links"
+            git push origin HEAD:ux/architecture-secteurs-maillage-20261109
+          fi
+  visual-qa:
+    needs: implement
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/architecture-secteurs-maillage-20261109
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Chromium and Axe for navigation and cross-category links
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route / \
+            --route /secteurs/ \
+            --route /solutions-traitement-air/ \
+            --route /problemes/ \
+            --route /polluants/ \
+            --route /secteurs/traitement-air-industrie-automobile/ \
+            --output .artifacts/sector-architecture
+      - name: Inspect basic QA metrics
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('.artifacts/sector-architecture/report.json','utf8'));
+          if(r.pages.length!==12)throw Error('Expected 12 desktop/mobile results');
+          let errors=[];
+          for(const p of r.pages){
+             const failures=[];
+             if(p.httpStatus!==200)failures.push('HTTP '+p.httpStatus);
+             if(p.h1Count!==1)failures.push('H1 count');
+             if(p.horizontalOverflow)failures.push('overflow');
+             if(p.brokenImages.length)failures.push('broken images');
+             if(p.pageErrors.length)failures.push('page errors');
+             if(p.axeViolations.length)failures.push('Axe '+p.axeViolations.map(x=>x.id).join(','));
+             console.log(JSON.stringify({route:p.route,viewport:p.viewport,failures}));
+             if(failures.length)errors.push(p.route+' '+p.viewport+': '+failures.join(','));
+          }
+          if(errors.length)throw Error(errors.join('\n'));
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sector-architecture-desktop-mobile-axe
+          path: .artifacts/sector-architecture
+          retention-days: 14

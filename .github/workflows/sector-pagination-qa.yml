@@ -1,0 +1,87 @@
+name: Validate sector directory pagination and BFL images
+on:
+  push:
+    branches: [ux/architecture-secteurs-maillage-20261109]
+    paths: ['.github/workflows/sector-pagination-qa.yml', 'secteurs/page/**', 'secteurs/index.html']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pagination:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/architecture-secteurs-maillage-20261109
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check sector grouping, full size images, pagination, canonicals and sitemap generation
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          pages=[Path('secteurs/index.html'),Path('secteurs/page/2/index.html'),Path('secteurs/page/3/index.html')]
+          expected=[8,10,8]
+          all_slugs=[]
+          for n,(path,count) in enumerate(zip(pages,expected),1):
+            html=path.read_text(encoding='utf-8')
+            main=html.split('<main>',1)[1].split('</main>',1)[0]
+            cards=re.findall(r'<a href="/secteurs/traitement-air-([^/]+)/"><img class="directory-thumb" src="([^"]+)"',main)
+            assert len(cards)==count,(path,len(cards),count)
+            expected_canonical='https://traitement-air.fr/'+('secteurs/' if n==1 else f'secteurs/page/{n}/')
+            assert f'<link rel="canonical" href="{expected_canonical}"/>' in html,path
+            assert '<nav class="sectors-pagination"' in main,path
+            for slug,src in cards:
+              assert (Path('.')/src.lstrip('/')).is_file(),src
+              assert (Path('secteurs')/f'traitement-air-{slug}'/'index.html').is_file(),slug
+              all_slugs.append(slug)
+          assert len(set(all_slugs))==26,len(set(all_slugs))
+          for n in (2,3):
+            page=pages[n-1].read_text(encoding='utf-8')
+            assert 'undefined' not in page, f'Undefined metadata/content on page {n}'
+          print('Pagination 8+10+8; all 26 sector images present and linked to valid pages.')
+          PY
+          python3 scripts/build_sitemap.py
+          grep -q 'https://traitement-air.fr/secteurs/page/2/' sitemap.xml
+          grep -q 'https://traitement-air.fr/secteurs/page/3/' sitemap.xml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Audit the three category pages, desktop and mobile
+        run: |
+          node .design-audit/run-visual-review.mjs \
+            --route /secteurs/ \
+            --route /secteurs/page/2/ \
+            --route /secteurs/page/3/ \
+            --output .artifacts/sector-pagination
+      - name: Enforce HTTP 200, no broken images, overflow or Axe violations
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('.artifacts/sector-pagination/report.json','utf8'));
+          if(r.pages.length!==6)throw Error('Expected 6 desktop/mobile results');
+          let bad=false;
+          for(const p of r.pages){
+            let errors=[];
+            if(p.httpStatus!==200)errors.push('http:'+p.httpStatus);
+            if(p.h1Count!==1)errors.push('H1');
+            if(p.horizontalOverflow)errors.push('overflow');
+            if(p.brokenImages.length)errors.push('brokenImages:'+p.brokenImages.join(','));
+            if(p.imagesWithoutAlt)errors.push('missingAlt');
+            if(p.pageErrors.length||p.consoleErrors.length)errors.push('javascriptErrors');
+            if(p.axeViolations.length)errors.push('axe:'+p.axeViolations.map(v=>v.id).join(','));
+            console.log(JSON.stringify({route:p.route,viewport:p.viewport,errors}));
+            if(errors.length)bad=true;
+          }
+          if(bad)process.exit(1);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sector-pagination-desktop-mobile
+          path: .artifacts/sector-pagination
+          retention-days: 14
