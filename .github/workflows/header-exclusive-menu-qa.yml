@@ -1,0 +1,122 @@
+name: Header exclusive menus regression test
+on:
+  push:
+    branches: [fix/header-menu-exclusive-20261110]
+    paths: ['.github/workflows/header-exclusive-menu-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/header-menu-exclusive-20261110
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/fix_exclusive_header_menus.py
+      - name: Verify every HTML page has one hook
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          dirs={"404","_next",".agents",".content","assets","content","scripts",".artifacts","docs"}
+          pages=[p for p in Path('.').rglob('index.html') if not any(x.startswith('.') or x in dirs for x in p.parts[:-1])]
+          assert len(pages)>=109,len(pages)
+          for p in pages:
+            s=p.read_text(encoding='utf8')
+            if 'nav-links header-slim' in s:assert s.count('id="header-exclusive-menu"')==1,p
+          print("Exclusive behavior present across",len(pages),"HTML pages")
+          PY
+      - name: Commit fix on branch only
+        run: |
+          git config user.name "traitement-air editorial automation"
+          git config user.email "146358493+MarcW88@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "fix(nav): close previous menu when opening another"
+          git push origin HEAD:fix/header-menu-exclusive-20261110
+  qa:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/header-menu-exclusive-20261110
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Test opening consecutive menus, outside click and Escape
+        run: |
+          node - <<'JS'
+          const {chromium}=require('playwright');
+          const fs=require('fs');
+          const http=require('http');
+          const path=require('path');
+          const root=process.cwd();
+          const server=http.createServer((req,res)=>{
+            let pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+            let target=path.join(root,pathname);
+            if(!target.startsWith(root)){res.writeHead(403);return res.end();}
+            if(pathname.endsWith('/'))target=path.join(target,'index.html');
+            fs.readFile(target,(err,data)=>{
+              if(err){res.writeHead(404);return res.end();}
+              const ext=path.extname(target);
+              const mime={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'application/javascript','.webp':'image/webp','.woff2':'font/woff2'};
+              res.writeHead(200,{'Content-Type':mime[ext]||'application/octet-stream'});
+              res.end(data);
+            });
+          });
+          (async()=>{
+            await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+            const base='http://127.0.0.1:'+server.address().port;
+            const browser=await chromium.launch({headless:true});
+            for(const viewport of [{width:1440,height:900},{width:390,height:844}]){
+              const page=await browser.newPage({viewport});
+              for(const route of ['/','/secteurs/','/secteurs/page/2/']){
+                await page.goto(base+route);
+                if(viewport.width<901)await page.locator('.menu-toggle').click();
+                const menus=page.locator('nav.header-slim > details.header-menu');
+                if(await menus.count()!==4)throw Error('Missing four menus '+route);
+                const active=async()=>await menus.evaluateAll(elements=>elements.map((e,i)=>e.open?i:-1).filter(i=>i>=0));
+                for(let i=0;i<4;i++){
+                  await menus.nth(i).locator('summary').click();
+                  await page.waitForTimeout(80);
+                  const open=await active();
+                  if(JSON.stringify(open)!==JSON.stringify([i]))throw Error('Overlap '+route+' '+viewport.width+' '+JSON.stringify(open));
+                }
+                await page.locator('nav.header-slim').press('Escape');
+                if((await active()).length)throw Error('Escape did not close');
+                await menus.first().locator('summary').click();
+                await page.locator('main').click({position:{x:10,y:10}});
+                if((await active()).length)throw Error('Outside click did not close');
+                console.log('PASS '+route+' '+viewport.width);
+              }
+              await page.close();
+            }
+            await browser.close();
+            server.close();
+          })().catch(e=>{console.error(e);server.close();process.exit(1)});
+          JS
+      - name: Chromium desktop/mobile and Axe
+        run: |
+          node .design-audit/run-visual-review.mjs --route / --route /secteurs/ --output .artifacts/exclusive-menu
+      - name: Check Axe and rendering
+        run: |
+          node - <<'JS'
+          const r=require('./.artifacts/exclusive-menu/report.json');
+          if(r.pages.length!==4)throw Error('Expected 4 rendered pages');
+          for(const p of r.pages){
+            if(p.httpStatus!==200||p.horizontalOverflow||p.brokenImages.length||p.pageErrors.length||p.axeViolations.length)
+              throw Error(p.route+' '+p.viewport+JSON.stringify(p.axeViolations.map(a=>a.id)));
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exclusive-header-menu-qa
+          path: .artifacts/exclusive-menu
+          retention-days: 14
